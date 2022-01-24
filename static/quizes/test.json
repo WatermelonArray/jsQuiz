@@ -1,20 +1,21 @@
 {
-	"1": {
-		"question": "Hello World",
-		"answers": [
-			{"description": "A", "isAnswer": false},
-			{"description": "B", "isAnswer": true},
-			{"description": "C", "isAnswer": false},
-			{"description": "D", "isAnswer": false}
-		]
-	},
-	"2": {
-		"question": "Hello World 2",
-		"answers": [
-			{"description": "A", "isAnswer": false},
-			{"description": "B", "isAnswer": true},
-			{"description": "C", "isAnswer": true},
-			{"description": "D", "isAnswer": false}
-		]
+	"quizName": "QuizTemplate",
+	"questions": {
+		"1":{
+			"question": "What does \"JS\" mean?",
+			"answers": [
+				{"description": "JavaScript", "isAnswer": true},
+				{"description": "JovaScript", "isAnswer": false},
+				{"description": "JajaScript", "isAnswer": false},
+				{"description": "JuaScript", "isAnswer": false}
+			]
+		},
+		"2":{
+			"question": "Is JS browser compatible?",
+			"answers": [
+				{"description": "Yes", "isAnswer": true},
+				{"description": "No", "isAnswer": false}
+			]
+		}
 	}
 }

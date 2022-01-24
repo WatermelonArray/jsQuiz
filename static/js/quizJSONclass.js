@@ -1,14 +1,14 @@
-"use static"
+"use strict";
 
 // setup classes
 
 let questionAnswer = {
 	description: "A",
-	isAnswer: true
+	isAnswer: false
 }
 let questionTemplate = {
 	question: "Hello World",
 	answers: []
 }
 
-export {quizAnswer, quizTemplate}
+export {questionAnswer, questionTemplate}
