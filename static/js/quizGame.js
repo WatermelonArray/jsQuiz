@@ -15,7 +15,7 @@ import {logQuizData} from "./quizDebug.js"; 								// only for debugging purpos
 // https://developer.mozilla.org/en-US/docs/Web/API/Request/json
 
 try {
-	let quizTestFile = await fetch("./test.json"); quizTestFile = await quizTestFile.json();
+	let quizTestFile = await fetch("/static/quizes/test.json"); quizTestFile = await quizTestFile.json();
 }
 catch(error) {
 	console.warn(error.message)
