@@ -14,11 +14,12 @@ import {logQuizData} from "./quizDebug.js"; 								// only for debugging purpos
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // https://developer.mozilla.org/en-US/docs/Web/API/Request/json
 
+
 try {
-	let quizTestFile = await fetch("./../quizes/test.json"); quizTestFile = await quizTestFile.json();
+	let quizTestFile = await fetch("../quizes/test.json"); quizTestFile = await quizTestFile.json();
 }
 catch(error) {
-	console.warn(error.message)
+	console.warn(error.message);
 }
 //logQuizData(quizTestFile);
 
