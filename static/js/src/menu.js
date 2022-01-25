@@ -10,28 +10,28 @@ function menuBackground(canvas, context) {
 
 	if (hslColor[0] > 359) {hslColor[0] = 0;}
 
-	context.clearRect(0, 0, cw, ch);
+	context.globalAlpha = 1;
 	context.fillStyle = "hsl(" + hslColor[0] + "," + hslColor[1] + "%," + hslColor[2] + "%)";
 	context.fillRect(0, 0, cw, ch);
 
 }
 
-let barSize = -60		// negative means frames AFTER start of renderer
-let c_barSize = 0
+let barSize = -60;		// negative means frames AFTER start of renderer
+let c_barSize = 0;
 function menuBar(canvas, context) {
 
 	const cw = canvas.width;
 	const ch = canvas.height;
 
 	if (barSize < 8 && barSize > 0) {
-		barSize++
-		c_barSize = barSize
+		barSize++;
+		c_barSize = barSize;
 	}
 	if (barSize <= 0) {
-		barSize++
+		barSize++;
 	}
 
-	context.fillStyle = "#000000"
+	context.fillStyle = "#000000";
 	context.globalAlpha = 0.75;
 	context.fillRect(
 		(cw / 2) - ((cw / 16) * c_barSize),
@@ -42,8 +42,8 @@ function menuBar(canvas, context) {
 
 }
 
-let textLoc = -90
-let c_textLoc = 0
+let textLoc = -90;
+let c_textLoc = 0;
 function menuText(canvas, context) {
 
 	const cw = canvas.width;
@@ -62,9 +62,10 @@ function menuText(canvas, context) {
 	context.font = "64px Helvetica";
 	context.fillStyle = "#FFFFFF";
 	context.textAlign = "center";
+	context.textBaseline = "middle";
 	context.fillText("JavaScript Quiz Game",
 		(cw / 2) - ((cw / 2) / c_textLoc),		// cool tween effect
-		ch / 2 + 16
+		ch / 2
 	);
 
 
@@ -76,7 +77,7 @@ function startText(canvas, context) {
 	const cw = canvas.width;
 	const ch = canvas.height;
 
-	flash++
+	flash++;
 
 	if (textLoc >= 16) {
 		if (flash > 30 && flash < 60) {
@@ -84,12 +85,21 @@ function startText(canvas, context) {
 			context.font = "32px Courier";
 			context.fillStyle = "#FFFFFF";
 			context.textAlign = "center";
+			context.textBaseline = "middle"
 			context.fillText("Press Start To Play", cw/2, (ch/4) * 3);
 		}
 		else if(flash > 60){
-			flash = 0
+			flash = 0;
 		}
 	}
 }
 
-export {menuBackground, menuBar, menuText, startText}
+function menuAnimation(canvas, context) {
+
+	menuBackground(canvas, context);
+	menuBar(canvas, context);
+	menuText(canvas, context);
+	startText(canvas, context);
+}
+
+export {menuAnimation};
