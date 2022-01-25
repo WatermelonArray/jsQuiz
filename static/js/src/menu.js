@@ -64,7 +64,7 @@ function menuText(canvas, context) {
 	context.textAlign = "center";
 	context.textBaseline = "middle";
 	context.fillText("JavaScript Quiz Game",
-		(cw / 2) - ((cw / 2) / c_textLoc),		// cool tween effect
+		-cw/2 + ((cw/16) * c_textLoc),
 		ch / 2
 	);
 
