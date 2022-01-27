@@ -4,28 +4,37 @@
 import {udim, udim2} from "./api/udim.js"
 import {handleKeyboard} from "./inputHandler.js";
 import {transitionIn, transitionOut} from "./src/transition.js";		// transition animation
-import {menuAnimation} from "./src/menu.js";			// main menu animation
-import {levelSelectAnimation} from "./src/levelSelect.js";			// level select animation
+import {titleAnimation} from "./src/title.js";							// title animation
+import {menuAnimation} from "./src/menu.js";							// menu animation
+import {gameAnimation, setQuiz} from "./src/game.js";					// game animation
 
 let canvas = document.getElementById("gameCanvas");
 let context = canvas.getContext("2d");
-var currentAnim = menuAnimation;
+var currentAnim = titleAnimation;
 
-function switchAnim(x) {
-	if (x == "menuAnimation") {
+const switchAnim = (x) => {
+	if (x == "title") {
+		currentAnim = titleAnimation;
+	}
+	if (x == "menu") {
 		currentAnim = menuAnimation;
 	}
+	if (x == "game") {
+		currentAnim = gameAnimation;
+	}
+
+
 	if (x == "menuTransitionOut") {
 		currentAnim = [menuAnimation, [transitionIn, "levelSelectIn"]];
 	}
 	if (x == "levelSelectIn") {
-		currentAnim =[levelSelectAnimation, transitionOut]
+		currentAnim = [gameAnimation, transitionOut]
 	}
 }
 
 handleKeyboard(switchAnim)
 
-function draw() {
+const draw = () => {
 	
 	// set the canvas size every frame
 	canvas.width = window.innerWidth;

@@ -8,10 +8,14 @@ function isMouseInsideCords() {
 
 }
 
+let y = 0
 function handleKeyboard(switchAnim) {
 	document.addEventListener("keydown", function(input) {
 		if (input.key == "Enter") {
-			switchAnim("menuTransitionOut")
+			if (y == 0) {switchAnim("menu");}
+			if (y == 1) {switchAnim("game");}
+
+			y++;
 		}
 	})
 }

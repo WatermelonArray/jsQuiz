@@ -1,19 +1,13 @@
 "use strict";
 
-// Functions
-const setText = (context) => {
-	context.globalAlpha = 1;
-	context.font = "64px Courier";
-	context.fillStyle = "#FFFFFF";
-	context.textAlign = "center";
-	context.textBaseline = "middle";
-}
+let setColor = () => {return "hsl(" + Math.floor((Math.random() * 360) + 1) + ",30%,50%)"}
 
-// Animation rendering
+let currentColor = setColor();
+
 const background = (context, cw, ch) => {
 
 	context.globalAlpha = 1;
-	context.fillStyle = "#619BB8";
+	context.fillStyle = currentColor;
 	context.fillRect(0, 0, cw, ch);
 
 }
@@ -98,26 +92,31 @@ const buttons = (context, cw, ch) => {
 	}
 }
 
-const mainText = (context, cw, ch) => {
-	
+const titleText = (context, cw, ch) => {
+
 	context.globalAlpha = 1;
 	context.font = "64px Courier";
 	context.fillStyle = "#FFFFFF";
 	context.textAlign = "center";
-	context.textBaseline = "middle"
-	context.fillText("Level Select", cw / 2, ch/12);
+	context.textBaseline = "middle";
+	context.fillText("$QESTION TITLE", cw / 2, ch / 12);
+
 }
 
-// Method
-function menuAnimation(canvas, context) {
+const setQuiz = (quiz) => {
+
+	currentColor = setColor()
+
+}
+
+function gameAnimation(canvas, context) {
 
 	const cw = canvas.width;
 	const ch = canvas.height;
 
 	background(context, cw, ch);
-	buttons(context, cw, ch);
-	mainText(context, cw, ch);
-}
+	//buttons(canvas, context);
+	titleText(context, cw, ch);
 
-// Export
-export {menuAnimation};
+}
+export {gameAnimation, setQuiz};
