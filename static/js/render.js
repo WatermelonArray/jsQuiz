@@ -10,9 +10,11 @@ import {gameAnimation, setQuiz} from "./src/game.js";					// game animation
 
 let canvas = document.getElementById("gameCanvas");
 let context = canvas.getContext("2d");
-var currentAnim = titleAnimation;
+let quiz = [];
+let currentAnim = titleAnimation;
 
 const switchAnim = (x) => {
+
 	if (x == "title") {
 		currentAnim = titleAnimation;
 	}
@@ -23,14 +25,16 @@ const switchAnim = (x) => {
 		currentAnim = gameAnimation;
 	}
 
-
 	if (x == "menuTransitionOut") {
 		currentAnim = [menuAnimation, [transitionIn, "levelSelectIn"]];
 	}
 	if (x == "levelSelectIn") {
 		currentAnim = [gameAnimation, transitionOut]
 	}
+
 }
+
+const quizRender = (x) => {setQuiz(x)}
 
 handleKeyboard(switchAnim)
 
@@ -63,4 +67,4 @@ const draw = () => {
 	window.requestAnimationFrame(draw);
 }
 
-export {draw};
+export {draw, quizRender};

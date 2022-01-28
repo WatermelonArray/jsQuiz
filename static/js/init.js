@@ -5,7 +5,7 @@
 // setup methods
 import {questionAnswer, questionTemplate} from "./jsonClass.js";		// for compiling to json (custom quizes in the future)
 import {getScore, calculateAnswer} from "./logic.js";					// the logic for handling score
-import {draw} from "./render.js";										// the renderer for the game
+import {draw, quizRender} from "./render.js";										// the renderer for the game
 import {handleKeyboard} from "./inputHandler.js";						// input handling for the game
 
 // debug method
@@ -24,4 +24,5 @@ catch(error) {
 	console.warn(error.message);
 }
 
+quizRender([4, 6, 7, 9]);
 draw();	// start running renderer
