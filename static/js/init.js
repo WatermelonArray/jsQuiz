@@ -19,10 +19,10 @@ try {
 	let quizTestFile = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
 	quizTestFile = await quizTestFile.json();
 	logQuizData(quizTestFile);
+	quizRender(quizTestFile);
+	draw();	// start running renderer
 }
 catch(error) {
 	console.warn(error.message);
 }
 
-quizRender([4, 6, 7, 9]);
-draw();	// start running renderer

@@ -13,7 +13,10 @@ const setText = (context) => {
 
 // Variables
 let currentColor = setColor();
-let questions = [1, 2, 3, 4];
+let currentQuiz = {};
+
+let questionTitle = "$QUESTION TITLE";
+let questions = [];
 
 // Animation rendering
 const background = (context, cw, ch) => {
@@ -55,14 +58,24 @@ const titleText = (context, cw, ch) => {
 	context.fillStyle = "#FFFFFF";
 	context.textAlign = "center";
 	context.textBaseline = "middle";
-	context.fillText("$QESTION TITLE", cw / 2, ch / 12);
+	context.fillText(questionTitle, cw / 2, ch / 12);
 
 }
 
 const setQuiz = (quiz) => {
 
 	currentColor = setColor();
-	questions = quiz;
+
+	currentQuiz = quiz;
+
+	questionTitle = quiz.questions["1"].question
+
+	let a = [];
+	for (let i = 0; i < Object.keys(quiz.questions["1"].answers).length; i++) {
+		a.push(quiz.questions["1"].answers[i].description);
+	}
+
+	questions = a
 
 }
 
