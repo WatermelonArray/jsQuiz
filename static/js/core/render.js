@@ -1,16 +1,21 @@
 "use strict";
 
+// load core
+import {handleKeyboard} from "../core/inputHandler.js";
 
-import {udim, udim2} from "./api/udim.js"
-import {handleKeyboard} from "./inputHandler.js";
-import {transitionIn, transitionOut} from "./src/transition.js";		// transition animation
-import {titleAnimation} from "./src/title.js";							// title animation
-import {menuAnimation} from "./src/menu.js";							// menu animation
-import {gameAnimation, setQuiz} from "./src/game.js";					// game animation
+// load APIs
+import {udim, udim2} from "../api/udim.js"
+import { checkResponsive } from "../api/responsive.js";
+
+// load animation pages
+import {transitionIn, transitionOut} from "../src/transition.js";		// transition animation
+import {titleAnimation} from "../src/title.js";							// title animation
+import {menuAnimation} from "../src/menu.js";							// menu animation
+import {gameAnimation, setQuiz} from "../src/game.js";					// game animation
+
 
 let canvas = document.getElementById("gameCanvas");
 let context = canvas.getContext("2d");
-let quiz = [];
 let currentAnim = titleAnimation;
 
 const switchAnim = (x) => {
@@ -35,8 +40,6 @@ const switchAnim = (x) => {
 }
 
 const quizRender = (x) => {setQuiz(x)}
-
-handleKeyboard(switchAnim)
 
 const draw = () => {
 	
@@ -67,4 +70,4 @@ const draw = () => {
 	window.requestAnimationFrame(draw);
 }
 
-export {draw, quizRender};
+export {draw, switchAnim, quizRender};
