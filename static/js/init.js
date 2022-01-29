@@ -1,12 +1,12 @@
 "use strict";
 
 // for future reference: https://softwareengineering.stackexchange.com/questions/119181/what-type-of-encoding-can-i-use-to-make-a-string-shorter
-import {questionAnswer, questionTemplate} from "./jsonClass.js";			// for compiling to json (custom quizes in the future)
+//import {questionAnswer, questionTemplate} from "./jsonClass.js";			// for compiling to json (custom quizes in the future)
 
 // setup core modules
 import {getScore, calculateAnswer} from "./core/logic.js";					// the logic for handling quiz logic
 import {draw, switchAnim, quizRender} from "./core/render.js";							// the renderer for the game
-import {handleKeyboard} from "./core/inputHandler.js";						// input handling for the game
+import {setupInput} from "./core/inputHandler.js";						// input handling for the game
 
 // debug module
 import {logQuizData} from "./core/debugger.js"; 								// only for debugging purposes
@@ -34,7 +34,8 @@ const callback_gameState = (type, x) => {
 
 // start game
 
-handleKeyboard(callback_gameState, switchAnim)
+setupInput(callback_gameState, switchAnim);
+
 try {
 	// grab testing quiz
 	// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch

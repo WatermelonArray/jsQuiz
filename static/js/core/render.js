@@ -1,11 +1,8 @@
 "use strict";
 
-// load core
-import {handleKeyboard} from "../core/inputHandler.js";
-
 // load APIs
 import {udim, udim2} from "../api/udim.js"
-import { checkResponsive } from "../api/responsive.js";
+import {checkResponsive} from "../api/responsive.js";
 
 // load animation pages
 import {transitionIn, transitionOut} from "../src/transition.js";		// transition animation
