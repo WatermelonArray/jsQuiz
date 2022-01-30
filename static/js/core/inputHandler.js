@@ -49,7 +49,7 @@ const mouse = (gameState) => {
 
 	document.addEventListener("mousedown", function(input) {
 		if (input.button == 0) {
-			console.log(checkMouseOver({x: input.clientX, y: input.clientY}, gameState("getButtons")))
+			console.log(checkMouseOver({x: input.clientX, y: input.clientY}, gameState("check").button));
 		}
 	})
 

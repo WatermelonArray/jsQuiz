@@ -109,7 +109,7 @@ const setQuiz = (quiz) => {
 }
 
 // Method
-function gameAnimation(canvas, context, callback) {
+const gameAnimation = (canvas, context, callback) => {
 
 	const cw = canvas.width;
 	const ch = canvas.height;

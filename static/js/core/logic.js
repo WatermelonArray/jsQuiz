@@ -1,8 +1,6 @@
 "use strict";
 
-let loggedScore = 0;
-
-function calculateAnswer(answer) {
+function calculateAnswer(answer, callback) {
 	if (answer.isAnswer) {
 		score++;
 	}
@@ -17,4 +15,14 @@ function getScore(jsonData) {
 	return scoreArray;
 }
 
-export {getScore, calculateAnswer};
+const setLogic = (x, callback) => {
+
+	if (x == "addScore") {
+		if (calculateAnswer()) {
+			callback.addScore();
+		}
+	}
+
+}
+
+export {setLogic};

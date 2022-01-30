@@ -4,24 +4,38 @@
 //import {questionAnswer, questionTemplate} from "./jsonClass.js";			// for compiling to json (custom quizes in the future)
 
 // setup core modules
-import {getScore, calculateAnswer} from "./core/logic.js";					// the logic for handling quiz logic
-import {draw, setRender, switchAnim, setQuiz} from "./core/render.js";							// the renderer for the game
-import {setupInput} from "./core/inputHandler.js";						// input handling for the game
+import {setLogic} from "./core/logic.js";										// the logic for handling quiz logic
+import {draw, setRender, switchAnim, setQuiz} from "./core/render.js";			// the renderer for the game
+import {setupInput} from "./core/inputHandler.js";								// input handling for the game
 
 // debug module
 import {logQuizData} from "./core/debugger.js"; 								// only for debugging purposes
 
 // variables
-let currentState = {
-	currentPage: "title",
-	allowInput: true,
-	transition: false,
-	allowSkip: true,
-	buttons: []
-};
+
 
 // setup functions
-const callback_gameState = (type, x) => {
+const callback = {
+
+	currentState: {
+		// page data
+		currentPage: "title",
+		allowInput: true,
+		transition: false,
+		allowSkip: true,
+		sound: true,
+	
+		// quiz data
+		quizCurrent: undefined,
+		score: 0,
+		buttons: []
+	},
+
+	addScore: function() {this.currentState.score++;}
+}
+
+/*}(type, x) => {
+
 	if (type == "check") {
 		return currentState;
 	}
@@ -29,27 +43,33 @@ const callback_gameState = (type, x) => {
 	else if (type == "changeInput") {currentState.allowInput = x;}
 	else if (type == "changeTansition") {currentState.transition = x;}
 	else if (type == "changeSkip") {currentState.allowSkip = x;}
+
 	else if (type == "getButtons") {return currentState.buttons};
-}
+}*/
 
 
 
 // start game
 
-setupInput(callback_gameState);
-setRender(callback_gameState);
+setupInput(callback);
+setRender(callback);
 
-try {
+//try {
 	// grab testing quiz
 	// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 	// https://developer.mozilla.org/en-US/docs/Web/API/Request/json
-	let quizTestFile = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
-	quizTestFile = await quizTestFile.json();
-	logQuizData(quizTestFile);
-	setQuiz(quizTestFile);
-	draw(callback_gameState);	// start running renderer
-}
+
+	let x = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
+	console.log(x)
+	callback.check().quizCurrent = await x.json();
+
+	console.log(callback.check())
+
+	logQuizData(callback);
+	setQuiz(callback);
+	draw(callback);	// start running renderer
+/*}
 catch(error) {
-	console.warn(error.message);
-}
+	console.error(error.message);
+}*/
 

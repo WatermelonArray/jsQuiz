@@ -1,8 +1,12 @@
 "use strict";
 
-function logQuizData(jsonData) {
+function logQuizData(state) {
 
-	const questionsLength = Object.keys(jsonData.questions).length
+	const jsonData = state.check().quizCurrent;
+
+	const questionsLength = Object.keys(jsonData.questions).length;
+
+
 	let questArray = [];
 
 	for (let i=0; i < questionsLength; i++) {

@@ -49,7 +49,7 @@ const draw = () => {
 	// Clear canvas before drawing new frame
 	context.clearRect(0, 0, canvas.width, canvas.height);
 
-	if (Array.isArray(currentAnim)) {
+	/* if (Array.isArray(currentAnim)) {
 		for (let i = 0; i < currentAnim.length; i++) {
 			//console.log(currentAnim[i])
 			if (Array.isArray(currentAnim[i])) {
@@ -61,8 +61,10 @@ const draw = () => {
 		}
 	}
 	else {
-		currentAnim(canvas, context, callbackFunc);
-	}
+		currentAnim(canvas, context, callbackFunc, checkResponsive);
+	} */
+
+	currentAnim(canvas, context,callbackFunc, checkResponsive);
 
 	// solution for looping per frame correctly:
 	// https://spicyyoghurt.com/tutorials/html5-javascript-game-development/create-a-proper-game-loop-with-requestanimationframe
