@@ -43,21 +43,32 @@ const background = (context, cw, ch) => {
 
 }
 
-const buttons = (context, cw, ch) => {
+const buttons = (context, cw, ch, callback) => {
 
 	const totalY = ch / 6 * 4
-
+	let buttonLocations = [];
 	// questions
 	for (let i = 0; i < questions.length; i++){
 
 		context.fillStyle = questions[i][1];
 		context.globalAlpha = 1;
 		context.fillRect(
-			cw / 6 * 1,
+			cw / 6,
 			(ch / 6 * 1.5) + (totalY / questions.length * i),
 			cw / 6 * 4,
 			ch / 6 * ((4 / questions.length) * 0.8)
 		)
+
+		buttonLocations.push({
+			loc: {
+				x0: cw / 6,
+				x1: (cw / 6) + (cw / 6 * 4),
+				y0: (ch / 6 * 1.5) + (totalY / questions.length * i),
+				y1: ((ch / 6 * 1.5) + (totalY / questions.length * i)) + (ch / 6 * ((4 / questions.length) * 0.8))
+			},
+			ref: questions[i]
+		})
+	
 		setText(context)
 		context.fillText(
 			questions[i][0],
@@ -65,6 +76,8 @@ const buttons = (context, cw, ch) => {
 			(ch / 6 * 1.5) + (totalY / questions.length * i) + (ch / 6 * ((4 / questions.length) * 0.8) / 2)
 		)
 	}
+
+	callback("check").buttons = buttonLocations;
 }
 
 const titleText = (context, cw, ch) => {
@@ -96,13 +109,13 @@ const setQuiz = (quiz) => {
 }
 
 // Method
-function gameAnimation(canvas, context) {
+function gameAnimation(canvas, context, callback) {
 
 	const cw = canvas.width;
 	const ch = canvas.height;
 
 	background(context, cw, ch);
-	buttons(context, cw, ch);
+	buttons(context, cw, ch, callback);
 	titleText(context, cw, ch);
 
 }

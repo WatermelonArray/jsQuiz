@@ -5,7 +5,7 @@
 
 // setup core modules
 import {getScore, calculateAnswer} from "./core/logic.js";					// the logic for handling quiz logic
-import {draw, switchAnim, quizRender} from "./core/render.js";							// the renderer for the game
+import {draw, setRender, switchAnim, setQuiz} from "./core/render.js";							// the renderer for the game
 import {setupInput} from "./core/inputHandler.js";						// input handling for the game
 
 // debug module
@@ -16,7 +16,8 @@ let currentState = {
 	currentPage: "title",
 	allowInput: true,
 	transition: false,
-	allowSkip: true
+	allowSkip: true,
+	buttons: []
 };
 
 // setup functions
@@ -28,13 +29,15 @@ const callback_gameState = (type, x) => {
 	else if (type == "changeInput") {currentState.allowInput = x;}
 	else if (type == "changeTansition") {currentState.transition = x;}
 	else if (type == "changeSkip") {currentState.allowSkip = x;}
+	else if (type == "getButtons") {return currentState.buttons};
 }
 
 
 
 // start game
 
-setupInput(callback_gameState, switchAnim);
+setupInput(callback_gameState);
+setRender(callback_gameState);
 
 try {
 	// grab testing quiz
@@ -43,8 +46,8 @@ try {
 	let quizTestFile = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
 	quizTestFile = await quizTestFile.json();
 	logQuizData(quizTestFile);
-	quizRender(quizTestFile);
-	draw();	// start running renderer
+	setQuiz(quizTestFile);
+	draw(callback_gameState);	// start running renderer
 }
 catch(error) {
 	console.warn(error.message);

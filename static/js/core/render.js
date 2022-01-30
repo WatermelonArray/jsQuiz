@@ -10,11 +10,13 @@ import {titleAnimation} from "../src/title.js";							// title animation
 import {menuAnimation} from "../src/menu.js";							// menu animation
 import {gameAnimation, setQuiz} from "../src/game.js";					// game animation
 
-
+// variables
 let canvas = document.getElementById("gameCanvas");
 let context = canvas.getContext("2d");
 let currentAnim = titleAnimation;
+let callbackFunc = undefined;
 
+// functions
 const switchAnim = (x) => {
 
 	if (x == "title") {
@@ -36,7 +38,7 @@ const switchAnim = (x) => {
 
 }
 
-const quizRender = (x) => {setQuiz(x)}
+const setRender = (callback) => {callbackFunc = callback;}
 
 const draw = () => {
 	
@@ -59,7 +61,7 @@ const draw = () => {
 		}
 	}
 	else {
-		currentAnim(canvas, context);
+		currentAnim(canvas, context, callbackFunc);
 	}
 
 	// solution for looping per frame correctly:
@@ -67,4 +69,4 @@ const draw = () => {
 	window.requestAnimationFrame(draw);
 }
 
-export {draw, switchAnim, quizRender};
+export {draw, setRender, switchAnim, setQuiz};
