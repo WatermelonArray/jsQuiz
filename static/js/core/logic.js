@@ -1,27 +1,33 @@
 "use strict";
 
-function calculateAnswer(answer, callback) {
-	if (answer.isAnswer) {
-		score++;
-	}
-	return answer.isAnswer;
-};
+const checkQuestionLimit = (callback) => {
 
-function getScore(jsonData) {
-	const scoreArray = {
-		totalScore: Object.keys(jsonData.questions).length,
-		score: loggedScore
-	};
-	return scoreArray;
+	if (callback.currentState.questionNumber > Object.keys(callback.currentQuiz.questions).length) {
+		console.log("MAX LIMIT")
+	}
 }
 
-const setLogic = (x, callback) => {
+// method
+const setLogic = (callback) => {
 
-	if (x == "addScore") {
-		if (calculateAnswer()) {
-			callback.addScore();
+	callback.calcAnswer = (x) => {
+		if (callback.currentState.allowAnswer) {
+			if (x) {
+				callback.currentState.answerResponse = 2;
+				callback.currentState.score++;
+			}
+			else {
+				callback.currentState.answerResponse = 1;
+			}
+			callback.currentState.allowAnswer = false;
+			setTimeout(function() {
+				callback.currentState.answerResponse = 0;
+				callback.currentState.questionNumber++;
+				checkQuestionLimit(callback);
+				callback.currentState.allowAnswer = true;
+			}, 20);
 		}
-	}
+	};
 
 }
 

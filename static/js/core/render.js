@@ -14,7 +14,7 @@ import {gameAnimation, setQuiz} from "../src/game.js";					// game animation
 let canvas = document.getElementById("gameCanvas");
 let context = canvas.getContext("2d");
 let currentAnim = titleAnimation;
-let callbackFunc = undefined;
+let callback = undefined;
 
 // functions
 const switchAnim = (x) => {
@@ -38,7 +38,6 @@ const switchAnim = (x) => {
 
 }
 
-const setRender = (callback) => {callbackFunc = callback;}
 
 const draw = () => {
 	
@@ -48,7 +47,10 @@ const draw = () => {
 	
 	// Clear canvas before drawing new frame
 	context.clearRect(0, 0, canvas.width, canvas.height);
-
+	
+	// run current page
+	currentAnim(canvas, context,callback);
+	
 	/* if (Array.isArray(currentAnim)) {
 		for (let i = 0; i < currentAnim.length; i++) {
 			//console.log(currentAnim[i])
@@ -63,12 +65,14 @@ const draw = () => {
 	else {
 		currentAnim(canvas, context, callbackFunc, checkResponsive);
 	} */
-
-	currentAnim(canvas, context,callbackFunc, checkResponsive);
-
+	
 	// solution for looping per frame correctly:
 	// https://spicyyoghurt.com/tutorials/html5-javascript-game-development/create-a-proper-game-loop-with-requestanimationframe
+
 	window.requestAnimationFrame(draw);
+
 }
 
-export {draw, setRender, switchAnim, setQuiz};
+const setRender = (x) => {callback = x; draw();}
+
+export {setRender, switchAnim, setQuiz};
