@@ -31,7 +31,8 @@ const callback = {
 		buttons: []
 	},
 
-	addScore: function() {this.currentState.score++;}
+	addScore: function() {this.currentState.score++;},
+	changePage: function(x) {this.currentState.currentPage = x; switchAnim(x);}
 }
 
 /*}(type, x) => {
@@ -60,10 +61,10 @@ setRender(callback);
 	// https://developer.mozilla.org/en-US/docs/Web/API/Request/json
 
 	let x = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
-	console.log(x)
-	callback.check().quizCurrent = await x.json();
+	//console.log(x)
+	callback.currentState.quizCurrent = await x.json();
 
-	console.log(callback.check())
+	console.log(callback)
 
 	logQuizData(callback);
 	setQuiz(callback);

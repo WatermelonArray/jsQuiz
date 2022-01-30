@@ -77,7 +77,7 @@ const buttons = (context, cw, ch, callback) => {
 		)
 	}
 
-	callback("check").buttons = buttonLocations;
+	callback.currentState.buttons = buttonLocations;
 }
 
 const titleText = (context, cw, ch) => {
@@ -93,15 +93,16 @@ const titleText = (context, cw, ch) => {
 
 const setQuiz = (quiz) => {
 
+	const q = quiz.currentState.quizCurrent;
 	currentColor = setColor();
 
-	currentQuiz = quiz;
+	currentQuiz = q;
 
-	questionTitle = quiz.questions["1"].question;
+	questionTitle = q.questions["1"].question;
 
 	let a = [];
-	for (let i = 0; i < Object.keys(quiz.questions["1"].answers).length; i++) {
-		a.push([quiz.questions["1"].answers[i].description, setButtonColorPreset()]);
+	for (let i = 0; i < Object.keys(q.questions["1"].answers).length; i++) {
+		a.push([q.questions["1"].answers[i].description, setButtonColorPreset()]);
 	}
 
 	questions = a;

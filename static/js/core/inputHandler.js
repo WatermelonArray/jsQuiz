@@ -22,22 +22,22 @@ const checkMouseOver = (vec2, arr) => {
 
 const handleInput = (input, aArgs) => {
 
-	const page = aArgs("check").currentPage
+	const page = aArgs.currentState.currentPage
 
 	if (input == "forward") {
 		if (page == "title") {
-			aArgs("changePage", "menu");
+			aArgs.changePage("menu");
 		}
 		else if(page == "menu") {
-			aArgs("changePage", "game");
+			aArgs.changePage("game");
 		}
 	}
 	else if (input == "back") {
 		if (page == "menu") {
-			aArgs("changePage", "title");
+			aArgs.changePage("title");
 		}
 		else if(page == "game") {
-			aArgs("changePage", "menu");
+			aArgs.changePage("menu");
 		}
 	}
 	else if (input == "click") {}
@@ -49,7 +49,7 @@ const mouse = (gameState) => {
 
 	document.addEventListener("mousedown", function(input) {
 		if (input.button == 0) {
-			console.log(checkMouseOver({x: input.clientX, y: input.clientY}, gameState("check").button));
+			console.log(checkMouseOver({x: input.clientX, y: input.clientY}, gameState.currentState.buttons));
 		}
 	})
 
