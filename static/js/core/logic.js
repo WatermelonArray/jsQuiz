@@ -18,8 +18,17 @@ const setLogic = (callback) => {
 				callback.state.answerResponse = 0;
 				callback.state.questionNumber++;
 				const limit = callback.state.questionNumber > Object.keys(callback.state.quiz.questions).length
-				callback.state.allowAnswer = true;
-			}, 20);
+				if (limit) {
+					callback.changePage("menu");
+					callback.state.allowAnswer = true;
+					callback.state.questionNumber = 1;
+					callback.newQuestion(callback);
+				}
+				else {
+					callback.newQuestion(callback);
+					callback.state.allowAnswer = true;
+				}
+			}, 2*10);
 		}
 	};
 

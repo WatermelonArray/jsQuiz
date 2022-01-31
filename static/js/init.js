@@ -35,7 +35,8 @@ const callback = {
 		buttons: [],
 		quizbuttons: []
 	},
-	changePage: function(x) {this.state.page = x; switchAnim(x);}
+	changePage: function(x) {this.state.page = x; switchAnim(x);},
+	newQuestion: setQuiz
 }
 
 // start game
