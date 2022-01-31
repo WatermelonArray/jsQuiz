@@ -4,7 +4,7 @@
 const checkMouseOver = (vec2, arr) => {
 
 	let result = false;
-	let questionNumber = undefined;
+	let questionNumber = 0;
 
 	for (let i = 0; i < arr.length; i++) {
 		let x0 = arr[i].loc.x0 // start x
@@ -13,29 +13,30 @@ const checkMouseOver = (vec2, arr) => {
 		let y1 = arr[i].loc.y1 // end y
 
 //				 x start		 x end			 y start		 y end
-		if (vec2.x >= x0 && vec2.x <= x1 && vec2.y >= y0 && vec2.y <= y1) {result = true; questionNumber = i};
+		if (vec2.x >= x0 && vec2.x <= x1 && vec2.y >= y0 && vec2.y <= y1) {result = true; questionNumber = i; break;};
 	}
-	return result, questionNumber
+
+	return [result, questionNumber]
 }
 
-const handleInput = (input, aArgs) => {
+const handleInput = (input, callback) => {
 
-	const page = aArgs.currentState.currentPage
+	const page = callback.state.page
 
 	if (input == "forward") {
 		if (page == "title") {
-			aArgs.changePage("menu");
+			callback.changePage("menu");
 		}
 		else if(page == "menu") {
-			aArgs.changePage("game");
+			callback.changePage("game");
 		}
 	}
 	else if (input == "back") {
 		if (page == "menu") {
-			aArgs.changePage("title");
+			callback.changePage("title");
 		}
 		else if(page == "game") {
-			aArgs.changePage("menu");
+			callback.changePage("menu");
 		}
 	}
 	else if (input == "click") {}
@@ -46,16 +47,24 @@ const handleInput = (input, aArgs) => {
 const mouse = (callback) => {
 	document.addEventListener("mousedown", function(input) {
 		if (input.button == 0) {
-			let result, question = checkMouseOver({x: input.clientX, y: input.clientY}, callback.currentState.buttons);
-			callback.calcAnswer(result, callback.currentPage.currentQuiz.questions[callback.currentState.questionNumber].answers[question].isAnswer);
+			if (callback.state.page == "game") {
+
+				const [result, question] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
+
+				console.log(result)
+
+				if (result) {
+					callback.calcAnswer(callback.state.quiz.questions[callback.state.questionNumber].answers[question].isAnswer);
+				}
+			}
 		}
 	})
 }
 
-const keyboard = (gameState) => {
+const keyboard = (callback) => {
 	document.addEventListener("keydown", function(input) {
-		if (input.key == "Enter") {handleInput("forward", gameState)}
-		if (input.key == "Backspace") {handleInput("back", gameState)}
+		if (input.key == "Enter") {handleInput("forward", callback)}
+		if (input.key == "Backspace") {handleInput("back", callback)}
 	})
 }
 
@@ -66,4 +75,4 @@ const setupInput = (state) => {
 }
 
 // export
-export {setupInput};
+export {setupInput};``

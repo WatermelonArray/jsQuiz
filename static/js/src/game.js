@@ -31,7 +31,6 @@ const setText = (context) => {
 let currentColor = setColor();
 let currentQuiz = {};
 
-let questionTitle = "$QUESTION TITLE";
 let questions = [];
 
 // Animation rendering
@@ -77,34 +76,28 @@ const buttons = (context, cw, ch, callback) => {
 		)
 	}
 
-	callback.currentState.buttons = buttonLocations;
+	callback.state.quizButtons = buttonLocations;
 }
 
-const titleText = (context, cw, ch) => {
+const titleText = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
 	context.font = "64px Courier";
 	context.fillStyle = "#FFFFFF";
 	context.textAlign = "center";
 	context.textBaseline = "middle";
-	context.fillText(questionTitle, cw / 2, ch / 12);
+	context.fillText(callback.state.quiz.questions[callback.state.questionNumber].question, cw / 2, ch / 12);
 
 }
 
-const setQuiz = (quiz) => {
+const setQuiz = (callback) => {
 
-	const q = quiz.currentState.quizCurrent;
 	currentColor = setColor();
 
-	currentQuiz = q;
-
-	questionTitle = q.questions["1"].question;
-
 	let a = [];
-	for (let i = 0; i < Object.keys(q.questions["1"].answers).length; i++) {
-		a.push([q.questions["1"].answers[i].description, setButtonColorPreset()]);
+	for (let i = 0; i < Object.keys(callback.state.quiz.questions[callback.state.questionNumber].answers).length; i++) {
+		a.push([callback.state.quiz.questions[callback.state.questionNumber].answers[i].description, setButtonColorPreset()]);
 	}
-
 	questions = a;
 
 }
@@ -117,7 +110,7 @@ const gameAnimation = (canvas, context, callback) => {
 
 	background(context, cw, ch);
 	buttons(context, cw, ch, callback);
-	titleText(context, cw, ch);
+	titleText(context, callback, cw, ch);
 
 }
 

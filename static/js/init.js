@@ -17,9 +17,9 @@ import {logQuizData} from "./core/debugger.js"; 								// only for debugging pu
 // setup callback
 const callback = {
 
-	currentState: {
+	state: {
 		// page data
-		currentPage: "title",
+		page: "title",
 		allowInput: true,
 		transition: false,
 		allowAnswer: true,
@@ -28,13 +28,14 @@ const callback = {
 		small: false,
 
 		// quiz data
-		quizCurrent: undefined,
-		questionNumber: 0,
+		quiz: undefined,
+		questionNumber: 1,
 		score: 0,
 		answerResponse: 0,		// 0: no answer, 1: wrong answer, 2: right answer
-		buttons: []
+		buttons: [],
+		quizbuttons: []
 	},
-	changePage: function(x) {this.currentState.currentPage = x; switchAnim(x);}
+	changePage: function(x) {this.state.page = x; switchAnim(x);}
 }
 
 // start game
@@ -45,7 +46,7 @@ setRender(callback);
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // https://developer.mozilla.org/en-US/docs/Web/API/Request/json
 let x = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
-callback.currentState.quizCurrent = await x.json();
+callback.state.quiz = await x.json();
 
 console.log(callback)
 logQuizData(callback);

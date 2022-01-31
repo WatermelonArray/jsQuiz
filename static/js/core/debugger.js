@@ -2,7 +2,7 @@
 
 function logQuizData(state) {
 
-	const jsonData = state.currentState.quizCurrent;
+	const jsonData = state.state.quiz;
 
 	const questionsLength = Object.keys(jsonData.questions).length;
 
