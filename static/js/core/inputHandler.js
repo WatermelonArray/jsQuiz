@@ -75,4 +75,4 @@ const setupInput = (state) => {
 }
 
 // export
-export {setupInput};``
+export {setupInput};
