@@ -73,7 +73,8 @@ const mouse = (callback) => {
 
 				console.log(result)
 				if (result) {
-					callback.changePage(buttonType)
+					callback.state.score = 0;
+					callback.changePage(buttonType);
 				}
 			}
 		}

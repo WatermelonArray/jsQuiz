@@ -1,14 +1,11 @@
 "use strict";
 
+// Animation rendering
 const background = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
-	if (callback.state.answerResponse == 1) {
-		context.fillStyle = "#FF0000";
-	}
-	else if (callback.state.answerResponse == 2) {
-		context.fillStyle = "#00FF00";
-	}
+	context.fillStyle = "#6e9632";
+
 	context.fillRect(0, 0, cw, ch);
 
 }
@@ -34,7 +31,7 @@ const buttons = (context, callback, cw, ch) => {
 
 	let buttonLocations = [];
 
-	context.fillStyle = "#444444";
+	context.fillStyle = "#222222";
 	context.globalAlpha = 1;
 	context.fillRect(
 		cw / 6,
@@ -98,6 +95,8 @@ const title = (context, cw, ch) => {
 	context.fillText("Results", cw / 2, ch / 6);
 
 }
+
+// Method
 const resultAnimation = (canvas, context, callback) => {
 
 	const cw = canvas.width;
