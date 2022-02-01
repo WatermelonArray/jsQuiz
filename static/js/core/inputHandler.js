@@ -1,22 +1,31 @@
 "use strict";
 
 // functions
-const checkMouseOver = (vec2, arr) => {
+
+const checkMousePos = (vec2, i) => {return vec2.x >= i.loc.x0 && vec2.x <= i.loc.x1 && vec2.y >= i.loc.y0 && vec2.y <= i.loc.y1;}
+
+const checkMouseOverQuiz = (vec2, arr) => {
 
 	let result = false;
 	let questionNumber = 0;
 
 	for (let i = 0; i < arr.length; i++) {
-		let x0 = arr[i].loc.x0 // start x
-		let x1 = arr[i].loc.x1 // end x
-		let y0 = arr[i].loc.y0 // start y
-		let y1 = arr[i].loc.y1 // end y
-
-//				 x start		 x end			 y start		 y end
-		if (vec2.x >= x0 && vec2.x <= x1 && vec2.y >= y0 && vec2.y <= y1) {result = true; questionNumber = i; break;};
+		if (checkMousePos(vec2, arr[i])) {result = true; questionNumber = i; break;}
 	}
 
 	return [result, questionNumber]
+}
+
+const checkMouseOver = (vec2, arr) => {
+
+	let result = false;
+	let buttonType = "";
+
+	for (let i = 0; i < arr.length; i++) {
+		if (checkMousePos(vec2, arr[i])) {result = true; buttonType = arr[i].ref; break;};
+	}
+
+	return [result, buttonType]
 }
 
 const handleInput = (input, callback) => {
@@ -49,12 +58,22 @@ const mouse = (callback) => {
 		if (input.button == 0) {
 			if (callback.state.page == "game") {
 
-				const [result, question] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
+				const [result, question] = checkMouseOverQuiz({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
 
 				console.log(result)
 
 				if (result) {
 					callback.calcAnswer(callback.state.quiz.questions[callback.state.questionNumber].answers[question].isAnswer);
+				}
+			}
+
+			if (callback.state.page == "result") {
+
+				const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
+
+				console.log(result)
+				if (result) {
+					callback.changePage(buttonType)
 				}
 			}
 		}

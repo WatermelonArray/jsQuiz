@@ -58,6 +58,13 @@ const buttons = (context, cw, ch, callback) => {
 			ch / 6 * ((4 / questions.length) * 0.8)
 		)
 
+		setText(context)
+		context.fillText(
+			questions[i][0],
+			cw / 2,
+			(ch / 6 * 1.5) + (totalY / questions.length * i) + (ch / 6 * ((4 / questions.length) * 0.8) / 2)
+		)
+
 		buttonLocations.push({
 			loc: {
 				x0: cw / 6,
@@ -67,13 +74,6 @@ const buttons = (context, cw, ch, callback) => {
 			},
 			ref: questions[i]
 		})
-	
-		setText(context)
-		context.fillText(
-			questions[i][0],
-			cw / 2,
-			(ch / 6 * 1.5) + (totalY / questions.length * i) + (ch / 6 * ((4 / questions.length) * 0.8) / 2)
-		)
 	}
 
 	callback.state.quizButtons = buttonLocations;

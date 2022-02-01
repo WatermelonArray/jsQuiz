@@ -18,6 +18,7 @@ import {logQuizData} from "./core/debugger.js"; 								// only for debugging pu
 const callback = {
 
 	state: {
+
 		// page data
 		page: "title",
 		allowInput: true,

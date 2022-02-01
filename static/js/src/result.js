@@ -1,6 +1,5 @@
 "use strict";
 
-
 const background = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
@@ -67,6 +66,26 @@ const buttons = (context, callback, cw, ch) => {
 		ch / 6 * 5
 	);
 
+	buttonLocations.push({
+		loc: {
+			x0: cw / 6,
+			x1: (cw / 6) + (cw / 6 * 1.8),
+			y0: (ch / 6 * 4.5),
+			y1: (ch / 6 * 4.5) + (ch / 6)
+		},
+		ref: "menu"
+	})
+
+	buttonLocations.push({
+		loc: {
+			x0: cw / 6 * 3.2,
+			x1: (cw / 6 * 3.2) + (cw / 6 * 1.8),
+			y0: (ch / 6 * 4.5),
+			y1: (ch / 6 * 4.5) + (ch / 6)
+		},
+		ref: "game"
+	})
+	callback.state.buttons = buttonLocations;
 }
 
 const title = (context, cw, ch) => {
