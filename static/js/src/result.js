@@ -49,7 +49,7 @@ const buttons = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
 	context.font = "24px Courier";
-	context.fillStyle = "#FFFFFF";
+	context.fillStyle = "rgb(200, 200, 200)";
 	context.textAlign = "center";
 	context.textBaseline = "middle";
 
