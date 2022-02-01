@@ -19,10 +19,11 @@ const setLogic = (callback) => {
 				callback.state.questionNumber++;
 				const limit = callback.state.questionNumber > Object.keys(callback.state.quiz.questions).length
 				if (limit) {
-					callback.changePage("menu");
 					callback.state.allowAnswer = true;
 					callback.state.questionNumber = 1;
-					callback.newQuestion(callback);
+					callback.state.answerResponse = 1;
+					callback.changePage("result");
+					callback.newQuestion(callback); // just reset question system
 				}
 				else {
 					callback.newQuestion(callback);

@@ -9,6 +9,7 @@ import {transitionIn, transitionOut} from "../src/transition.js";		// transition
 import {titleAnimation} from "../src/title.js";							// title animation
 import {menuAnimation} from "../src/menu.js";							// menu animation
 import {gameAnimation, setQuiz} from "../src/game.js";					// game animation
+import {resultAnimation} from "../src/result.js";						// result animation
 
 // variables
 let canvas = document.getElementById("gameCanvas");
@@ -27,6 +28,9 @@ const switchAnim = (x) => {
 	}
 	if (x == "game") {
 		currentAnim = gameAnimation;
+	}
+	if (x == "result") {
+		currentAnim = resultAnimation;
 	}
 
 	if (x == "menuTransitionOut") {
