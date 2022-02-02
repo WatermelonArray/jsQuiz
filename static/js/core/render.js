@@ -53,7 +53,7 @@ const draw = () => {
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	
 	// run current page
-	currentAnim(canvas, context,callback);
+	currentAnim(canvas, context, callback);
 	
 	/* if (Array.isArray(currentAnim)) {
 		for (let i = 0; i < currentAnim.length; i++) {

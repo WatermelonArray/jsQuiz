@@ -18,84 +18,57 @@ const background = (context, cw, ch) => {
 
 }
 
-const buttons = (context, cw, ch) => {
+const buttons = (context, callback, cw, ch) => {
 
-	if (cw > ch) {
+	let buttonLocations = [];
+	// quizes
+	context.fillStyle = "#FF0000";
+	context.globalAlpha = 0.75;
+	context.fillRect(
+		cw / 12 * 2,
+		ch / 12 * 2,
+		cw / 12 * 3.75,
+		ch / 12 * 5
+	)
+	setText(context)
+	context.fillText("Quizes", cw / 12 * 3.875, ch / 12 * 4.5);
 
-		// quizes
-		context.fillStyle = "#FF0000";
-		context.globalAlpha = 0.75;
-		context.fillRect(
-			cw / 12 * 2,
-			ch / 12 * 2,
-			cw / 12 * 3.75,
-			ch / 12 * 5
-		)
-		setText(context)
-		context.fillText("Quizes", cw / 12 * 3.875, ch / 12 * 4.5);
+	// custom
+	context.fillStyle = "#00FF00";
+	context.globalAlpha = 0.75;
+	context.fillRect(
+		cw / 12 * 6.25,
+		ch / 12 * 2,
+		cw / 12 * 3.75,
+		ch / 12 * 5
+	)
+	setText(context)
+	context.fillText("Custom", cw / 12 * 8.125, ch / 12 * 4.5);
 
-		// custom
-		context.fillStyle = "#00FF00";
-		context.globalAlpha = 0.75;
-		context.fillRect(
-			cw / 12 * 6.25,
-			ch / 12 * 2,
-			cw / 12 * 3.75,
-			ch / 12 * 5
-		)
-		setText(context)
-		context.fillText("Custom", cw / 12 * 8.125, ch / 12 * 4.5);
+	// help
+	context.fillStyle = "#0000FF";
+	context.globalAlpha = 0.75;
+	context.fillRect(
+		cw / 12 * 2,
+		ch / 12 * 7.5,
+		cw / 12 * 8,
+		ch / 12 * 2.5
+	)
+	setText(context)
+	context.fillText("Help", cw / 2, ch / 12 * 8.75);
 
-		// help
-		context.fillStyle = "#0000FF";
-		context.globalAlpha = 0.75;
-		context.fillRect(
-			cw / 12 * 2,
-			ch / 12 * 7.5,
-			cw / 12 * 8,
-			ch / 12 * 2.5
-		)
-		setText(context)
-		context.fillText("Help", cw / 2, ch / 12 * 8.75);
-	}
-	else {
+	buttonLocations.push({
+		loc: {
+			x0: cw / 12 * 2,
+			x1: (cw / 12 * 2) + (cw / 12 * 3.75),
+			y0: (ch / 12 * 2),
+			y1: (ch / 12 * 2) + (ch / 12 * 5)
+		},
+		ref: "game"
+	})
 
-		// quizes
-		context.fillStyle = "#FF0000";
-		context.globalAlpha = 0.75;
-		context.fillRect(
-			cw / 6 * 1,
-			ch / 6 * 1.5,
-			cw / 6 * 4,
-			ch / 6 * 1
-		)
-		setText(context)
-		context.fillText("Quizes", cw / 2, ch / 6 * 2);
+	callback.state.buttons = buttonLocations;
 
-		// custom
-		context.fillStyle = "#00FF00";
-		context.globalAlpha = 0.75;
-		context.fillRect(
-			cw / 6 * 1,
-			ch / 6 * 3,
-			cw / 6 * 4,
-			ch / 6 * 1
-		)
-		setText(context)
-		context.fillText("Custom", cw / 2, ch / 6 * 3.5);
-
-		// help
-		context.fillStyle = "#0000FF";
-		context.globalAlpha = 0.75;
-		context.fillRect(
-			cw / 6 * 1,
-			ch / 6 * 4.5,
-			cw / 6 * 4,
-			ch / 6 * 1
-		)
-		setText(context)
-		context.fillText("Help", cw / 2, ch / 6 * 5);
-	}
 }
 
 const mainText = (context, cw, ch) => {
@@ -105,17 +78,17 @@ const mainText = (context, cw, ch) => {
 	context.fillStyle = "#FFFFFF";
 	context.textAlign = "center";
 	context.textBaseline = "middle"
-	context.fillText("Level Select", cw / 2, ch/12);
+	context.fillText("Main Menu", cw / 2, ch / 12);
 }
 
 // Method
-function menuAnimation(canvas, context) {
+function menuAnimation(canvas, context, callback) {
 
 	const cw = canvas.width;
 	const ch = canvas.height;
 
 	background(context, cw, ch);
-	buttons(context, cw, ch);
+	buttons(context, callback, cw, ch);
 	mainText(context, cw, ch);
 }
 

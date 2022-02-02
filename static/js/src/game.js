@@ -42,7 +42,7 @@ const background = (context, cw, ch) => {
 
 }
 
-const buttons = (context, cw, ch, callback) => {
+const buttons = (context, callback, cw, ch) => {
 
 	const totalY = ch / 6 * 4
 	let buttonLocations = [];
@@ -109,7 +109,7 @@ const gameAnimation = (canvas, context, callback) => {
 	const ch = canvas.height;
 
 	background(context, cw, ch);
-	buttons(context, cw, ch, callback);
+	buttons(context, callback, cw, ch);
 	titleText(context, callback, cw, ch);
 
 }
