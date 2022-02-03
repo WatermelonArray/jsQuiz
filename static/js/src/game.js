@@ -53,12 +53,23 @@ const buttons = (context, callback, cw, ch) => {
 
 		context.fillStyle = questions[i][1];
 		context.globalAlpha = 1;
-		context.fillRect(
-			cw / 6,
-			(ch / 6 * 1.5) + (totalY / questions.length * i),
-			cw / 6 * 4,
-			ch / 6 * ((4 / questions.length) * 0.8)
-		)
+
+		if (callback.state.responsive) {
+			context.fillRect(
+				cw / 6,
+				(ch / 6 * 1.5) + (totalY / questions.length * i),
+				cw / 6 * 4,
+				ch / 6 * ((4 / questions.length) * 0.8)
+			)
+		}
+		else {
+			context.fillRect(
+				cw / 6,
+				(ch / 6 * 1.5) + (totalY / questions.length * i),
+				cw / 6 * 4,
+				ch / 6 * ((4 / questions.length) * 0.8)
+			)
+		}
 
 		setText(context)
 		context.fillText(
