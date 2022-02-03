@@ -21,6 +21,7 @@ const background = (context, cw, ch) => {
 const buttons = (context, callback, cw, ch) => {
 
 	let buttonLocations = [];
+
 	// quizes
 	context.fillStyle = "#FF0000";
 	context.globalAlpha = 0.75;
@@ -79,6 +80,7 @@ const mainText = (context, cw, ch) => {
 	context.textAlign = "center";
 	context.textBaseline = "middle"
 	context.fillText("Main Menu", cw / 2, ch / 12);
+
 }
 
 // Method
@@ -90,6 +92,7 @@ function menuAnimation(canvas, context, callback) {
 	background(context, cw, ch);
 	buttons(context, callback, cw, ch);
 	mainText(context, cw, ch);
+
 }
 
 // Export

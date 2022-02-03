@@ -1,7 +1,7 @@
 "use strict";
 
 // Animation rendering
-const background = (context, callback, cw, ch) => {
+const background = (context, cw, ch) => {
 
 	context.globalAlpha = 1;
 	context.fillStyle = "#6e9632";
@@ -102,7 +102,7 @@ const resultAnimation = (canvas, context, callback) => {
 	const cw = canvas.width;
 	const ch = canvas.height;
 
-	background(context, callback, cw, ch);
+	background(context, cw, ch);
 	title(context, cw, ch);
 	resultText(context, callback, cw, ch)
 	buttons(context, callback, cw, ch)

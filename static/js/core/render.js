@@ -5,11 +5,11 @@ import {udim, udim2} from "../api/udim.js"
 import {checkResponsive} from "../api/responsive.js";
 
 // load animation pages
-import {transitionIn, transitionOut} from "../src/transition.js";		// transition animation
-import {titleAnimation} from "../src/title.js";							// title animation
-import {menuAnimation} from "../src/menu.js";							// menu animation
-import {gameAnimation, setQuiz} from "../src/game.js";					// game animation
-import {resultAnimation} from "../src/result.js";						// result animation
+import {transitionIn, transitionOut} from "../src/transition.js"; // transition animation
+import {titleAnimation} from "../src/title.js"; // title animation
+import {menuAnimation} from "../src/menu.js"; // menu animation
+import {gameAnimation, setQuiz} from "../src/game.js"; // game animation
+import {resultAnimation} from "../src/result.js"; // result animation
 
 // variables
 let canvas = document.getElementById("gameCanvas");
@@ -49,9 +49,13 @@ const draw = () => {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 	
-	// Clear canvas before drawing new frame
+	// clear canvas before drawing new frame
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	
+	// check responsiveness
+	[callback.state.responsive, callback.state.small] = checkResponsive(canvas);
+
+	//console.log(callback.state.responsive)
 	// run current page
 	currentAnim(canvas, context, callback);
 	

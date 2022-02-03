@@ -14,7 +14,7 @@ const background = (context, cw, ch) => {
 
 }
 
-let barSize = -60;		// negative means frames AFTER start of renderer
+let barSize = -60; // negative means frames AFTER start of renderer
 let c_barSize = 0;
 const bar = (context, cw, ch) => {
 

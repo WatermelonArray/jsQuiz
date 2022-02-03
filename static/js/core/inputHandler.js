@@ -13,7 +13,7 @@ const checkMouseOverQuiz = (vec2, arr) => {
 		if (checkMousePos(vec2, arr[i])) {result = true; questionNumber = i; break;}
 	}
 
-	return [result, questionNumber]
+	return [result, questionNumber];
 }
 
 const checkMouseOver = (vec2, arr) => {
@@ -25,7 +25,7 @@ const checkMouseOver = (vec2, arr) => {
 		if (checkMousePos(vec2, arr[i])) {result = true; buttonType = arr[i].ref; break;};
 	}
 
-	return [result, buttonType]
+	return [result, buttonType];
 }
 
 const handleInput = (input, callback) => {
@@ -60,18 +60,15 @@ const mouse = (callback) => {
 
 				const [result, question] = checkMouseOverQuiz({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
 
-				console.log(result)
-
 				if (result) {
 					callback.calcAnswer(callback.state.quiz.questions[callback.state.questionNumber].answers[question].isAnswer);
 				}
 			}
 
-			if (callback.state.page == "result") {
+			if (callback.state.page == "result" || callback.state.page == "menu") {
 
 				const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
 
-				console.log(result)
 				if (result) {
 					callback.state.score = 0;
 					callback.changePage(buttonType);
@@ -83,8 +80,8 @@ const mouse = (callback) => {
 
 const keyboard = (callback) => {
 	document.addEventListener("keydown", function(input) {
-		if (input.key == "Enter") {handleInput("forward", callback)}
-		if (input.key == "Backspace") {handleInput("back", callback)}
+		if (input.key == "Enter") {handleInput("forward", callback);}
+		if (input.key == "Backspace") {handleInput("back", callback);}
 	})
 }
 

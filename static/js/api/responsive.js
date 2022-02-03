@@ -9,6 +9,6 @@ const sizes = {
 	xxl: 1400
 }
 
-const checkResponsive = (cw, ch) => {return cw < ch, cw < sizes.md;}
+const checkResponsive = (canvas) => {return [canvas.width < canvas.height, canvas.width < sizes.md];}
 
 export {checkResponsive};

@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 // this is a custom api for helping me position and scale elements on a canvas using UDIM principals
 

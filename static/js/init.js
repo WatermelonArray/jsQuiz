@@ -1,15 +1,15 @@
 "use strict";
 
 // for future reference: https://softwareengineering.stackexchange.com/questions/119181/what-type-of-encoding-can-i-use-to-make-a-string-shorter
-//import {questionAnswer, questionTemplate} from "./jsonClass.js";			// for compiling to json (custom quizes in the future)
+//import {questionAnswer, questionTemplate} from "./jsonClass.js"; // for compiling to json (custom quizes in the future)
 
 // setup core modules
-import {setLogic} from "./core/logic.js";										// the logic for handling quiz logic
-import {setRender, switchAnim, setQuiz} from "./core/render.js";			// the renderer for the game
-import {setupInput} from "./core/inputHandler.js";								// input handling for the game
+import {setLogic} from "./core/logic.js"; // the logic for handling quiz logic
+import {setRender, switchAnim, setQuiz} from "./core/render.js"; // the renderer for the game
+import {setupInput} from "./core/inputHandler.js"; // input handling for the game
 
 // debug module
-import {logQuizData} from "./core/debugger.js"; 								// only for debugging purposes
+import {logQuizData} from "./core/debugger.js"; // only for debugging purposes
 
 // variables
 
@@ -32,7 +32,7 @@ const callback = {
 		quiz: undefined,
 		questionNumber: 1,
 		score: 0,
-		answerResponse: 0,		// 0: no answer, 1: wrong answer, 2: right answer
+		answerResponse: 0, // 0: no answer, 1: wrong answer, 2: right answer
 		buttons: [],
 		quizbuttons: []
 	},
@@ -50,7 +50,7 @@ setRender(callback);
 let x = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
 callback.state.quiz = await x.json();
 
-console.log(callback)
+//console.log(callback)
 logQuizData(callback);
 setQuiz(callback);
-setRender(callback);	// start running renderer
+setRender(callback); // start running renderer

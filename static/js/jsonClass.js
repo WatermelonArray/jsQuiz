@@ -5,10 +5,10 @@
 let questionAnswer = {
 	description: "A",
 	isAnswer: false
-}
+};
 let questionTemplate = {
 	question: "Hello World",
 	answers: []
-}
+};
 
-export {questionAnswer, questionTemplate}
+export {questionAnswer, questionTemplate};

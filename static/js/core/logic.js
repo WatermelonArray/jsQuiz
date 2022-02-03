@@ -4,7 +4,6 @@
 const setLogic = (callback) => {
 
 	callback.calcAnswer = (x) => {
-		console.log("hi")
 		if (callback.state.allowAnswer && callback.state.page == "game") {
 			if (x) {
 				callback.state.answerResponse = 2;
@@ -17,7 +16,7 @@ const setLogic = (callback) => {
 			setTimeout(function() {
 				callback.state.answerResponse = 0;
 				callback.state.questionNumber++;
-				const limit = callback.state.questionNumber > Object.keys(callback.state.quiz.questions).length
+				const limit = callback.state.questionNumber > Object.keys(callback.state.quiz.questions).length;
 				if (limit) {
 					callback.state.allowAnswer = true;
 					callback.state.questionNumber = 1;
@@ -31,7 +30,7 @@ const setLogic = (callback) => {
 				}
 			}, 2*10);
 		}
-	};
+	}
 
 }
 
