@@ -51,7 +51,7 @@ const mainText = (context, cw, ch) => {
 
 	// menu title
 	context.globalAlpha = 1;
-	context.font = "64px Helvetica";
+	context.font = "72px Noto Sans Light";
 	context.fillStyle = "#FFFFFF";
 	context.textAlign = "center";
 	context.textBaseline = "middle";
@@ -59,7 +59,6 @@ const mainText = (context, cw, ch) => {
 		-cw/2 + ((cw/16) * c_textLoc),
 		ch / 2
 	);
-
 }
 
 let flash = 1
@@ -70,7 +69,7 @@ const text = (context, cw, ch) => {
 	if (textLoc >= 16) {
 		if (flash > 30 && flash < 60) {
 			context.globalAlpha = 1;
-			context.font = "32px Courier";
+			context.font = "32px Liberation Mono";
 			context.fillStyle = "#FFFFFF";
 			context.textAlign = "center";
 			context.textBaseline = "middle"

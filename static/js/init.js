@@ -11,7 +11,7 @@ import {setupInput} from "./core/inputHandler.js"; // input handling for the gam
 // debug module
 import {logQuizData} from "./core/debugger.js"; // only for debugging purposes
 
-// variables
+// variable
 
 
 // setup callback
@@ -36,7 +36,14 @@ const callback = {
 		buttons: [],
 		quizbuttons: []
 	},
-	changePage: function(x) {this.state.page = x; switchAnim(x);},
+	music: {
+		idle: new Audio("static/assets/audio/idlemusic.wav")
+	},
+	changePage: function(x) {
+		this.state.page = x;
+		if (x == "menu") {this.music.idle.play()} else {this.music.idle.pause(); this.music.idle.currentTime = 0;}
+		switchAnim(x);
+	},
 	newQuestion: setQuiz
 }
 
@@ -44,6 +51,9 @@ const callback = {
 setLogic(callback);
 setupInput(callback);
 setRender(callback);
+
+callback.music.idle.volume = 0.05;
+callback.music.idle.loop = true;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // https://developer.mozilla.org/en-US/docs/Web/API/Request/json

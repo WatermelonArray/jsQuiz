@@ -46,6 +46,8 @@ const buttons = (context, callback, cw, ch) => {
 
 	const totalY = ch / 6 * 4
 	let buttonLocations = [];
+
+	let presetMode = 0; // 0 - column, 1 - side by side (2 questions), 2 - quad (6 questions), 3 
 	// questions
 	for (let i = 0; i < questions.length; i++){
 
