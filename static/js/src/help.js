@@ -22,99 +22,77 @@ const buttons = (context, callback, cw, ch) => {
 
 	let buttonLocations = [];
 
-	context.shadowBlur = "16";
-	context.shadowColor = "rgba(0, 0, 0, 0.4)";
 	context.globalAlpha = 0.75;
 
-	// quizes
+	// left
 	context.fillStyle = "#FF0000";
 	if (callback.state.responsive) {
 		context.fillRect(
+			0,
+			0,
 			cw / 6,
-			ch / 6 * 1.5,
-			cw / 6 * 4,
-			ch / 6
+			cw / 6
 		)
 	}
 	else {
 		context.fillRect(
-			cw / 6,
+			0,
+			0,
 			ch / 6,
-			cw / 12 * 3.75,
-			ch / 12 * 5
+			ch / 6
 		)
 	}
 
-	// custom
+	// right
+	context.fillStyle = "#FF00FF";
+	if (callback.state.responsive) {
+		context.fillRect(
+			cw - (cw / 6),
+			0,
+			cw / 6,
+			cw / 6
+		)
+	}
+	else {
+		context.fillRect(
+			cw - (ch / 6),
+			0,
+			ch / 6,
+			ch / 6
+		)
+	}
+
+	// back
 	context.fillStyle = "#00FF00";
-	if (callback.state.responsive) {
-		context.fillRect(
-			cw / 6,
-			ch / 6 * 3,
-			cw / 6 * 4,
-			ch / 6
-		)
-	}
-	else {
-		context.fillRect(
-			cw / 12 * 6.25,
-			ch / 6,
-			cw / 12 * 3.75,
-			ch / 12 * 5
-		)
-	}
+	context.fillRect(
+		cw / 6 * 2,
+		ch / 12 * 10,
+		cw / 6 * 2,
+		ch / 12
+	)
 
-	// help
-	context.fillStyle = "#0000FF";
-	if (callback.state.responsive) {
-		context.fillRect(
-			cw / 6,
-			ch / 6 * 4.5,
-			cw / 6 * 4,
-			ch / 6
-		)
-	}
-	else {
-		context.fillRect(
-			cw / 6,
-			ch / 12 * 7.5,
-			cw / 6 * 4,
-			ch / 12 * 2.5
-		)
-	}
-	
-	context.shadowBlur = 0;
 	setText(context)
 
 	if (callback.state.responsive) {
-		context.fillText("Quizes", cw / 2, ch / 6 * 2);
-		context.fillText("Custom", cw / 2, ch / 6 * 3.5);
-		context.fillText("Help", cw / 2, ch / 6 * 5);
-		buttonLocations.push({
-			loc: {
-				x0: cw / 6,
-				x1: (cw / 6) + (cw / 6 * 4),
-				y0: ch / 6 * 1.5,
-				y1: (ch / 6 * 1.5) + (ch / 6)
-			},
-			ref: "game"
-		})
+		context.fillText("<", cw / 12, cw / 12);
+		context.fillText(">", cw - (cw / 12), cw / 12);
 	}
 	else {
-		context.fillText("Quizes", cw / 12 * 3.875, ch / 12 * 4.5);
-		context.fillText("Custom", cw / 12 * 8.125, ch / 12 * 4.5);
-		context.fillText("Help", cw / 2, ch / 12 * 8.75);
-		buttonLocations.push({
-			loc: {
-				x0: cw / 12 * 2,
-				x1: (cw / 12 * 2) + (cw / 12 * 3.75),
-				y0: (ch / 12 * 2),
-				y1: (ch / 12 * 2) + (ch / 12 * 5)
-			},
-			ref: "game"
-		})
+		context.fillText("<", ch / 12, ch / 12);
+		context.fillText(">", cw - (ch / 12), ch / 12);
 	}
 
+	context.fillText("Back", cw / 2, ch / 12 * 10.5);
+
+	buttonLocations.push({
+		loc: {
+			x0: cw / 6 * 2,
+			x1: (cw / 6 * 2) + (cw / 6 * 2),
+			y0: ch / 12 * 10,
+			y1: (ch / 12 * 10) + (ch / 12)
+		},
+		ref: "menu"
+	})
 	callback.state.buttons = buttonLocations;
 
 }
@@ -137,13 +115,13 @@ const mainText = (context, callback, cw, ch) => {
 }
 
 // Method
-function helpAnimation(canvas, context, callback) {
+const helpAnimation = (canvas, context, callback) => {
 
 	const cw = canvas.width;
 	const ch = canvas.height;
 
 	background(context, cw, ch);
-	//buttons(context, callback, cw, ch);
+	buttons(context, callback, cw, ch);
 	mainText(context, callback, cw, ch);
 
 }

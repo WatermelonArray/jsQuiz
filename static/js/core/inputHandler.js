@@ -22,7 +22,7 @@ const checkMouseOver = (vec2, arr) => {
 	let buttonType = "";
 
 	for (let i = 0; i < arr.length; i++) {
-		if (checkMousePos(vec2, arr[i])) {result = true; buttonType = arr[i].ref; break;};
+		if (checkMousePos(vec2, arr[i])) {result = true; buttonType = arr[i].ref; break;}
 	}
 
 	return [result, buttonType];
@@ -48,32 +48,38 @@ const handleInput = (input, callback) => {
 			callback.changePage("menu");
 		}
 	}
-	else if (input == "click") {}
-	else if (input == "help") {}
+}
+
+const handleInputPosition = (input, callback) => {
+	console.log(input)
+	if (callback.state.page == "game") {
+
+		const [result, question] = checkMouseOverQuiz({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
+
+		if (result) {
+			callback.calcAnswer(callback.state.quiz.questions[callback.state.questionNumber].answers[question].isAnswer);
+		}
+	}
+	else if (callback.state.page == "result" || callback.state.page == "menu" || callback.state.page == "help") {
+
+		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
+
+		if (result) {
+			callback.state.score = 0;
+			callback.changePage(buttonType);
+		}
+	}
+	else if (callback.state.page == "title") {
+		handleInput("forward", callback);
+	}
 }
 
 // events
+let debounce = false;
 const mouse = (callback) => {
 	document.addEventListener("mousedown", function(input) {
-		if (input.button == 0) {
-			if (callback.state.page == "game") {
-
-				const [result, question] = checkMouseOverQuiz({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
-
-				if (result) {
-					callback.calcAnswer(callback.state.quiz.questions[callback.state.questionNumber].answers[question].isAnswer);
-				}
-			}
-
-			if (callback.state.page == "result" || callback.state.page == "menu") {
-
-				const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
-
-				if (result) {
-					callback.state.score = 0;
-					callback.changePage(buttonType);
-				}
-			}
+		if (input.button == 0 ) {
+			handleInputPosition(input, callback);
 		}
 	})
 }
@@ -87,25 +93,9 @@ const keyboard = (callback) => {
 
 const touch = (callback) => {
 	document.addEventListener("touchstart", function(input) {
-
-		if (callback.state.page == "game") {
-			const [result, question] = checkMouseOverQuiz({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
-
-			if (result) {
-				callback.calcAnswer(callback.state.quiz.questions[callback.state.questionNumber].answers[question].isAnswer);
-			}
-
-		}
-		if (callback.state.page == "result" || callback.state.page == "menu") {
-
-			const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
-
-			if (result) {
-				callback.state.score = 0;
-				callback.changePage(buttonType);
-			}
-		}
-		handleInput("forward", callback)
+		//input.preventDefault();
+		//debounce = true;
+		handleInputPosition(input, callback);
 	})
 }
 // method
