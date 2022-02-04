@@ -36,7 +36,7 @@ const handleInput = (input, callback) => {
 		if (page == "title") {
 			callback.changePage("menu");
 		}
-		else if(page == "menu") {
+		else if (page == "menu") {
 			callback.changePage("game");
 		}
 	}
@@ -44,7 +44,7 @@ const handleInput = (input, callback) => {
 		if (page == "menu") {
 			callback.changePage("title");
 		}
-		else if(page == "game") {
+		else if (page == "game" || page == "help" || page == "editor") {
 			callback.changePage("menu");
 		}
 	}

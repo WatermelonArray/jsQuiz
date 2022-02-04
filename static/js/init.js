@@ -41,7 +41,14 @@ const callback = {
 	},
 	changePage: function(x) {
 		this.state.page = x;
-		if (x == "menu") {this.music.idle.play()} else {this.music.idle.pause(); this.music.idle.currentTime = 0;}
+		if (x == "menu") {
+			this.music.idle.play()
+		} else {
+			if (!(x == "help" || x == "editor")) {
+				this.music.idle.pause();
+				this.music.idle.currentTime = 0;
+			}
+		}
 		switchAnim(x);
 	},
 	newQuestion: setQuiz

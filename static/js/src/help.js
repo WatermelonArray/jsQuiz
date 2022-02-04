@@ -90,7 +90,7 @@ const buttons = (context, callback, cw, ch) => {
 		context.fillText("Quizes", cw / 2, ch / 6 * 2);
 		context.fillText("Custom", cw / 2, ch / 6 * 3.5);
 		context.fillText("Help", cw / 2, ch / 6 * 5);
-		buttonLocations.push({ // quiz
+		buttonLocations.push({
 			loc: {
 				x0: cw / 6,
 				x1: (cw / 6) + (cw / 6 * 4),
@@ -98,31 +98,13 @@ const buttons = (context, callback, cw, ch) => {
 				y1: (ch / 6 * 1.5) + (ch / 6)
 			},
 			ref: "game"
-		});
-		buttonLocations.push({ // editor
-			loc: {
-				x0: cw / 6,
-				x1: (cw / 6) + (cw / 6 * 4),
-				y0: ch / 6 * 3,
-				y1: (ch / 6 * 3) + (ch / 6)
-			},
-			ref: "editor"
-		})
-		buttonLocations.push({ // help
-			loc: {
-				x0: cw / 6,
-				x1: (cw / 6) + (cw / 6 * 4),
-				y0: ch / 6 * 4.5,
-				y1: (ch / 6 * 4.5) + (ch / 6)
-			},
-			ref: "help"
 		})
 	}
 	else {
 		context.fillText("Quizes", cw / 12 * 3.875, ch / 12 * 4.5);
 		context.fillText("Custom", cw / 12 * 8.125, ch / 12 * 4.5);
 		context.fillText("Help", cw / 2, ch / 12 * 8.75);
-		buttonLocations.push({ // quiz
+		buttonLocations.push({
 			loc: {
 				x0: cw / 12 * 2,
 				x1: (cw / 12 * 2) + (cw / 12 * 3.75),
@@ -130,24 +112,6 @@ const buttons = (context, callback, cw, ch) => {
 				y1: (ch / 12 * 2) + (ch / 12 * 5)
 			},
 			ref: "game"
-		})
-		buttonLocations.push({ // editor
-			loc: {
-				x0: cw / 12 * 6.25,
-				x1: (cw / 12 * 6.25) + (cw / 12 * 3.75),
-				y0: (ch / 12 * 2),
-				y1: (ch / 12 * 2) + (ch / 12 * 5)
-			},
-			ref: "editor"
-		})
-		buttonLocations.push({ // help
-			loc: {
-				x0: cw / 6,
-				x1: (cw / 6) + (cw / 6 * 4),
-				y0: (ch / 12 * 7.5),
-				y1: (ch / 12 * 7.5) + (ch / 12 * 2.5)
-			},
-			ref: "help"
 		})
 	}
 
@@ -164,25 +128,25 @@ const mainText = (context, callback, cw, ch) => {
 	context.textBaseline = "middle"
 
 	if (callback.state.responsive) {
-		context.fillText("Main Menu", cw / 2, ch / 12 * 1.5);
+		context.fillText("Help", cw / 2, ch / 12 * 1.5);
 	}
 	else {
-		context.fillText("Main Menu", cw / 2, ch / 12);
+		context.fillText("Help", cw / 2, ch / 12);
 	}
 
 }
 
 // Method
-const menuAnimation = (canvas, context, callback) => {
+function helpAnimation(canvas, context, callback) {
 
 	const cw = canvas.width;
 	const ch = canvas.height;
 
 	background(context, cw, ch);
-	buttons(context, callback, cw, ch);
+	//buttons(context, callback, cw, ch);
 	mainText(context, callback, cw, ch);
 
 }
 
 // Export
-export {menuAnimation};
+export {helpAnimation};
