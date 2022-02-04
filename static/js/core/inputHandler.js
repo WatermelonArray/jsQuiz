@@ -36,9 +36,9 @@ const handleInput = (input, callback) => {
 		if (page == "title") {
 			callback.changePage("menu");
 		}
-		else if (page == "menu") {
-			callback.changePage("game");
-		}
+//		else if (page == "menu") {
+//			callback.changePage("game");
+//		}
 	}
 	else if (input == "back") {
 		if (page == "menu") {
@@ -85,10 +85,34 @@ const keyboard = (callback) => {
 	})
 }
 
+const touch = (callback) => {
+	document.addEventListener("touchstart", function(input) {
+
+		if (callback.state.page == "game") {
+			const [result, question] = checkMouseOverQuiz({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
+
+			if (result) {
+				callback.calcAnswer(callback.state.quiz.questions[callback.state.questionNumber].answers[question].isAnswer);
+			}
+
+		}
+		if (callback.state.page == "result" || callback.state.page == "menu") {
+
+			const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
+
+			if (result) {
+				callback.state.score = 0;
+				callback.changePage(buttonType);
+			}
+		}
+		handleInput("forward", callback)
+	})
+}
 // method
 const setupInput = (state) => {
 	mouse(state);
 	keyboard(state);
+	touch(state);
 }
 
 // export
