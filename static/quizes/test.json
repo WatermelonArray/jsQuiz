@@ -11,10 +11,82 @@
 			]
 		},
 		"2":{
-			"question": "Is JS browser compatible?",
+			"question": "Is JavaScript browser compatible?",
 			"answers": [
 				{"description": "Yes", "isAnswer": true},
 				{"description": "No", "isAnswer": false}
+			]
+		},
+		"3":{
+			"question": "JavaScript file extentions end in ...?",
+			"answers": [
+				{"description": ".java", "isAnswer": false},
+				{"description": ".javascript", "isAnswer": false},
+				{"description": ".js", "isAnswer": true},
+				{"description": ".j", "isAnswer": false}
+			]
+		},
+		"4":{
+			"question": "Which ECMAScript version and onwards, stopped supporting IE11?",
+			"answers": [
+				{"description": "ES8", "isAnswer": false},
+				{"description": "ES5", "isAnswer": false},
+				{"description": "ES7", "isAnswer": false},
+				{"description": "ES6", "isAnswer": true}
+			]
+		},
+		"5":{
+			"question": "Which HTML tags do we use to run JavaScript code?",
+			"answers": [
+				{"description": "<script>", "isAnswer": true},
+				{"description": "<javascript>", "isAnswer": true},
+				{"description": "<source>", "isAnswer": true},
+				{"description": "<code>", "isAnswer": false}
+			]
+		},
+		"6":{
+			"question": "Which event fires when you click a button?",
+			"answers": [
+				{"description": "Clicked()", "isAnswer": false},
+				{"description": "Onclick()", "isAnswer": true},
+				{"description": "Mousebutton1down()", "isAnswer": false},
+				{"description": "Mouseclick()", "isAnswer": false}
+			]
+		},
+		"7":{
+			"question": "GetMonth() returns the month as?",
+			"answers": [
+				{"description": "char", "isAnswer": false},
+				{"description": "float", "isAnswer": false},
+				{"description": "string", "isAnswer": false},
+				{"description": "int", "isAnswer": true},
+				{"description": "bool", "isAnswer": false}
+			]
+		},
+		"8":{
+			"question": "How does Javascript compile?",
+			"answers": [
+				{"description": "Ahead of time", "isAnswer": false},
+				{"description": "Just in time", "isAnswer": true},
+				{"description": "Before of time", "isAnswer": false}
+			]
+		},
+		"9":{
+			"question": "What is the DOM?",
+			"answers": [
+				{"description": "Data Object Model", "isAnswer": false},
+				{"description": "Data Oriented Model", "isAnswer": false},
+				{"description": "Document Object Model", "isAnswer": true},
+				{"description": "Disk on Module", "isAnswer": false}
+			]
+		},
+		"10":{
+			"question": "What is the syntax for an object?",
+			"answers": [
+				{"description": "[]", "isAnswer": false},
+				{"description": "()", "isAnswer": false},
+				{"description": "{}", "isAnswer": true},
+				{"description": "<>", "isAnswer": false}
 			]
 		}
 	}

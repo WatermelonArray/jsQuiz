@@ -37,7 +37,7 @@ const callback = {
 		quizbuttons: []
 	},
 	music: {
-		idle: new Audio("static/assets/audio/idlemusic.wav")
+		idle: new Audio("static/assets/audio/idleMusic.wav")
 	},
 	changePage: function(x) {
 		this.state.page = x;
