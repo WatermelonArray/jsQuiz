@@ -1,38 +1,14 @@
 "use strict";
 
 // Functions
-let setColor = () => {return "hsl(" + Math.floor((Math.random() * 360) + 1) + ",30%,50%)"}
-let setButtonColor = () => {return "hsl(" + Math.floor((Math.random() * 360) + 1) + ",80%,50%)"}
-
-const setButtonColorPreset = () => {
-	const colorPreset = Math.floor((Math.random() * 3) + 1);
-
-	if (colorPreset == 1) {
-		return "rgb(255, 0, 0)";
-	}
-	if (colorPreset == 2) {
-		return "rgb(0, 255, 0)";
-	}
-	if (colorPreset == 3) {
-		return "rgb(0, 0, 255)";
-	}
-}
-
-const setText = (context) => {
-	context.globalAlpha = 1;
-	context.font = "64px Courier";
-	context.fillStyle = "#FFFFFF";
-	context.textAlign = "center";
-	context.textBaseline = "middle";
-}
-
-const checkLength = (width, cw) => {
-	return width < (cw / 12 * 10)
+let setButtonColor = (x) => {
+	let color = "#222222";
+	if (x == "answer") {color = "#bb0000";}
+	else if (x == "wrong") {color = "#00bb00";}
+	return color;
 }
 
 // Variables
-let currentColor = setColor();
-let currentQuiz = {};
 
 let questions = [];
 
@@ -60,7 +36,7 @@ const buttons = (context, callback, cw, ch) => {
 
 	let textLength = "";
 	for (let i = 0; i < questions.length; i++) {
-		if (questions[i][0].length > textLength.length) {textLength = questions[i][0];}
+		if (questions[i].length > textLength.length) {textLength = questions[i];}
 	}
 	options.text = textLength;
 
@@ -70,7 +46,6 @@ const buttons = (context, callback, cw, ch) => {
 		context.shadowBlur = "16";
 		context.shadowColor = "rgba(0, 0, 0, 0.4)";
 		context.fillStyle = "#444444"
-
 
 		if (callback.state.responsive) {
 			context.fillRect(
@@ -92,7 +67,7 @@ const buttons = (context, callback, cw, ch) => {
 		context.shadowBlur = 0;
 		callback.setText(context, cw / 6 * 4, options)
 		context.fillText(
-			questions[i][0],
+			questions[i],
 			cw / 2,
 			(ch / 6 * 1.5) + (totalY / questions.length * i) + (ch / 6 * ((4 / questions.length) * 0.8) / 2)
 		)
@@ -123,18 +98,15 @@ const titleText = (context, callback, cw, ch) => {
 	}
 	
 	callback.setText(context, cw, options);
-
 	context.fillText(questionText, cw / 2, ch / 12 * 1.5);
 
 }
 
 const setQuiz = (callback) => {
 
-	currentColor = setColor();
-
 	let a = [];
 	for (let i = 0; i < Object.keys(callback.state.quiz.questions[callback.state.questionNumber].answers).length; i++) {
-		a.push([callback.state.quiz.questions[callback.state.questionNumber].answers[i].description, setButtonColorPreset()]);
+		a.push(callback.state.quiz.questions[callback.state.questionNumber].answers[i].description);
 	}
 	questions = a;
 

@@ -11,6 +11,7 @@ import {checkResponsive} from "./api/responsive.js";
 import {setLogic} from "./core/logic.js"; // the logic for handling quiz logic
 import {setRender, switchAnim, setQuiz} from "./core/render.js"; // the renderer for the game
 import {setupInput} from "./core/inputHandler.js"; // input handling for the game
+import {musicPlay} from "./core/audio.js"; // audio system for the game
 
 // debug module
 import {logQuizData} from "./core/debugger.js"; // only for debugging purposes
@@ -37,19 +38,13 @@ const callback = {
 		buttons: [],
 		quizbuttons: []
 	},
-	music: {
-		idle: new Audio("static/assets/audio/idleMusic.wav")
-	},
+	setMusic: musicPlay,
 	changePage: function(x) {
 		this.state.page = x;
-		if (x == "menu") {
-			this.music.idle.play()
-		} else {
-			if (!(x == "help" || x == "editor")) {
-				this.music.idle.pause();
-				this.music.idle.currentTime = 0;
-			}
-		}
+		if (x == "menu") {this.setMusic("idle");}
+		else if (x == "title") {this.setMusic("title");}
+		else if (x == "result") {this.setMusic("result");}
+		else if (x == "game") {this.setMusic("quiz");}
 		switchAnim(x);
 	},
 	newQuestion: setQuiz
@@ -64,9 +59,7 @@ callback.checkResponsive = checkResponsive;
 setLogic(callback);
 setupInput(callback);
 setRender(callback);
-
-callback.music.idle.volume = 0.05;
-callback.music.idle.loop = true;
+callback.setMusic("title")
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // https://developer.mozilla.org/en-US/docs/Web/API/Request/json
