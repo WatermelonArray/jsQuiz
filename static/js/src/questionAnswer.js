@@ -1,7 +1,5 @@
 "use strict";
 
-import { setText } from "../api/text";
-
 const background = (context, callback, cw, ch) => {
 
 	if (callback.state.answerResponse == 2 || callback.state.answerResponse == 0) {context.fillStyle = "#6e9632";}
@@ -21,7 +19,7 @@ const text = (context,callback, cw, ch) => {
 		size: 2,
 	}
 
-	setText(context, cw, options);
+	callback.setText(context, cw, options);
 
 	if (callback.state.answerResponse == 2) {
 
@@ -29,13 +27,13 @@ const text = (context,callback, cw, ch) => {
 
 		options.size = 3;
 		options.text = "You chose:"
-		setText(context, cw, options);
+		callback.setText(context, cw, options);
 		context.fillText("You chose: ", cw / 2, ch / 6 * 2.5);
 
 		options.size = 2;
 		options.text = "ANSWER";
 		options.font = "normal";
-		setText(context, cw, options);
+		callback.setText(context, cw, options);
 		context.fillText("ANSWER", cw / 2, ch / 6 * 2);
 	}
 

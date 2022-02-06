@@ -31,6 +31,10 @@ const buttons = (context, callback, cw, ch) => {
 
 	let buttonLocations = [];
 
+	context.globalAlpha = 1;
+	context.shadowBlur = "16";
+	context.shadowColor = "rgba(0, 0, 0, 0.4)";
+
 	context.fillStyle = "#222222";
 	context.globalAlpha = 1;
 	context.fillRect(
@@ -47,7 +51,7 @@ const buttons = (context, callback, cw, ch) => {
 		ch / 6
 	)
 
-	context.globalAlpha = 1;
+	
 	context.font = "24px Courier";
 	context.fillStyle = "rgb(200, 200, 200)";
 	context.textAlign = "center";
@@ -62,6 +66,8 @@ const buttons = (context, callback, cw, ch) => {
 		cw / 6 * 4.1,
 		ch / 6 * 5
 	);
+
+	context.shadowBlur = "0";
 
 	buttonLocations.push({
 		loc: {
