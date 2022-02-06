@@ -4,9 +4,10 @@
 import {transitionIn, transitionOut} from "../src/transition.js"; // transition animation
 import {titleAnimation} from "../src/title.js"; // title animation
 import {menuAnimation} from "../src/menu.js"; // menu animation
-import {gameAnimation, setQuiz} from "../src/game.js"; // game animation
 import {helpAnimation} from "../src/help.js" // help animation
 import {editorAnimation} from "../src/editor.js"; // editor animation
+import {gameAnimation, setQuiz} from "../src/game.js"; // game animation
+import {answerAnimation} from "../src/questionAnswer.js"; // answer animation
 import {resultAnimation} from "../src/result.js"; // result animation
 
 // variables
@@ -26,6 +27,9 @@ const switchAnim = (x) => {
 	}
 	if (x == "game") {
 		currentAnim = gameAnimation;
+	}
+	if (x == "answer") {
+		currentAnim = answerAnimation;
 	}
 	if (x == "result") {
 		currentAnim = resultAnimation;

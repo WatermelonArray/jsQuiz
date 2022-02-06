@@ -61,13 +61,13 @@ const mainText = (context, cw, ch) => {
 	);
 }
 
-let flash = 1
+let flash =0
 const text = (context, cw, ch) => {
 
 	flash++;
 
 	if (textLoc >= 16) {
-		if (flash > 30 && flash < 60) {
+		if (flash < 30) {
 			context.globalAlpha = 1;
 			context.font = "32px Liberation Mono";
 			context.fillStyle = "#FFFFFF";
