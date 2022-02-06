@@ -1,16 +1,12 @@
 "use strict";
 
-// load APIs
-import {udim, udim2} from "../api/udim.js"
-import {checkResponsive} from "../api/responsive.js";
-
 // load animation pages
 import {transitionIn, transitionOut} from "../src/transition.js"; // transition animation
 import {titleAnimation} from "../src/title.js"; // title animation
 import {menuAnimation} from "../src/menu.js"; // menu animation
 import {gameAnimation, setQuiz} from "../src/game.js"; // game animation
-import {helpAnimation} from "../src/help.js"
-import {editorAnimation} from "../src/editor.js";
+import {helpAnimation} from "../src/help.js" // help animation
+import {editorAnimation} from "../src/editor.js"; // editor animation
 import {resultAnimation} from "../src/result.js"; // result animation
 
 // variables
@@ -61,7 +57,7 @@ const draw = () => {
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	
 	// check responsiveness
-	[callback.state.responsive, callback.state.small] = checkResponsive(canvas);
+	[callback.state.responsive, callback.state.small] = callback.checkResponsive(canvas);
 
 	//console.log(callback.state.responsive)
 	// run current page

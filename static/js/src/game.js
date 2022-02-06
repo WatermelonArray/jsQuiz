@@ -18,13 +18,16 @@ const setButtonColorPreset = () => {
 	}
 }
 
-
 const setText = (context) => {
 	context.globalAlpha = 1;
 	context.font = "64px Courier";
 	context.fillStyle = "#FFFFFF";
 	context.textAlign = "center";
 	context.textBaseline = "middle";
+}
+
+const checkLength = (width, cw) => {
+	return width < (cw / 12 * 10)
 }
 
 // Variables
@@ -37,7 +40,7 @@ let questions = [];
 const background = (context, cw, ch) => {
 
 	context.globalAlpha = 1;
-	context.fillStyle = currentColor;
+	context.fillStyle = "#eeeeee";
 	context.fillRect(0, 0, cw, ch);
 
 }
@@ -47,12 +50,27 @@ const buttons = (context, callback, cw, ch) => {
 	const totalY = ch / 6 * 4
 	let buttonLocations = [];
 
-	let presetMode = 0; // 0 - column, 1 - side by side (2 questions), 2 - quad (6 questions), 3 
+	let options = {
+		font: "light",
+		color: "mono",
+		size: 1
+	}
+
+	let presetMode = 0; // 0 - column, 1 - side by side (2 questions), 2 - quad (4 questions)
+
+	let textLength = "";
+	for (let i = 0; i < questions.length; i++) {
+		if (questions[i][0].length > textLength.length) {textLength = questions[i][0];}
+	}
+	options.text = textLength;
+
 	// questions
 	for (let i = 0; i < questions.length; i++){
 
-		context.fillStyle = questions[i][1];
-		context.globalAlpha = 1;
+		context.shadowBlur = "16";
+		context.shadowColor = "rgba(0, 0, 0, 0.4)";
+		context.fillStyle = "#444444"
+
 
 		if (callback.state.responsive) {
 			context.fillRect(
@@ -71,7 +89,8 @@ const buttons = (context, callback, cw, ch) => {
 			)
 		}
 
-		setText(context)
+		context.shadowBlur = 0;
+		callback.setText(context, cw / 6 * 4, options)
 		context.fillText(
 			questions[i][0],
 			cw / 2,
@@ -88,18 +107,24 @@ const buttons = (context, callback, cw, ch) => {
 			ref: questions[i]
 		})
 	}
-
 	callback.state.quizButtons = buttonLocations;
 }
 
 const titleText = (context, callback, cw, ch) => {
 
-	context.globalAlpha = 1;
-	context.font = "64px Courier";
-	context.fillStyle = "#FFFFFF";
-	context.textAlign = "center";
-	context.textBaseline = "middle";
-	context.fillText(callback.state.quiz.questions[callback.state.questionNumber].question, cw / 2, ch / 12);
+	const questionText = callback.state.quiz.questions[callback.state.questionNumber].question
+
+	let options = {
+		text: questionText,
+		color: "dark",
+		font: "normal",
+		size: 1,
+		get: false
+	}
+	
+	callback.setText(context, cw, options);
+
+	context.fillText(questionText, cw / 2, ch / 12 * 1.5);
 
 }
 

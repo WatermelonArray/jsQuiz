@@ -22,9 +22,9 @@ const buttons = (context, callback, cw, ch) => {
 
 	let buttonLocations = [];
 
+	context.globalAlpha = 0.75;
 	context.shadowBlur = "16";
 	context.shadowColor = "rgba(0, 0, 0, 0.4)";
-	context.globalAlpha = 0.75;
 
 	// quizes
 	context.fillStyle = "#FF0000";

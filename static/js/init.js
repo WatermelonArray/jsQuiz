@@ -3,16 +3,17 @@
 // for future reference: https://softwareengineering.stackexchange.com/questions/119181/what-type-of-encoding-can-i-use-to-make-a-string-shorter
 //import {questionAnswer, questionTemplate} from "./jsonClass.js"; // for compiling to json (custom quizes in the future)
 
-// setup core modules
+// fetch API
+import {setText} from "./api/text.js";
+import {checkResponsive} from "./api/responsive.js";
+
+// fetch core modules
 import {setLogic} from "./core/logic.js"; // the logic for handling quiz logic
 import {setRender, switchAnim, setQuiz} from "./core/render.js"; // the renderer for the game
 import {setupInput} from "./core/inputHandler.js"; // input handling for the game
 
 // debug module
 import {logQuizData} from "./core/debugger.js"; // only for debugging purposes
-
-// variable
-
 
 // setup callback
 const callback = {
@@ -54,6 +55,11 @@ const callback = {
 	newQuestion: setQuiz
 }
 
+// setup api
+
+callback.setText = setText;
+callback.checkResponsive = checkResponsive;
+
 // start game
 setLogic(callback);
 setupInput(callback);
@@ -68,6 +74,6 @@ let x = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
 callback.state.quiz = await x.json();
 
 //console.log(callback)
-logQuizData(callback);
+//logQuizData(callback);
 setQuiz(callback);
 setRender(callback); // start running renderer
