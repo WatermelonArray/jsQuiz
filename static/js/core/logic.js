@@ -1,7 +1,19 @@
 "use strict";
+// functions
+const setQuiz = (callback) => {
+
+	let a = [];
+	for (let i = 0; i < Object.keys(callback.state.quiz.questions[callback.state.questionNumber].answers).length; i++) {
+		a.push(callback.state.quiz.questions[callback.state.questionNumber].answers[i].description);
+	}
+	callback.state.answerList = a;
+
+}
 
 // method
 const setLogic = (callback) => {
+
+	callback.newQuestion = setQuiz;
 
 	callback.calcAnswer = (x) => {
 		if (callback.state.allowAnswer && callback.state.page == "game") {

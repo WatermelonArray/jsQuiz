@@ -6,7 +6,7 @@ import {titleAnimation} from "../src/title.js"; // title animation
 import {menuAnimation} from "../src/menu.js"; // menu animation
 import {helpAnimation} from "../src/help.js" // help animation
 import {editorAnimation} from "../src/editor.js"; // editor animation
-import {gameAnimation, setQuiz} from "../src/game.js"; // game animation
+import {gameAnimation} from "../src/game.js"; // game animation
 import {answerAnimation} from "../src/questionAnswer.js"; // answer animation
 import {resultAnimation} from "../src/result.js"; // result animation
 
@@ -91,4 +91,4 @@ const draw = () => {
 
 const setRender = (x) => {callback = x; draw();}
 
-export {setRender, switchAnim, setQuiz};
+export {setRender, switchAnim};

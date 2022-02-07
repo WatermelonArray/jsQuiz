@@ -9,7 +9,7 @@ import {checkResponsive} from "./api/responsive.js";
 
 // fetch core modules
 import {setLogic} from "./core/logic.js"; // the logic for handling quiz logic
-import {setRender, switchAnim, setQuiz} from "./core/render.js"; // the renderer for the game
+import {setRender, switchAnim} from "./core/render.js"; // the renderer for the game
 import {setupInput} from "./core/inputHandler.js"; // input handling for the game
 import {musicPlay} from "./core/audio.js"; // audio system for the game
 
@@ -33,6 +33,7 @@ const callback = {
 		// quiz data
 		quiz: undefined,
 		questionNumber: 1,
+		answerList: [],
 		score: 0,
 		answerResponse: 0, // 0: no answer, 1: wrong answer, 2: right answer
 		buttons: [],
@@ -47,7 +48,6 @@ const callback = {
 		else if (x == "game") {this.setMusic("quiz");}
 		switchAnim(x);
 	},
-	newQuestion: setQuiz
 }
 
 // setup api
@@ -66,7 +66,6 @@ callback.setMusic("title")
 let x = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
 callback.state.quiz = await x.json();
 
-//console.log(callback)
-//logQuizData(callback);
-setQuiz(callback);
+//logQuizData(callback); // debug
+callback.newQuestion(callback);
 setRender(callback); // start running renderer
