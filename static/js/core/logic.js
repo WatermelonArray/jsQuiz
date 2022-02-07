@@ -17,6 +17,7 @@ const setLogic = (callback) => {
 
 	callback.calcAnswer = (x) => {
 		if (callback.state.allowAnswer && callback.state.page == "game") {
+			console.log(x)
 			if (x) {
 				callback.state.answerResponse = 2;
 				callback.state.score++;
@@ -25,22 +26,25 @@ const setLogic = (callback) => {
 				callback.state.answerResponse = 1;
 			}
 			callback.state.allowAnswer = false;
+			callback.changePage("answer")
 			setTimeout(function() {
-				callback.state.answerResponse = 0;
+				
 				callback.state.questionNumber++;
 				const limit = callback.state.questionNumber > Object.keys(callback.state.quiz.questions).length;
 				if (limit) {
 					callback.state.allowAnswer = true;
 					callback.state.questionNumber = 1;
-					callback.state.answerResponse = 1;
+					callback.state.answerResponse = 0;
 					callback.changePage("result");
 					callback.newQuestion(callback); // just reset question system
 				}
 				else {
 					callback.newQuestion(callback);
+					callback.changePage("game")
+					callback.state.answerResponse = 0;
 					callback.state.allowAnswer = true;
 				}
-			}, 2*10);
+			}, 4*1000);
 		}
 	}
 

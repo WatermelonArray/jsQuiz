@@ -2,7 +2,9 @@
 
 const background = (context, callback, cw, ch) => {
 
-	if (callback.state.answerResponse == 2 || callback.state.answerResponse == 0) {context.fillStyle = "#6e9632";}
+	console.log(callback.state.answerResponse)
+
+	if (callback.state.answerResponse == 2) {context.fillStyle = "#6e9632";}
 	if (callback.state.answerResponse == 1 || callback.state.answerResponse == 0) {context.fillStyle = "#963331";}
 
 	context.globalAlpha = 1;
@@ -21,23 +23,36 @@ const text = (context,callback, cw, ch) => {
 
 	callback.setText(context, cw, options);
 
-	if (callback.state.answerResponse == 2) {
-
-		context.fillText("Wrong answer", cw / 2, ch / 6 * 2);
+	if (callback.state.answerResponse == 1 || callback.state.answerResponse == 0) {
 
 		options.size = 3;
 		options.text = "You chose:"
 		callback.setText(context, cw, options);
-		context.fillText("You chose: ", cw / 2, ch / 6 * 2.5);
+		context.fillText("You chose: ", cw / 2, ch / 6 * 2);
 
 		options.size = 2;
 		options.text = "ANSWER";
 		options.font = "normal";
 		callback.setText(context, cw, options);
-		context.fillText("ANSWER", cw / 2, ch / 6 * 2);
+		context.fillText("ANSWER", cw / 2, ch / 6 * 2.5);
+
+		options.size = 3;
+		options.text = "Correct answer:"
+		callback.setText(context, cw, options);
+		context.fillText("You chose: ", cw / 2, ch / 6 * 3.5);
+
+		options.size = 2;
+		options.text = "CORRECT ANSWER";
+		options.font = "normal";
+		callback.setText(context, cw, options);
+		context.fillText("ANSWER", cw / 2, ch / 6 * 4);
+
 	}
 
-	else {context.fillText("Well done!", cw / 2, ch / 2);}
+	else {
+		options.fontz
+		context.fillText("Well done!", cw / 2, ch / 2);
+	}
 
 }
 
@@ -51,7 +66,7 @@ const titleText = (context, callback, cw, ch) => {
 	}
 	
 	callback.setText(context, cw, options);
-	if (callback.state.answerResponse == 2) {context.fillText("Wrong Answer", cw / 2, ch / 12 * 1.5);}
+	if (callback.state.answerResponse == 1 || callback.state.answerResponse == 0) {context.fillText("Wrong Answer", cw / 2, ch / 12 * 1.5);}
 	else {context.fillText("Right Answer", cw / 2, ch / 12 * 1.5);}
 
 }
