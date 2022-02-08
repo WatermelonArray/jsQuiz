@@ -42,6 +42,7 @@ const callback = {
 		quizbuttons: []
 	},
 
+	lerp: function(t, a, b) {return ((1 - t) * a) + (t * b);}, // standard linear interpolation
 	setMusic: musicPlay,
 	changePage: function(x) {
 		this.state.page = x;

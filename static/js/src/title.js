@@ -14,24 +14,14 @@ const background = (context, cw, ch) => {
 
 }
 
-let barSize = -60; // negative means frames AFTER start of renderer
-let c_barSize = 0;
-const bar = (context, cw, ch) => {
-
-	if (barSize < 8 && barSize > 0) {
-		barSize++;
-		c_barSize = barSize;
-	}
-	if (barSize <= 0) {
-		barSize++;
-	}
+const bar = (context, callback, cw, ch) => {
 
 	context.fillStyle = "#000000";
 	context.globalAlpha = 0.75;
 	context.fillRect(
-		(cw / 2) - ((cw / 16) * c_barSize),
+		0,
 		(ch / 2) - 100,
-		(cw / 8) * c_barSize,
+		callback.lerp(2/time, cw, 0) + 100,
 		200
 	);
 
@@ -82,15 +72,19 @@ const text = (context, cw, ch) => {
 }
 
 // Method
-function titleAnimation(canvas, context) {
+let time = 0;
+const titleAnimation = (canvas, context, callback) => {
 
 	const cw = canvas.width;
 	const ch = canvas.height;
 
 	background(context, cw, ch);
-	bar(context, cw, ch);
+	time++;
+	bar(context, callback, cw, ch);
 	mainText(context, cw, ch);
 	text(context, cw, ch);
+	
+	
 }
 
 // Export

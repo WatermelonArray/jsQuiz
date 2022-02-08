@@ -1,7 +1,7 @@
 "use strict";
 
 // load animation pages
-import {transitionIn, transitionOut} from "../src/transition.js"; // transition animation
+//import {transitionIn, transitionOut} from "../src/transition.js"; // transition animation
 import {titleAnimation} from "../src/title.js"; // title animation
 import {menuAnimation} from "../src/menu.js"; // menu animation
 import {helpAnimation} from "../src/help.js" // help animation

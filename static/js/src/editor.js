@@ -42,7 +42,7 @@ const mainText = (context, callback, cw, ch) => {
 }
 
 // Method
-function editorAnimation(canvas, context, callback) {
+const editorAnimation = (canvas, context, callback) => {
 
 	const cw = canvas.width;
 	const ch = canvas.height;
