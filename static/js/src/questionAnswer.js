@@ -2,7 +2,7 @@
 
 const background = (context, callback, cw, ch) => {
 
-	console.log(callback.state.answerResponse)
+	//console.log(callback.state.answerResponse)
 
 	if (callback.state.answerResponse == 2) {context.fillStyle = "#6e9632";}
 	if (callback.state.answerResponse == 1 || callback.state.answerResponse == 0) {context.fillStyle = "#963331";}
@@ -12,13 +12,118 @@ const background = (context, callback, cw, ch) => {
 
 }
 
-const text = (context,callback, cw, ch) => {
+const buttons = (context, callback, cw, ch) => {
+	
+	let buttonLocations = [];
+
+	let options = {
+		font: "light",
+		color: "mono",
+		size: 1
+	}
+
+	context.shadowBlur = "16";
+	
+	context.shadowColor = "rgba(0, 0, 0, 0.4)";
+
+	context.fillStyle = "#222222";
+
+	if (callback.state.answerResponse == 1 | callback.state.answerResponse == 0) {context.fillStyle = "#eeeeee";}
+
+	
+	
+	context.shadowBlur = "0";
+
+	if (callback.state.answerResponse == 1 | callback.state.answerResponse == 0) {options.color = "dark"}
+	else {options.color = "white"}
+
+	
+	
+
+	if (callback.state.questionNumber + 1 > Object.keys(callback.state.quiz.questions).length) {
+
+		context.fillRect(
+			cw / 6 * 2.5,
+			ch / 6 * 5,
+			cw / 6,
+			ch / 6 * 0.5
+		);
+
+		callback.setText(context, cw / 6, options);
+		context.fillText(
+			"Finish Quiz",
+			cw / 2,
+			ch / 12 * 10.5
+		);
+
+		buttonLocations.push({
+		loc: {
+			x0: cw / 6 * 2.5,
+			x1: (cw / 6 * 2.5) + (cw / 6),
+			y0: ch / 6 * 5,
+			y1: (ch / 6 * 5) + (ch / 6 * 0.5)
+		},
+		ref: "nextQuestion"
+		})
+	}
+	else {
+
+		context.fillRect(
+			cw / 6,
+			ch / 6 * 5,
+			cw / 6 * 1.5,
+			ch / 6 * 0.5
+		);
+
+		context.fillRect(
+			cw / 6 * 3.5,
+			ch / 6 * 5,
+			cw / 6 * 1.5,
+			ch / 6 * 0.5
+		);
+
+		callback.setText(context, cw / 6, options);
+		context.fillText(
+		"Main Menu",
+			cw / 12 * 3.5,
+			ch / 12 * 10.5
+		);
+		context.fillText(
+			"Next Question",
+			cw / 12 * 8.5,
+			ch / 12 * 10.5
+		);
+
+		buttonLocations.push({
+			loc: {
+				x0: cw / 6,
+				x1: (cw / 6) + (cw / 6 * 1.5),
+				y0: ch / 6 * 5,
+				y1: (ch / 6 * 5) + (ch / 6 * 0.5)
+			},
+			ref: "menu"
+		});
+		buttonLocations.push({
+			loc: {
+				x0: cw / 6 * 3.5,
+				x1: (cw / 6 * 3.5) + (cw / 6 * 1.5),
+				y0: ch / 6 * 5,
+				y1: (ch / 6 * 5) + (ch / 6 * 0.5)
+			},
+			ref: "nextQuestion"
+		})
+	}
+
+	callback.state.buttons = buttonLocations;
+}
+
+const text = (context, callback, cw, ch) => {
 
 	let options = {
 		text: "Wrong Answer",
 		color: "white",
 		font: "light",
-		size: 2,
+		size: 2
 	}
 
 	callback.setText(context, cw, options);
@@ -31,21 +136,21 @@ const text = (context,callback, cw, ch) => {
 		context.fillText("You chose: ", cw / 2, ch / 6 * 2);
 
 		options.size = 2;
-		options.text = "ANSWER";
+		options.text = callback.state.answerText;
 		options.font = "normal";
 		callback.setText(context, cw, options);
-		context.fillText("ANSWER", cw / 2, ch / 6 * 2.5);
+		context.fillText(callback.state.answerText, cw / 2, ch / 6 * 2.5);
 
 		options.size = 3;
 		options.text = "Correct answer:"
 		callback.setText(context, cw, options);
-		context.fillText("You chose: ", cw / 2, ch / 6 * 3.5);
+		context.fillText("Correct answer: ", cw / 2, ch / 6 * 3.5);
 
 		options.size = 2;
-		options.text = "CORRECT ANSWER";
+		options.text = callback.state.correctAnswer;
 		options.font = "normal";
 		callback.setText(context, cw, options);
-		context.fillText("ANSWER", cw / 2, ch / 6 * 4);
+		context.fillText(callback.state.correctAnswer, cw / 2, ch / 6 * 4);
 
 	}
 
@@ -62,7 +167,7 @@ const titleText = (context, callback, cw, ch) => {
 		text: "Wrong Answer",
 		color: "white",
 		font: "light",
-		size: 1,
+		size: 1
 	}
 	
 	callback.setText(context, cw, options);
@@ -78,6 +183,7 @@ const answerAnimation = (canvas, context, callback) => {
 
 	background(context, callback, cw, ch);
 	text(context, callback, cw, ch);
+	buttons(context, callback, cw, ch);
 	titleText(context, callback, cw, ch);
 }
 

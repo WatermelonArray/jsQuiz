@@ -1,13 +1,42 @@
 "use strict";
+
 // functions
+const findAnswers = (callback) => {
+
+	const currentQuestions = callback.state.quiz.questions[callback.state.questionNumber].answers
+
+	let result = "";
+
+	for (let i = 0; i < Object.keys(currentQuestions).length; i++) {
+
+		if (currentQuestions[i].isAnswer) {
+			result = result + currentQuestions[i].description
+		}
+	}
+
+	return result;
+}
+
 const setQuiz = (callback) => {
 
-	let a = [];
-	for (let i = 0; i < Object.keys(callback.state.quiz.questions[callback.state.questionNumber].answers).length; i++) {
-		a.push(callback.state.quiz.questions[callback.state.questionNumber].answers[i].description);
+	console.log(callback.state.questionNumber + 1)
+	if (callback.state.questionNumber + 1 > Object.keys(callback.state.quiz.questions).length) {
+		callback.state.questionNumber = 0;
+		callback.state.answerResponse = 0;
+		callback.state.allowAnswer = true;
+		callback.changePage("result");
 	}
-	callback.state.answerList = a;
-
+	else {
+		callback.state.questionNumber++;
+		let a = [];
+		for (let i = 0; i < Object.keys(callback.state.quiz.questions[callback.state.questionNumber].answers).length; i++) {
+			a.push(callback.state.quiz.questions[callback.state.questionNumber].answers[i].description);
+		}
+		callback.state.answerResponse = 0;
+		callback.state.allowAnswer = true;
+		callback.state.answerList = a;
+		callback.changePage("game");
+	}
 }
 
 // method
@@ -15,36 +44,20 @@ const setLogic = (callback) => {
 
 	callback.newQuestion = setQuiz;
 
-	callback.calcAnswer = (x) => {
+	callback.calcAnswer = (x, y) => {
 		if (callback.state.allowAnswer && callback.state.page == "game") {
-			console.log(x)
-			if (x) {
+			//console.log(y, x)
+			if (y) {
 				callback.state.answerResponse = 2;
 				callback.state.score++;
 			}
 			else {
+				callback.state.correctAnswer = findAnswers(callback);
+				callback.state.answerText = x;
 				callback.state.answerResponse = 1;
 			}
 			callback.state.allowAnswer = false;
-			callback.changePage("answer")
-			setTimeout(function() {
-				
-				callback.state.questionNumber++;
-				const limit = callback.state.questionNumber > Object.keys(callback.state.quiz.questions).length;
-				if (limit) {
-					callback.state.allowAnswer = true;
-					callback.state.questionNumber = 1;
-					callback.state.answerResponse = 0;
-					callback.changePage("result");
-					callback.newQuestion(callback); // just reset question system
-				}
-				else {
-					callback.newQuestion(callback);
-					callback.changePage("game")
-					callback.state.answerResponse = 0;
-					callback.state.allowAnswer = true;
-				}
-			}, 4*1000);
+			callback.changePage("answer");
 		}
 	}
 

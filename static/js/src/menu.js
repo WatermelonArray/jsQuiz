@@ -97,7 +97,7 @@ const buttons = (context, callback, cw, ch) => {
 				y0: ch / 6 * 1.5,
 				y1: (ch / 6 * 1.5) + (ch / 6)
 			},
-			ref: "game"
+			ref: "nextQuestion"
 		});
 		buttonLocations.push({ // editor
 			loc: {
@@ -129,7 +129,7 @@ const buttons = (context, callback, cw, ch) => {
 				y0: (ch / 12 * 2),
 				y1: (ch / 12 * 2) + (ch / 12 * 5)
 			},
-			ref: "game"
+			ref: "nextQuestion"
 		})
 		buttonLocations.push({ // editor
 			loc: {

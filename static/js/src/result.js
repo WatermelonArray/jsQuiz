@@ -86,7 +86,7 @@ const buttons = (context, callback, cw, ch) => {
 			y0: (ch / 6 * 4.5),
 			y1: (ch / 6 * 4.5) + (ch / 6)
 		},
-		ref: "game"
+		ref: "nextQuestion"
 	})
 	callback.state.buttons = buttonLocations;
 }

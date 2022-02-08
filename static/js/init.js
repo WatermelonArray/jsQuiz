@@ -32,13 +32,16 @@ const callback = {
 
 		// quiz data
 		quiz: undefined,
-		questionNumber: 1,
+		questionNumber: 0,
 		answerList: [],
 		score: 0,
 		answerResponse: 0, // 0: no answer, 1: wrong answer, 2: right answer
+		answerText: "",
+		correctAnswer: "",
 		buttons: [],
 		quizbuttons: []
 	},
+
 	setMusic: musicPlay,
 	changePage: function(x) {
 		this.state.page = x;
@@ -46,6 +49,7 @@ const callback = {
 		else if (x == "title") {this.setMusic("title");}
 		else if (x == "result") {this.setMusic("result");}
 		else if (x == "game") {this.setMusic("quiz");}
+		else if (x == "answer") {this.setMusic();}
 		switchAnim(x);
 	},
 }
@@ -59,7 +63,7 @@ callback.checkResponsive = checkResponsive;
 setLogic(callback);
 setupInput(callback);
 setRender(callback);
-callback.setMusic("title")
+callback.setMusic("title");
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // https://developer.mozilla.org/en-US/docs/Web/API/Request/json
@@ -67,5 +71,5 @@ let x = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
 callback.state.quiz = await x.json();
 
 //logQuizData(callback); // debug
-callback.newQuestion(callback);
+//callback.newQuestion(callback);
 setRender(callback); // start running renderer

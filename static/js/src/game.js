@@ -41,6 +41,7 @@ const buttons = (context, callback, cw, ch) => {
 
 		context.shadowBlur = "16";
 		context.shadowColor = "rgba(0, 0, 0, 0.4)";
+
 		context.fillStyle = "#444444"
 
 		if (callback.state.responsive) {

@@ -45,6 +45,7 @@ const handleInput = (input, callback) => {
 			callback.changePage("title");
 		}
 		else if (page == "game" || page == "help" || page == "editor") {
+			if (page == "game") {callback.state.questionNumber = 0;}
 			callback.changePage("menu");
 		}
 	}
@@ -56,17 +57,23 @@ const handleInputPosition = (input, callback) => {
 
 		const [result, question] = checkMouseOverQuiz({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
 
+		const questionRef = callback.state.quiz.questions[callback.state.questionNumber].answers[question]
+		console.log(callback.state.quiz.questions)
 		if (result) {
-			callback.calcAnswer(callback.state.quiz.questions[callback.state.questionNumber].answers[question].isAnswer);
+			callback.calcAnswer(questionRef.description, questionRef.isAnswer);
 		}
 	}
-	else if (callback.state.page == "result" || callback.state.page == "menu" || callback.state.page == "help") {
+	else if (callback.state.page == "result" || callback.state.page == "menu" || callback.state.page == "help" || callback.state.page == "answer") {
 
 		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
 
 		if (result) {
-			callback.state.score = 0;
-			callback.changePage(buttonType);
+			if (buttonType == "nextQuestion") {callback.newQuestion(callback);}
+			else if (buttonType == "menu") {callback.state.questionNumber = 0; callback.state.score = 0; callback.changePage(buttonType);}
+			else {
+				callback.state.score = 0;
+				callback.changePage(buttonType);
+			}
 		}
 	}
 	else if (callback.state.page == "title") {
