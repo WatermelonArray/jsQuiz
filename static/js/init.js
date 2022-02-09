@@ -3,24 +3,24 @@
 // for future reference: https://softwareengineering.stackexchange.com/questions/119181/what-type-of-encoding-can-i-use-to-make-a-string-shorter
 //import {questionAnswer, questionTemplate} from "./jsonClass.js"; // for compiling to json (custom quizes in the future)
 
-// fetch API
-import {setText} from "./api/text.js";
-import {checkResponsive} from "./api/responsive.js";
-
 // fetch core modules
-import {setLogic} from "./core/logic.js"; // the logic for handling quiz logic
-import {setRender, switchAnim} from "./core/render.js"; // the renderer for the game
+import {setupLogic} from "./core/logic.js"; // the logic for handling quiz logic
+import {setupRender} from "./core/render.js"; // the renderer for the game
 import {setupInput} from "./core/inputHandler.js"; // input handling for the game
-import {musicPlay} from "./core/audio.js"; // audio system for the game
+import {setupAudio} from "./core/audio.js"; // audio system for the game
 
 // debug module
 import {logQuizData} from "./core/debugger.js"; // only for debugging purposes
 
+// fetch API
+import {api_checkResponsive} from "./api/responsive.js";
+import {api_setText} from "./api/text.js";
+import {api_udim, api_udim2} from "./api/udim.js";
+import {api_lerp} from "./api/lerp.js"
+
 // setup callback
 const callback = {
-
 	state: {
-
 		// page data
 		page: "title",
 		allowInput: true,
@@ -33,45 +33,39 @@ const callback = {
 		// quiz data
 		quiz: undefined,
 		questionNumber: 0,
-		answerList: [],
 		score: 0,
 		answerResponse: 0, // 0: no answer, 1: wrong answer, 2: right answer
 		answerText: "",
 		correctAnswer: "",
+		answerList: [],
 		buttons: [],
 		quizbuttons: []
 	},
-
 	resetFuncs: {},
-	lerp: function(t, a, b) {return ((1 - t) * a) + (t * b);}, // standard linear interpolation
-	setMusic: musicPlay,
-	changePage: function(x) {
-		this.state.page = x;
-		if (x == "menu") {this.setMusic("idle");}
-		else if (x == "title") {this.setMusic("title");}
-		else if (x == "result") {this.setMusic("result");}
-		else if (x == "game") {this.setMusic("quiz");}
-		else if (x == "answer") {this.setMusic();}
-		switchAnim(x);
-	},
+	enum: {}
+}
+
+// initialize
+const init = (x) => {
+	setupLogic(x);
+	setupInput(x);
+	setupRender(x);
+	setupAudio(x);
 }
 
 // setup api
+callback.setText = api_setText;
+callback.checkResponsive = api_checkResponsive;
+callback.lerp = api_lerp;
+callback.enum.udim = api_udim;
+callback.enum.udim2 = api_udim2;
 
-callback.setText = setText;
-callback.checkResponsive = checkResponsive;
-
-// start game
-setLogic(callback);
-setupInput(callback);
-setRender(callback);
-callback.setMusic("title");
-
+// fetch quiz json
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // https://developer.mozilla.org/en-US/docs/Web/API/Request/json
 let x = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
 callback.state.quiz = await x.json();
 
-//logQuizData(callback); // debug
-//callback.newQuestion(callback);
-setRender(callback); // start running renderer
+// start game
+init(callback);
+callback.setMusic("title");

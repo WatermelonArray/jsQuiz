@@ -17,7 +17,7 @@ let currentAnim = titleAnimation;
 let callback = undefined;
 
 // functions
-const switchAnim = (x) => {
+const loadAnimation = (x) => {
 
 	if (x == "title") {
 		currentAnim = titleAnimation;
@@ -50,8 +50,8 @@ const switchAnim = (x) => {
 
 }
 
-
-const draw = () => {
+// method
+const draw = (step) => {
 	
 	// set the canvas size every frame
 	canvas.width = window.innerWidth;
@@ -89,6 +89,18 @@ const draw = () => {
 
 }
 
-const setRender = (x) => {callback = x; draw();}
+const setupRender = (x) => {
+	callback = x; // quick reference for draw() module
+	callback.changePage = function(x) {
+		this.state.page = x;
+		if (x == "menu") {this.setMusic("idle");}
+		else if (x == "title") {this.setMusic("title");}
+		else if (x == "result") {this.setMusic("result");}
+		else if (x == "game") {this.setMusic("quiz");}
+		else if (x == "answer") {this.setMusic();}
+		loadAnimation(x);
+	}
+	draw();
+}
 
-export {setRender, switchAnim};
+export {setupRender};

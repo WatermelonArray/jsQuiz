@@ -24,4 +24,7 @@ class udim2 {
 	}
 }
 
-export {udim, udim2};
+const api_udim = udim
+const api_udim2 = udim2
+
+export {api_udim, api_udim2};

@@ -23,9 +23,7 @@ const fonts = {
 	mono: "Liberation Mono"
 }
 
-// functions
-
-const setText = (context, cw, options) => {
+const api_setText = (context, cw, options) => {
 
 	context.globalAlpha = options.alpha || 1;
 	context.textAlign = options.align || "center";
@@ -43,4 +41,4 @@ const setText = (context, cw, options) => {
 	}
 }
 
-export {setText};
+export {api_setText};

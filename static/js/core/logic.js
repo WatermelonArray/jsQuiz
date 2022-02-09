@@ -40,7 +40,7 @@ const setQuiz = (callback) => {
 }
 
 // method
-const setLogic = (callback) => {
+const setupLogic = (callback) => {
 
 	callback.newQuestion = setQuiz;
 
@@ -63,4 +63,4 @@ const setLogic = (callback) => {
 
 }
 
-export {setLogic};
+export {setupLogic};

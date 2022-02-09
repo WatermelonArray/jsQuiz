@@ -32,4 +32,8 @@ const musicPlay = (x) => {
 
 }
 
-export {musicPlay};
+const setupAudio = (callback) => {
+	callback.setMusic = musicPlay;
+}
+
+export {setupAudio};

@@ -1,7 +1,9 @@
 "use strict";
 
+// Variables
 let time = 0;
 let delay = 60;
+let flash = 0;
 
 // Animation rendering
 let hslColor = [0, 20, 50];
@@ -39,7 +41,7 @@ const mainText = (context, callback, cw, ch) => {
 		color: "white",
 		size: 1,
 		text: "JavaScript Quiz Game"
-	}
+	};
 	if (time > 60 + delay) {
 		callback.setText(context, cw / 6 * 5, options)
 		context.fillText("JavaScript Quiz Game",
@@ -53,14 +55,13 @@ const mainText = (context, callback, cw, ch) => {
 	}
 }
 
-let flash = 0
 const text = (context, callback, cw, ch) => {
 	let options = {
 		font: "mono",
 		color: "white",
 		size: 4,
 		text: "Pres Start To Play"
-	}
+	};
 	if (time > 180 + delay) {
 		flash++;
 		if (flash < 30) {
@@ -80,11 +81,10 @@ const text = (context, callback, cw, ch) => {
 const titleAnimation = (canvas, context, callback) => {
 
 	if (callback.resetFuncs.title == undefined) {callback.resetFuncs.title = function() {time = 0; flash = 0; console.log('e')}}
-
+	
+	time++;
 	const cw = canvas.width;
 	const ch = canvas.height;
-
-	time++;
 
 	background(context, cw, ch);
 	bar(context, callback, cw, ch);
