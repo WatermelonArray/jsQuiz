@@ -80,7 +80,8 @@ const text = (context, callback, cw, ch) => {
 // Method
 const titleAnimation = (canvas, context, callback) => {
 
-	if (callback.resetFuncs.title == undefined) {callback.resetFuncs.title = function() {time = 0; flash = 0; console.log('e')}}
+	// reset
+	if (callback.resetFuncs.title == undefined) {callback.resetFuncs.title = function() {time = 0; flash = 0;}}
 	
 	time++;
 	const cw = canvas.width;

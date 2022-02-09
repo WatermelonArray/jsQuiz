@@ -27,6 +27,8 @@ const callback = {
 		transition: false,
 		allowAnswer: true,
 		sound: true,
+		transition: "",
+		transitionTo: "",
 		responsive: true,
 		small: false,
 

@@ -9,6 +9,7 @@ import {editorAnimation} from "../src/editor.js"; // editor animation
 import {gameAnimation} from "../src/game.js"; // game animation
 import {answerAnimation} from "../src/questionAnswer.js"; // answer animation
 import {resultAnimation} from "../src/result.js"; // result animation
+import {transitionSet} from "../src/transition.js";
 
 // variables
 let canvas = document.getElementById("gameCanvas");
@@ -41,13 +42,6 @@ const loadAnimation = (x) => {
 		currentAnim = editorAnimation;
 	}
 
-	if (x == "menuTransitionOut") {
-		currentAnim = [menuAnimation, [transitionIn, "levelSelectIn"]];
-	}
-	if (x == "levelSelectIn") {
-		currentAnim = [gameAnimation, transitionOut]
-	}
-
 }
 
 // method
@@ -66,21 +60,9 @@ const draw = (step) => {
 	//console.log(callback.state.responsive)
 	// run current page
 	currentAnim(canvas, context, callback);
+
+	transitionSet(canvas, context, callback);
 	
-	/* if (Array.isArray(currentAnim)) {
-		for (let i = 0; i < currentAnim.length; i++) {
-			//console.log(currentAnim[i])
-			if (Array.isArray(currentAnim[i])) {
-				currentAnim[i][0](canvas, context, switchAnim, currentAnim[i][1]);
-			}
-			else {
-				currentAnim[i](canvas, context);
-			}
-		}
-	}
-	else {
-		currentAnim(canvas, context, callbackFunc, checkResponsive);
-	} */
 	
 	// solution for looping per frame correctly:
 	// https://spicyyoghurt.com/tutorials/html5-javascript-game-development/create-a-proper-game-loop-with-requestanimationframe

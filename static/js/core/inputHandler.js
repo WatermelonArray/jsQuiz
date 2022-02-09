@@ -34,19 +34,26 @@ const handleInput = (input, callback) => {
 
 	if (input == "forward") {
 		if (page == "title") {
-			callback.changePage("menu");
+			callback.state.allowInput = false;
+			callback.resetFuncs.transition();
+			callback.state.transition = "fade"
+			callback.state.transitionTo = "menu"
 		}
-//		else if (page == "menu") {
-//			callback.changePage("game");
-//		}
 	}
 	else if (input == "back") {
 		if (page == "menu") {
-			callback.changePage("title");
+			callback.state.allowInput = false;
+			callback.resetFuncs.transition();
+			callback.resetFuncs.title();
+			callback.state.transition = "fade"
+			callback.state.transitionTo = "title"
 		}
 		else if (page == "game" || page == "help" || page == "editor") {
 			if (page == "game") {callback.state.questionNumber = 0;}
-			callback.changePage("menu");
+			callback.state.allowInput = false;
+			callback.resetFuncs.transition();
+			callback.state.transition = "swipe"
+			callback.state.transitionTo = "menu"
 		}
 	}
 }
@@ -69,10 +76,22 @@ const handleInputPosition = (input, callback) => {
 
 		if (result) {
 			if (buttonType == "nextQuestion") {callback.newQuestion(callback);}
-			else if (buttonType == "menu") {callback.state.questionNumber = 0; callback.state.score = 0; callback.changePage(buttonType);}
-			else {
+			else if (buttonType == "menu") {
+				callback.state.questionNumber = 0;
 				callback.state.score = 0;
-				callback.changePage(buttonType);
+				callback.state.allowInput = false;
+				callback.resetFuncs.transition();
+				callback.state.transition = "swipe";
+				callback.state.transitionTo = buttonType;
+			}
+			else {
+				callback.state.allowInput = false;
+				callback.resetFuncs.transition();
+				callback.state.transition = "swipe";
+				callback.state.transitionTo = buttonType;
+				callback.state.score = 0;
+				//callback.changePage(buttonType);
+				
 			}
 		}
 	}
@@ -85,7 +104,7 @@ const handleInputPosition = (input, callback) => {
 let debounce = false;
 const mouse = (callback) => {
 	document.addEventListener("mousedown", function(input) {
-		if (input.button == 0 ) {
+		if (callback.state.allowInput && input.button == 0 ) {
 			handleInputPosition(input, callback);
 		}
 	})
@@ -93,8 +112,10 @@ const mouse = (callback) => {
 
 const keyboard = (callback) => {
 	document.addEventListener("keydown", function(input) {
-		if (input.key == "Enter") {handleInput("forward", callback);}
-		if (input.key == "Backspace") {handleInput("back", callback);}
+		if (callback.state.allowInput) {
+			if (input.key == "Enter") {handleInput("forward", callback);}
+			if (input.key == "Backspace") {handleInput("back", callback);}
+		}
 	})
 }
 
@@ -102,7 +123,9 @@ const touch = (callback) => {
 	document.addEventListener("touchstart", function(input) {
 		//input.preventDefault();
 		//debounce = true;
-		handleInputPosition(input, callback);
+		if (callback.state.allowInput) {
+			handleInputPosition(input, callback);
+		}
 	})
 }
 // method
