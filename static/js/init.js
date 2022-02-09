@@ -42,6 +42,7 @@ const callback = {
 		quizbuttons: []
 	},
 
+	resetFuncs: {},
 	lerp: function(t, a, b) {return ((1 - t) * a) + (t * b);}, // standard linear interpolation
 	setMusic: musicPlay,
 	changePage: function(x) {
