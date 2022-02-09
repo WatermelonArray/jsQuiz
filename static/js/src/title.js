@@ -1,6 +1,7 @@
 "use strict";
 
 let time = 0;
+let delay = 60;
 
 // Animation rendering
 let hslColor = [0, 20, 50];
@@ -16,14 +17,20 @@ const background = (context, cw, ch) => {
 }
 
 const bar = (context, callback, cw, ch) => {
-	context.fillStyle = "#000000";
-	context.globalAlpha = 0.75;
-	context.fillRect(
-		0,
-		(ch / 2) - 100,
-		callback.lerp(2/time, cw, 0) + 100,
-		200
-	);
+	if (time > delay) {
+		context.fillStyle = "#000000";
+		context.globalAlpha = 0.75;
+		context.fillRect(
+			0,
+			(ch / 2) - 100,
+			callback.lerp(
+				2 / (time - delay),
+				cw + 100,
+				0
+			),
+			200
+		);
+	}
 }
 
 const mainText = (context, callback, cw, ch) => {
@@ -33,10 +40,14 @@ const mainText = (context, callback, cw, ch) => {
 		size: 1,
 		text: "JavaScript Quiz Game"
 	}
-	if (time > 60) {
+	if (time > 60 + delay) {
 		callback.setText(context, cw / 6 * 5, options)
 		context.fillText("JavaScript Quiz Game",
-			callback.lerp(1/(time - 60), cw/2, 0),
+			callback.lerp(
+				1 / ((time - delay) - 60),
+				cw / 2,
+				0
+			),
 			ch / 2
 		);
 	}
@@ -50,7 +61,7 @@ const text = (context, callback, cw, ch) => {
 		size: 4,
 		text: "Pres Start To Play"
 	}
-	if (time > 180) {
+	if (time > 180 + delay) {
 		flash++;
 		if (flash < 30) {
 			callback.setText(context, cw / 6 * 4, options)
