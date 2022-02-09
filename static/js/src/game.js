@@ -1,13 +1,5 @@
 "use strict";
 
-// Functions
-let setButtonColor = (x) => {
-	let color = "#222222";
-	if (x == "answer") {color = "#bb0000";}
-	else if (x == "wrong") {color = "#00bb00";}
-	return color;
-}
-
 // Animation rendering
 const background = (context, cw, ch) => {
 
@@ -23,8 +15,8 @@ const buttons = (context, callback, cw, ch) => {
 	let buttonLocations = [];
 
 	let options = {
-		font: "light",
-		color: "mono",
+		font: "mono",
+		color: "light",
 		size: 1
 	}
 

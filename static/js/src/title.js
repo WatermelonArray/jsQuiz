@@ -1,11 +1,12 @@
 "use strict";
 
+let time = 0;
+
 // Animation rendering
 let hslColor = [0, 20, 50];
 const background = (context, cw, ch) => {
 
 	hslColor[0] = hslColor[0] + 0.5;
-
 	if (hslColor[0] > 359) {hslColor[0] = 0;}
 
 	context.globalAlpha = 1;
@@ -15,7 +16,6 @@ const background = (context, cw, ch) => {
 }
 
 const bar = (context, callback, cw, ch) => {
-
 	context.fillStyle = "#000000";
 	context.globalAlpha = 0.75;
 	context.fillRect(
@@ -24,46 +24,40 @@ const bar = (context, callback, cw, ch) => {
 		callback.lerp(2/time, cw, 0) + 100,
 		200
 	);
-
 }
 
-let textLoc = -90;
-let c_textLoc = 0;
-const mainText = (context, cw, ch) => {
-
-	if (textLoc < 16 && textLoc > 0) {
-		textLoc++;
-		c_textLoc = textLoc;
+const mainText = (context, callback, cw, ch) => {
+	let options = {
+		font: "light",
+		color: "white",
+		size: 1,
+		text: "JavaScript Quiz Game"
 	}
-	if (textLoc <= 0) {
-		textLoc++;
+	if (time > 60) {
+		callback.setText(context, cw / 6 * 5, options)
+		context.fillText("JavaScript Quiz Game",
+			callback.lerp(1/(time - 60), cw/2, 0),
+			ch / 2
+		);
 	}
-
-	// menu title
-	context.globalAlpha = 1;
-	context.font = "72px Noto Sans Light";
-	context.fillStyle = "#FFFFFF";
-	context.textAlign = "center";
-	context.textBaseline = "middle";
-	context.fillText("JavaScript Quiz Game",
-		-cw/2 + ((cw/16) * c_textLoc),
-		ch / 2
-	);
 }
 
-let flash =0
-const text = (context, cw, ch) => {
-
-	flash++;
-
-	if (textLoc >= 16) {
+let flash = 0
+const text = (context, callback, cw, ch) => {
+	let options = {
+		font: "mono",
+		color: "white",
+		size: 4,
+		text: "Pres Start To Play"
+	}
+	if (time > 180) {
+		flash++;
 		if (flash < 30) {
-			context.globalAlpha = 1;
-			context.font = "32px Liberation Mono";
-			context.fillStyle = "#FFFFFF";
-			context.textAlign = "center";
-			context.textBaseline = "middle"
-			context.fillText("Press Start To Play", cw/2, (ch/4) * 3);
+			callback.setText(context, cw / 6 * 4, options)
+			context.fillText("Press Start To Play",
+				cw / 2,
+				(ch / 2) + 200
+			);
 		}
 		else if(flash > 60){
 			flash = 0;
@@ -72,19 +66,18 @@ const text = (context, cw, ch) => {
 }
 
 // Method
-let time = 0;
 const titleAnimation = (canvas, context, callback) => {
 
 	const cw = canvas.width;
 	const ch = canvas.height;
 
-	background(context, cw, ch);
 	time++;
+
+	background(context, cw, ch);
 	bar(context, callback, cw, ch);
-	mainText(context, cw, ch);
-	text(context, cw, ch);
-	
-	
+	mainText(context, callback, cw, ch);
+	text(context, callback, cw, ch);
+
 }
 
 // Export
