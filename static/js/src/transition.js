@@ -15,19 +15,19 @@ const fade = (context, callback, cw, ch) => {
 		const transparency = callback.lerp(2 / (time - delay), 1.1, 0);
 		if (transparency > 0) {context.globalAlpha = transparency;}
 		else {context.globalAlpha = 0;}
-		context.fillRect(0, 0, cw, ch)
+		context.fillRect(0, 0, cw, ch);
 	}
 	else if (time > delay && time > (fadeTime + delay)) {
 		if (callback.state.transitionTo != "") {
 			callback.state.allowInput = true;
-			callback.changePage(callback.state.transitionTo)
+			callback.changePage(callback.state.transitionTo);
 			callback.state.transitionTo = "";
 		}
 		
 		const transparency = callback.lerp(2 / ((time - delay) - fadeTime), -0.1, 1)
 		if (transparency > 0) {context.globalAlpha = transparency;}
 		else if (transparency <= 0) {context.globalAlpha = 0}
-		context.fillRect(0, 0, cw, ch)
+		context.fillRect(0, 0, cw, ch);
 	}
 
 }
@@ -42,23 +42,34 @@ const swipe = (context, callback, cw, ch) => {
 	if (time <= swipeTime) {
 		context.fillRect(
 			0,
-			callback.lerp(1 / time, -100, ch),
+			0,
 			cw,
-			ch * 1.2
-		)
+			callback.lerp(2 / time, ch + 100, 0)
+		);
 	}
 	else if (time > swipeTime) {
 		if (callback.state.transitionTo != "") {
 			callback.state.allowInput = true;
-			callback.changePage(callback.state.transitionTo)
+			callback.changePage(callback.state.transitionTo);
 			callback.state.transitionTo = "";
 		}
-		context.fillRect(
-			0,
-			callback.lerp(1 / (time - swipeTime), ch + 100, 0),
-			cw,
-			ch * 1.2
-		)
+		const y = callback.lerp(2 / (time - swipeTime), ch + 100, 0);
+		if (y > 0) {
+			context.fillRect(
+				0,
+				y,
+				cw,
+				ch * 1.2
+			);
+		}
+		else {
+			context.fillRect(
+				0,
+				0,
+				cw,
+				ch
+			);
+		}
 	}
 }
 

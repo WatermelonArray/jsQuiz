@@ -30,7 +30,7 @@ const checkMouseOver = (vec2, arr) => {
 
 const handleInput = (input, callback) => {
 
-	const page = callback.state.page
+	const page = callback.state.page;
 
 	if (input == "forward") {
 		if (page == "title") {
