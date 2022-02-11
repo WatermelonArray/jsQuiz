@@ -57,7 +57,6 @@ const draw = (step) => {
 	// check responsiveness
 	[callback.state.responsive, callback.state.small] = callback.checkResponsive(canvas);
 
-	//console.log(callback.state.responsive)
 	// run current page
 	currentAnim(canvas, context, callback);
 

@@ -26,7 +26,6 @@ const setQuiz = (callback) => {
 		callback.resetFuncs.transition();
 		callback.state.transition = "fade";
 		callback.state.transitionTo = "result";
-		//callback.changePage("result");
 	}
 	else {
 		callback.state.questionNumber++;
@@ -35,13 +34,10 @@ const setQuiz = (callback) => {
 			a.push(callback.state.quiz.questions[callback.state.questionNumber].answers[i].description);
 		}
 		callback.state.allowInput = false;
-		//console.log(callback)
 		callback.resetFuncs.transition();
 		callback.state.transition = "swipe";
 		callback.state.transitionTo = "game";
-		//callback.state.answerResponse = 0;
 		callback.state.answerList = a;
-		//callback.changePage("game");
 	}
 }
 
@@ -52,7 +48,6 @@ const setupLogic = (callback) => {
 
 	callback.calcAnswer = (x, y) => {
 		if (callback.state.allowAnswer && callback.state.page == "game") {
-			//console.log(y, x)
 			if (y) {
 				callback.state.answerResponse = 2;
 				callback.state.score++;
@@ -62,7 +57,6 @@ const setupLogic = (callback) => {
 				callback.state.answerText = x;
 				callback.state.answerResponse = 1;
 			}
-			//callback.state.allowAnswer = false;
 			callback.changePage("answer");
 		}
 	}

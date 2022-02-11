@@ -50,7 +50,7 @@ const swipe = (context, callback, cw, ch) => {
 			callback.changePage(callback.state.transitionTo);
 			callback.state.transitionTo = "";
 			if (callback.state.answerResponse != 0) {
-				callback.state.answerResponse = 0
+				callback.state.answerResponse = 0;
 			}
 		}
 		const y = callback.lerp(2 / (time - swipeTime), ch + 100, 0);

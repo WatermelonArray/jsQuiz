@@ -90,8 +90,6 @@ const handleInputPosition = (input, callback) => {
 				callback.state.transition = "swipe";
 				callback.state.transitionTo = buttonType;
 				callback.state.score = 0;
-				//callback.changePage(buttonType);
-				
 			}
 		}
 	}
@@ -121,8 +119,6 @@ const keyboard = (callback) => {
 
 const touch = (callback) => {
 	document.addEventListener("touchstart", function(input) {
-		//input.preventDefault();
-		//debounce = true;
 		if (callback.state.allowInput) {
 			handleInputPosition(input, callback);
 		}
