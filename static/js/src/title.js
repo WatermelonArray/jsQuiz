@@ -36,12 +36,14 @@ const bar = (context, callback, cw, ch) => {
 }
 
 const mainText = (context, callback, cw, ch) => {
+
 	let options = {
 		font: "light",
 		color: "white",
 		size: 1,
 		text: "JavaScript Quiz Game"
 	};
+
 	if (time > 60 + delay) {
 		callback.setText(context, cw / 6 * 5, options)
 		context.fillText("JavaScript Quiz Game",

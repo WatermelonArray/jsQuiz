@@ -1,6 +1,6 @@
 "use strict";
 
-// Functions
+// functions
 const setText = (context) => {
 	context.globalAlpha = 1;
 	context.font = "64px Noto Sans";
@@ -9,7 +9,7 @@ const setText = (context) => {
 	context.textBaseline = "middle";
 }
 
-// Animation rendering
+// animation rendering
 const background = (context, cw, ch) => {
 
 	context.globalAlpha = 1;
@@ -172,7 +172,7 @@ const mainText = (context, callback, cw, ch) => {
 
 }
 
-// Method
+// method
 const menuAnimation = (canvas, context, callback) => {
 
 	const cw = canvas.width;
@@ -184,5 +184,5 @@ const menuAnimation = (canvas, context, callback) => {
 
 }
 
-// Export
+// export
 export {menuAnimation};
