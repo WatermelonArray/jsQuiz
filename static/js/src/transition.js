@@ -6,9 +6,6 @@ let delay = 0;
 const fade = (context, callback, cw, ch) => {
 
 	const fadeTime = 80;
-
-	
-
 	context.fillStyle = "#222222";
 
 	if (time > delay && time <= (fadeTime + delay)) {
@@ -33,7 +30,7 @@ const fade = (context, callback, cw, ch) => {
 }
 
 const swipe = (context, callback, cw, ch) => {
-	
+
 	const swipeTime = 80;
 
 	context.globalAlpha = 1;
@@ -52,6 +49,9 @@ const swipe = (context, callback, cw, ch) => {
 			callback.state.allowInput = true;
 			callback.changePage(callback.state.transitionTo);
 			callback.state.transitionTo = "";
+			if (callback.state.answerResponse != 0) {
+				callback.state.answerResponse = 0
+			}
 		}
 		const y = callback.lerp(2 / (time - swipeTime), ch + 100, 0);
 		if (y > 0) {
