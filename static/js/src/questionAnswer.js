@@ -34,13 +34,10 @@ const buttons = (context, callback, cw, ch) => {
 	
 	context.shadowBlur = "0";
 
-	if (callback.state.answerResponse == 1 | callback.state.answerResponse == 0) {options.color = "dark"}
-	else {options.color = "white"}
+	if (callback.state.answerResponse == 1 | callback.state.answerResponse == 0) {options.color = "dark";}
+	else {options.color = "white";}
 
-	
-	
-
-	if (callback.state.questionNumber + 1 > Object.keys(callback.state.quiz.questions).length) {
+	if (callback.state.questionNumber + 1 > Object.keys(callback.state.quiz.questions).length && callback.state.answerResponse == 0) {
 
 		context.fillRect(
 			cw / 6 * 2.5,
@@ -49,6 +46,7 @@ const buttons = (context, callback, cw, ch) => {
 			ch / 6 * 0.5
 		);
 
+		options.text = "Finish Quiz";
 		callback.setText(context, cw / 6, options);
 		context.fillText(
 			"Finish Quiz",
@@ -57,13 +55,13 @@ const buttons = (context, callback, cw, ch) => {
 		);
 
 		buttonLocations.push({
-		loc: {
-			x0: cw / 6 * 2.5,
-			x1: (cw / 6 * 2.5) + (cw / 6),
-			y0: ch / 6 * 5,
-			y1: (ch / 6 * 5) + (ch / 6 * 0.5)
-		},
-		ref: "nextQuestion"
+			loc: {
+				x0: cw / 6 * 2.5,
+				x1: (cw / 6 * 2.5) + (cw / 6),
+				y0: ch / 6 * 5,
+				y1: (ch / 6 * 5) + (ch / 6 * 0.5)
+			},
+			ref: "nextQuestion"
 		})
 	}
 	else {
