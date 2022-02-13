@@ -21,7 +21,7 @@ const setQuiz = (callback) => {
 	//console.log(callback.state.questionNumber + 1)
 	if (callback.state.questionNumber + 1 > Object.keys(callback.state.quiz.questions).length) {
 		callback.state.questionNumber = 0;
-		callback.state.answerResponse = 0;
+		//callback.state.answerResponse = 0;
 	
 		callback.resetFuncs.transition();
 		callback.state.transition = "fade";

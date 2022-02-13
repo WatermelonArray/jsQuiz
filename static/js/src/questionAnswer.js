@@ -37,7 +37,7 @@ const buttons = (context, callback, cw, ch) => {
 	if (callback.state.answerResponse == 1 | callback.state.answerResponse == 0) {options.color = "dark";}
 	else {options.color = "white";}
 
-	if (callback.state.questionNumber + 1 > Object.keys(callback.state.quiz.questions).length && callback.state.answerResponse == 0) {
+	if (callback.state.finish) {
 
 		context.fillRect(
 			cw / 6 * 2.5,
@@ -153,7 +153,6 @@ const text = (context, callback, cw, ch) => {
 	}
 
 	else {
-		options.fontz
 		context.fillText("Well done!", cw / 2, ch / 2);
 	}
 

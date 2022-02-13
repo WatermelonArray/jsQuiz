@@ -35,6 +35,7 @@ const callback = {
 		// quiz data
 		quiz: undefined,
 		questionNumber: 0,
+		finish: false,
 		score: 0,
 		answerResponse: 0, // 0: no answer, 1: wrong answer, 2: right answer
 		answerText: "",

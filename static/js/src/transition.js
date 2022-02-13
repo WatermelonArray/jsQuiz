@@ -19,6 +19,7 @@ const fade = (context, callback, cw, ch) => {
 			callback.state.allowInput = true;
 			callback.changePage(callback.state.transitionTo);
 			callback.state.transitionTo = "";
+			if (callback.state.finish) {callback.state.finish = false;}
 		}
 		
 		const transparency = callback.lerp(2 / ((time - delay) - fadeTime), -0.1, 1)
@@ -52,6 +53,7 @@ const swipe = (context, callback, cw, ch) => {
 			if (callback.state.answerResponse != 0) {
 				callback.state.answerResponse = 0;
 			}
+			if (callback.state.questionNumber + 1 > Object.keys(callback.state.quiz.questions).length) {callback.state.finish = true;}
 		}
 		const y = callback.lerp(2 / (time - swipeTime), ch + 100, 0);
 		if (y > 0) {
