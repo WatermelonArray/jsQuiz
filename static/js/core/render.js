@@ -10,7 +10,7 @@ import {gameAnimation} from "../src/game.js"; // game animation
 import {answerAnimation} from "../src/questionAnswer.js"; // answer animation
 import {resultAnimation} from "../src/result.js"; // result animation
 import {transitionSet} from "../src/transition.js";
-import {renderPopup} from "../src/popup.js";
+import {renderPopup} from "../src/confirmOverlay.js";
 
 // variables
 let canvas = document.getElementById("gameCanvas");
@@ -61,7 +61,7 @@ const draw = (step) => {
 	// run current page
 	currentAnim(canvas, context, callback);
 
-	//renderPopup(canvas, context, callback);
+	renderPopup(canvas, context, callback);
 	transitionSet(canvas, context, callback);
 	
 	
