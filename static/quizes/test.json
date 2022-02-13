@@ -39,8 +39,8 @@
 			"question": "Which HTML tags do we use to run JavaScript code?",
 			"answers": [
 				{"description": "<script>", "isAnswer": true},
-				{"description": "<javascript>", "isAnswer": true},
-				{"description": "<source>", "isAnswer": true},
+				{"description": "<javascript>", "isAnswer": false},
+				{"description": "<source>", "isAnswer": false``},
 				{"description": "<code>", "isAnswer": false}
 			]
 		},
