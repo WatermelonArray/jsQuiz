@@ -91,7 +91,7 @@ const buttons = (context, callback, cw, ch) => {
 			y0: ch / 12 * 10,
 			y1: (ch / 12 * 10) + (ch / 12)
 		},
-		ref: "menu"
+		ref: "confirm"
 	})
 	callback.state.buttons = buttonLocations;
 

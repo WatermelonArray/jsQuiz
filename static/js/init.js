@@ -42,7 +42,8 @@ const callback = {
 		correctAnswer: "",
 		answerList: [],
 		buttons: [],
-		quizbuttons: []
+		quizbuttons: [],
+		confirmButtons: []
 	},
 	resetFuncs: {},
 	enum: {}

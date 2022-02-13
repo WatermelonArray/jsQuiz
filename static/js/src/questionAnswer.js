@@ -99,7 +99,7 @@ const buttons = (context, callback, cw, ch) => {
 				y0: ch / 6 * 5,
 				y1: (ch / 6 * 5) + (ch / 6 * 0.5)
 			},
-			ref: "menu"
+			ref: "confirm"
 		});
 		buttonLocations.push({
 			loc: {

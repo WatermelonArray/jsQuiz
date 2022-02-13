@@ -18,15 +18,14 @@ const popupBackground = (context, cw, ch) => {
 const buttons = (context, callback, cw, ch) => {
 
 	let buttonLocations = [];
-
-	context.fillStyle = "#6e9632";
-
 	let options = {
 		font: "normal",
 		color: "white",
 		size: 3,
 		text: "Yes"
 	};
+
+	context.fillStyle = "#6e9632";
 
 	if (callback.state.responsive) {
 		context.fillRect(
@@ -46,25 +45,24 @@ const buttons = (context, callback, cw, ch) => {
 		context.fillText("Yes", cw / 2, ch / 12 * 6.4);
 		context.fillText("No", cw / 2, ch / 12 * 7.4);
 
-		callback.state.buttons.push({
+		buttonLocations.push({
 			loc: {
 				x0: cw / 6 * 1.65,
 				x1: (cw / 6 * 1.65) + (cw / 6 * 2.7),
 				y0: (ch / 6 * 3),
 				y1: (ch / 6 * 3) + (ch / 12 * 0.8)
 			},
-			ref: "menu"
+			ref: "confirmAccept"
 		});
-
-		callback.state.buttons.push({
+		buttonLocations.push({
 			loc: {
 				x0: cw / 6 * 1.65,
 				x1: (cw / 6 * 1.65) + (cw / 6 * 2.7),
 				y0: (ch / 6 * 3.5),
 				y1: (ch / 6 * 3.5) + (ch / 12 * 0.8)
 			},
-			ref: "closePopup"
-		})
+			ref: "confirmClose"
+		});
 	}
 	else {
 		context.fillRect(
@@ -83,7 +81,28 @@ const buttons = (context, callback, cw, ch) => {
 		callback.setText(context, cw / 6 * 1.8, options);
 		context.fillText("Yes", cw / 12 * 4.5, ch / 12 * 6.75);
 		context.fillText("No", cw / 12 * 7.5, ch / 12 * 6.75);
+
+		buttonLocations.push({
+			loc: {
+				x0: cw / 12 * 3.5,
+				x1: (cw / 12 * 3.5) + (cw / 12 * 2),
+				y0: (ch / 12 * 6),
+				y1: (ch / 12 * 6) + (ch / 12 * 1.5)
+			},
+			ref: "confirmAccept"
+		});
+		buttonLocations.push({
+			loc: {
+				x0: cw / 12 * 6.5,
+				x1: (cw / 12 * 6.5) + (cw / 12 * 2),
+				y0: (ch / 12 * 6),
+				y1: (ch / 12 * 6) + (ch / 12 * 1.5)
+			},
+			ref: "confirmClose"
+		});
 	}
+
+	callback.state.confirmButtons = buttonLocations;
 }
 
 const text = (context, callback, cw, ch) => {
