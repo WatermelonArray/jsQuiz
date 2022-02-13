@@ -1,7 +1,7 @@
 "use strict";
 
 // Animation rendering
-const background = (context, cw, ch) => {
+const background = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
 	context.fillStyle = "#6e9632";
@@ -13,17 +13,27 @@ const background = (context, cw, ch) => {
 const resultText = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
-	context.font = "32px Courier";
-	context.fillStyle = "#FFFFFF";
-	context.textAlign = "center";
-	context.textBaseline = "middle";
+	const questionLength = Object.keys(callback.state.quiz.questions).length
+
+	let options = {
+		font: "subtitle",
+		color: "white",
+		size: 3,
+		text: "You got"
+	};
+
+	callback.setText(context, cw / 2, options);
 	context.fillText("You got", cw / 2, ch / 6 * 2.5)
 	
-	context.font = "64px Courier";
+	options.size = 2;
+	options.text = callback.state.score;
+	callback.setText(context, cw / 2, options);
 	context.fillText(callback.state.score, cw / 2, ch / 2)
 	
-	context.font = "32px Courier";
-	context.fillText("Correct questions out of " + Object.keys(callback.state.quiz.questions).length, cw / 2, ch / 6 * 3.5);
+	options.text = "Correct questions out of " + questionLength;
+	options.size = 3;
+	callback.setText(context, cw / 2, options);
+	context.fillText("Correct questions out of " + questionLength, cw / 2, ch / 6 * 3.5);
 
 }
 
@@ -36,7 +46,6 @@ const buttons = (context, callback, cw, ch) => {
 	context.shadowColor = "rgba(0, 0, 0, 0.4)";
 
 	context.fillStyle = "#222222";
-	context.globalAlpha = 1;
 	context.fillRect(
 		cw / 6,
 		ch / 6 * 4.5,
@@ -51,23 +60,27 @@ const buttons = (context, callback, cw, ch) => {
 		ch / 6
 	)
 
-	
-	context.font = "24px Courier";
-	context.fillStyle = "rgb(200, 200, 200)";
-	context.textAlign = "center";
-	context.textBaseline = "middle";
+	context.shadowBlur = "0";
 
+	let options = {
+		font: "subtitle",
+		color: "white",
+		size: 4,
+		text: "Main Menu"
+	};
+
+	callback.setText(context, cw / 6 * 1.8, options)
 	context.fillText("Main Menu",
 		cw / 6 * 1.9,
 		ch / 6 * 5
 	);
 
+	options.text = "Restart Quiz";
+	callback.setText(context, cw / 6 * 1.8, options)
 	context.fillText("Restart Quiz",
 		cw / 6 * 4.1,
 		ch / 6 * 5
 	);
-
-	context.shadowBlur = "0";
 
 	buttonLocations.push({
 		loc: {
@@ -91,13 +104,18 @@ const buttons = (context, callback, cw, ch) => {
 	callback.state.buttons = buttonLocations;
 }
 
-const title = (context, cw, ch) => {
+const title = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
-	context.font = "64px Courier";
-	context.fillStyle = "#FFFFFF";
-	context.textAlign = "center";
-	context.textBaseline = "middle";
+
+	let options = {
+		font: "subtitle",
+		color: "white",
+		size: 2,
+		text: "Results"
+	};
+
+	callback.setText(context, cw / 2, options);
 	context.fillText("Results", cw / 2, ch / 6);
 
 }
@@ -108,8 +126,8 @@ const resultAnimation = (canvas, context, callback) => {
 	const cw = canvas.width;
 	const ch = canvas.height;
 
-	background(context, cw, ch);
-	title(context, cw, ch);
+	background(context, callback, cw, ch);
+	title(context, callback, cw, ch);
 	resultText(context, callback, cw, ch)
 	buttons(context, callback, cw, ch)
 
