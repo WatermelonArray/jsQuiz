@@ -40,7 +40,7 @@
 			"answers": [
 				{"description": "<script>", "isAnswer": true},
 				{"description": "<javascript>", "isAnswer": false},
-				{"description": "<source>", "isAnswer": false``},
+				{"description": "<source>", "isAnswer": false},
 				{"description": "<code>", "isAnswer": false}
 			]
 		},
