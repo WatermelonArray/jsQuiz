@@ -10,7 +10,12 @@ const checkMouseOverQuiz = (vec2, arr) => {
 	let questionNumber = 0;
 
 	for (let i = 0; i < arr.length; i++) {
-		if (checkMousePos(vec2, arr[i])) {result = true; questionNumber = i; break;}
+		if (checkMousePos(vec2, arr[i])) {
+			if (arr[i].ref == "confirm") {result = true; questionNumber = "confirm";}
+			else {
+				result = true; questionNumber = i; break;
+			}
+		}
 	}
 
 	return [result, questionNumber];
@@ -59,15 +64,14 @@ const handleInput = (input, callback) => {
 }
 
 const handleInputPosition = (input, callback) => {
-	console.log(input)
 	if (callback.state.confirmPopup) {
 		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.confirmButtons);
 
 		if (result) {
 			if (buttonType == "confirmClose") {callback.state.confirmPopup = false;}
 			else if (buttonType == "confirmAccept") {
-				callback.state.questionNumber = 0;
-				callback.state.score = 0;
+				//callback.state.questionNumber = 0;
+				//callback.state.score = 0;
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();
 				callback.state.transition = "fade";
@@ -79,10 +83,12 @@ const handleInputPosition = (input, callback) => {
 
 		const [result, question] = checkMouseOverQuiz({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
 
-		const questionRef = callback.state.quiz.questions[callback.state.questionNumber].answers[question]
-		console.log(callback.state.quiz.questions)
+		const questionRef = callback.state.quiz.questions[callback.state.questionNumber].answers[question];
 		if (result) {
-			callback.calcAnswer(questionRef.description, questionRef.isAnswer);
+			if (question == "confirm") {callback.state.confirmPopup = true;}
+			else {
+				callback.calcAnswer(questionRef.description, questionRef.isAnswer);
+			}
 		}
 	}
 	else if (callback.state.page == "result" || callback.state.page == "menu" || callback.state.page == "help" || callback.state.page == "answer") {
@@ -116,7 +122,6 @@ const handleInputPosition = (input, callback) => {
 }
 
 // events
-let debounce = false;
 const mouse = (callback) => {
 	document.addEventListener("mousedown", function(input) {
 		if (callback.state.allowInput && input.button == 0 ) {

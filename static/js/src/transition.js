@@ -7,7 +7,10 @@ const handleAnimLogic = (callback) => {
 	if (callback.state.transitionTo != "") {
 		callback.state.allowInput = true;
 		callback.changePage(callback.state.transitionTo);
+		if (callback.state.transitionTo == "menu"){callback.state.questionNumber = 0;}
 		callback.state.transitionTo = "";
+		//callback.state.questionNumber = 0;
+		callback.state.score = 0;
 		if (callback.state.answerResponse != 0) {
 			callback.state.answerResponse = 0;
 		}
@@ -82,7 +85,7 @@ const swipe = (context, callback, cw, ch) => {
 const transitionSet = (canvas, context, callback) => {
 
 	// reset
-	if (!(callback.resetFuncs.transition)) {console.log("e"); callback.resetFuncs.transition = function() {time = 0;}}
+	if (!(callback.resetFuncs.transition)) {callback.resetFuncs.transition = function() {time = 0;}}
 
 	time++;
 	const cw = canvas.width;

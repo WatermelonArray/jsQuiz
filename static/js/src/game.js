@@ -13,14 +13,13 @@ const buttons = (context, callback, cw, ch) => {
 
 	const totalY = ch / 6 * 4
 	let buttonLocations = [];
+	let otherButtonLocations = [];
 
 	let options = {
 		font: "mono",
 		color: "light",
 		size: 1
 	}
-
-	let presetMode = 0; // 0 - column, 1 - side by side (2 questions), 2 - quad (4 questions)
 
 	let textLength = "";
 	for (let i = 0; i < callback.state.answerList.length; i++) {
@@ -71,6 +70,36 @@ const buttons = (context, callback, cw, ch) => {
 			ref: callback.state.answerList[i]
 		})
 	}
+	
+
+	context.fillStyle = "#444444"
+	context.fillRect(
+		0,
+		ch - (ch / 12),
+		ch / 12 * 2,
+		ch / 12
+	)
+
+	options.text = "Back";
+	options.size = 3;
+	options.color = "white";
+	callback.setText(context, ch / 12, options);
+	context.fillText(
+		"Back",
+		ch / 12,
+		ch - (ch / 24)
+	)
+
+	buttonLocations.push({
+		loc: {
+			x0: 0,
+			x1: ch / 12 * 2,
+			y0: ch - (ch / 12),
+			y1: ch
+		},
+		ref: "confirm"
+	})
+
 	callback.state.quizButtons = buttonLocations;
 }
 
