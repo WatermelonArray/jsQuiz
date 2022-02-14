@@ -60,7 +60,22 @@ const handleInput = (input, callback) => {
 
 const handleInputPosition = (input, callback) => {
 	console.log(input)
-	if (callback.state.page == "game") {
+	if (callback.state.confirmPopup) {
+		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.confirmButtons);
+
+		if (result) {
+			if (buttonType == "confirmClose") {callback.state.confirmPopup = false;}
+			else if (buttonType == "confirmAccept") {
+				callback.state.questionNumber = 0;
+				callback.state.score = 0;
+				callback.state.allowInput = false;
+				callback.resetFuncs.transition();
+				callback.state.transition = "fade";
+				callback.state.transitionTo = "menu";
+			}
+		}
+	}
+	else if (callback.state.page == "game") {
 
 		const [result, question] = checkMouseOverQuiz({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
 
@@ -84,6 +99,7 @@ const handleInputPosition = (input, callback) => {
 				callback.state.transition = "swipe";
 				callback.state.transitionTo = buttonType;
 			}
+			else if (buttonType == "confirm") {callback.state.confirmPopup = true;}
 			else {
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();
@@ -96,6 +112,7 @@ const handleInputPosition = (input, callback) => {
 	else if (callback.state.page == "title") {
 		handleInput("forward", callback);
 	}
+	
 }
 
 // events

@@ -3,6 +3,20 @@
 let time = 0;
 let delay = 0;
 
+const handleAnimLogic = (callback) => {
+	if (callback.state.transitionTo != "") {
+		callback.state.allowInput = true;
+		callback.changePage(callback.state.transitionTo);
+		callback.state.transitionTo = "";
+		if (callback.state.answerResponse != 0) {
+			callback.state.answerResponse = 0;
+		}
+		else if (callback.state.questionNumber + 1 > Object.keys(callback.state.quiz.questions).length) {callback.state.finish = true;}
+		else if (callback.state.finish) {callback.state.finish = false;}
+		if (callback.state.confirmPopup) {callback.state.confirmPopup = false;}
+	}
+}
+
 const fade = (context, callback, cw, ch) => {
 
 	const fadeTime = 80;
@@ -10,21 +24,19 @@ const fade = (context, callback, cw, ch) => {
 
 	if (time > delay && time <= (fadeTime + delay)) {
 		const transparency = callback.lerp(2 / (time - delay), 1.1, 0);
-		if (transparency > 0) {context.globalAlpha = transparency;}
-		else {context.globalAlpha = 0;}
+		if (transparency <= 0) {context.globalAlpha = 0;}
+		else if (transparency > 0 && transparency < 1) {context.globalAlpha = transparency;}
+		else if (transparency >= 1) {context.globalAlpha = 1;}
 		context.fillRect(0, 0, cw, ch);
 	}
 	else if (time > delay && time > (fadeTime + delay)) {
-		if (callback.state.transitionTo != "") {
-			callback.state.allowInput = true;
-			callback.changePage(callback.state.transitionTo);
-			callback.state.transitionTo = "";
-			if (callback.state.finish) {callback.state.finish = false;}
-		}
-		
+	
+		handleAnimLogic(callback)
+
 		const transparency = callback.lerp(2 / ((time - delay) - fadeTime), -0.1, 1)
-		if (transparency > 0) {context.globalAlpha = transparency;}
-		else if (transparency <= 0) {context.globalAlpha = 0}
+		if (transparency <= 0) {context.globalAlpha = 0}
+		else if (transparency > 0 && transparency < 1) {context.globalAlpha = transparency;}
+		else if (transparency >= 1) {context.globalAlpha = 1;}
 		context.fillRect(0, 0, cw, ch);
 	}
 
@@ -46,15 +58,7 @@ const swipe = (context, callback, cw, ch) => {
 		);
 	}
 	else if (time > swipeTime) {
-		if (callback.state.transitionTo != "") {
-			callback.state.allowInput = true;
-			callback.changePage(callback.state.transitionTo);
-			callback.state.transitionTo = "";
-			if (callback.state.answerResponse != 0) {
-				callback.state.answerResponse = 0;
-			}
-			if (callback.state.questionNumber + 1 > Object.keys(callback.state.quiz.questions).length) {callback.state.finish = true;}
-		}
+		handleAnimLogic(callback)
 		const y = callback.lerp(2 / (time - swipeTime), ch + 100, 0);
 		if (y > 0) {
 			context.fillRect(
