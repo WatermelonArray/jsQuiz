@@ -1,13 +1,6 @@
 "use strict";
 
 // functions
-const setText = (context) => {
-	context.globalAlpha = 1;
-	context.font = "64px Noto Sans";
-	context.fillStyle = "#FFFFFF";
-	context.textAlign = "center";
-	context.textBaseline = "middle";
-}
 
 // animation rendering
 const background = (context, cw, ch) => {
@@ -21,6 +14,13 @@ const background = (context, cw, ch) => {
 const buttons = (context, callback, cw, ch) => {
 
 	let buttonLocations = [];
+	let options = {
+		font: "normal",
+		color: "white",
+		size: 2,
+		text: "Yes"
+	};
+
 
 	context.globalAlpha = 0.75;
 	context.shadowBlur = "16";
@@ -84,12 +84,14 @@ const buttons = (context, callback, cw, ch) => {
 	}
 	
 	context.shadowBlur = 0;
-	setText(context)
-
+	
 	if (callback.state.responsive) {
+		callback.setText(context, cw / 6 * 3.5, options);
+
 		context.fillText("Quizes", cw / 2, ch / 6 * 2);
 		context.fillText("Custom", cw / 2, ch / 6 * 3.5);
 		context.fillText("Help", cw / 2, ch / 6 * 5);
+
 		buttonLocations.push({ // quiz
 			loc: {
 				x0: cw / 6,
@@ -119,9 +121,13 @@ const buttons = (context, callback, cw, ch) => {
 		})
 	}
 	else {
+		callback.setText(context, cw / 12 * 3.5, options);
 		context.fillText("Quizes", cw / 12 * 3.875, ch / 12 * 4.5);
 		context.fillText("Custom", cw / 12 * 8.125, ch / 12 * 4.5);
+
+		callback.setText(context, cw / 6 * 3.5, options);
 		context.fillText("Help", cw / 2, ch / 12 * 8.75);
+
 		buttonLocations.push({ // quiz
 			loc: {
 				x0: cw / 12 * 2,
