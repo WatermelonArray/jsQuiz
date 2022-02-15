@@ -97,7 +97,7 @@ const handleInputPosition = (input, callback) => {
 			}
 		}
 	}
-	else if (callback.state.page === "result" || callback.state.page === "menu" || callback.state.page === "answer") {
+	else if (callback.state.page === "result" || callback.state.page === "menu" || callback.state.page === "answer" || callback.state.page == "editor") {
 
 		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
 
