@@ -16,8 +16,6 @@ const colors = {
 }
 
 const fonts = {
-	heading: "Helvetica",
-	subtitle: "Courier",
 	normal: "Noto Sans",
 	light: "Noto Sans Light",
 	mono: "Liberation Mono"

@@ -47,6 +47,9 @@ const callback = {
 		helpButtons: [],
 		muteButtons: [],
 
+		// editor data
+		
+
 		// popups
 		confirmPopup: false,
 		helpPopup: false
