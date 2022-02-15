@@ -16,9 +16,9 @@ const colors = {
 }
 
 const fonts = {
-	normal: "Noto Sans",
-	light: "Noto Sans Light",
-	mono: "Liberation Mono"
+	normal: "Noto Sans Display",
+	light: "Noto Sans Display Light",
+	mono: "Roboto Mono"
 }
 
 const api_setText = (context, cw, options) => {
