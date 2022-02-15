@@ -122,12 +122,12 @@ const handleInputPosition = (input, callback) => {
 			}
 		}
 	}
-	else if (callback.state.page === "title") {
-		handleInput("forward", callback);
-	}
 
 	const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.muteButtons);
 	if (result) {callback.muteAudio();}
+	else if (callback.state.page === "title") {
+		handleInput("forward", callback);
+	}
 }
 
 // events
