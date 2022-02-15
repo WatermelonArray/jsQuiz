@@ -6,10 +6,9 @@ function logQuizData(state) {
 
 	const questionsLength = Object.keys(jsonData.questions).length;
 
-
 	let questArray = [];
 
-	for (let i=0; i < questionsLength; i++) {
+	for (let i = 0; i < questionsLength; i++) {
 		if (i < questionsLength - 1) {
 			questArray.push(Object.entries(jsonData.questions)[i][1].question + ",");
 		}

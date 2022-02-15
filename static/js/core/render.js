@@ -20,22 +20,22 @@ let callback = undefined;
 // functions
 const loadAnimation = (x) => {
 
-	if (x == "title") {
+	if (x === "title") {
 		currentAnim = titleAnimation;
 	}
-	if (x == "menu") {
+	if (x === "menu") {
 		currentAnim = menuAnimation;
 	}
-	if (x == "game") {
+	if (x === "game") {
 		currentAnim = gameAnimation;
 	}
-	if (x == "answer") {
+	if (x === "answer") {
 		currentAnim = answerAnimation;
 	}
-	if (x == "result") {
+	if (x === "result") {
 		currentAnim = resultAnimation;
 	}
-	if (x == "editor") {
+	if (x === "editor") {
 		currentAnim = editorAnimation;
 	}
 }
@@ -72,11 +72,11 @@ const setupRender = (x) => {
 	callback = x; // quick reference for draw() module
 	callback.changePage = function(x) {
 		this.state.page = x;
-		if (x == "menu") {this.setMusic("idle");}
-		else if (x == "title") {this.setMusic("title");}
-		else if (x == "result") {this.setMusic("result");}
-		else if (x == "game") {this.setMusic("quiz");}
-		else if (x == "answer") {this.setMusic();}
+		if (x === "menu") {this.setMusic("idle");}
+		else if (x === "title") {this.setMusic("title");}
+		else if (x === "result") {this.setMusic("result");}
+		else if (x === "game") {this.setMusic("quiz");}
+		else if (x === "answer") {this.setMusic();}
 		loadAnimation(x);
 	}
 	draw();

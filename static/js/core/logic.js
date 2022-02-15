@@ -46,7 +46,7 @@ const setupLogic = (callback) => {
 	callback.newQuestion = setQuiz;
 
 	callback.calcAnswer = (x, y) => {
-		if (callback.state.allowAnswer && callback.state.page == "game") {
+		if (callback.state.allowAnswer && callback.state.page === "game") {
 			if (y) {
 				callback.state.answerResponse = 2;
 				callback.state.score++;
