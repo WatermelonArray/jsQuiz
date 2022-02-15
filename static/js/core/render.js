@@ -1,16 +1,15 @@
 "use strict";
 
 // load animation pages
-//import {transitionIn, transitionOut} from "../src/transition.js"; // transition animation
 import {titleAnimation} from "../src/title.js"; // title animation
 import {menuAnimation} from "../src/menu.js"; // menu animation
-import {helpAnimation} from "../src/help.js" // help animation
 import {editorAnimation} from "../src/editor.js"; // editor animation
 import {gameAnimation} from "../src/game.js"; // game animation
 import {answerAnimation} from "../src/questionAnswer.js"; // answer animation
 import {resultAnimation} from "../src/result.js"; // result animation
 import {transitionSet} from "../src/transition.js";
 import {renderPopup} from "../src/confirmOverlay.js";
+import {helpAnimation} from "../src/helpOverlay.js"; // help overlay
 
 // variables
 let canvas = document.getElementById("gameCanvas");
@@ -36,25 +35,21 @@ const loadAnimation = (x) => {
 	if (x == "result") {
 		currentAnim = resultAnimation;
 	}
-	if (x == "help") {
-		currentAnim = helpAnimation;
-	}
 	if (x == "editor") {
 		currentAnim = editorAnimation;
 	}
-
 }
 
 // method
 const draw = (step) => {
-	
+
 	// set the canvas size every frame
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
-	
+
 	// clear canvas before drawing new frame
 	context.clearRect(0, 0, canvas.width, canvas.height);
-	
+
 	// check responsiveness
 	[callback.state.responsive, callback.state.small] = callback.checkResponsive(canvas);
 
@@ -62,9 +57,10 @@ const draw = (step) => {
 	currentAnim(canvas, context, callback);
 
 	renderPopup(canvas, context, callback);
+	helpAnimation(canvas, context, callback);
 	transitionSet(canvas, context, callback);
-	
-	
+
+
 	// solution for looping per frame correctly:
 	// https://spicyyoghurt.com/tutorials/html5-javascript-game-development/create-a-proper-game-loop-with-requestanimationframe
 

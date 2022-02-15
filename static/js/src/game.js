@@ -13,7 +13,6 @@ const buttons = (context, callback, cw, ch) => {
 
 	const totalY = ch / 6 * 4
 	let buttonLocations = [];
-	let otherButtonLocations = [];
 
 	let options = {
 		font: "mono",
@@ -72,33 +71,56 @@ const buttons = (context, callback, cw, ch) => {
 	}
 	
 
-	context.fillStyle = "#444444"
-	context.fillRect(
-		0,
-		ch - (ch / 12),
-		ch / 12 * 2,
-		ch / 12
-	)
+	if (!callback.state.helpPopup) {
+		context.fillStyle = "#444444";
+		context.fillRect(
+			0,
+			ch - (ch / 12),
+			ch / 12 * 2,
+			ch / 12
+		);
+		context.fillRect(
+			cw - (ch / 12 * 2),
+			ch - (ch / 12),
+			ch / 12 * 2,
+			ch / 12
+		);
 
-	options.text = "Back";
-	options.size = 3;
-	options.color = "white";
-	callback.setText(context, ch / 12, options);
-	context.fillText(
-		"Back",
-		ch / 12,
-		ch - (ch / 24)
-	)
+		options.text = "Back";
+		options.size = 3;
+		options.color = "white";
+		callback.setText(context, ch / 12, options);
 
-	buttonLocations.push({
-		loc: {
-			x0: 0,
-			x1: ch / 12 * 2,
-			y0: ch - (ch / 12),
-			y1: ch
-		},
-		ref: "confirm"
-	})
+		context.fillText(
+			"Back",
+			ch / 12,
+			ch - (ch / 24)
+		);
+		context.fillText(
+			"Help",
+			cw - (ch / 12),
+			ch - (ch / 24)
+		);
+
+		buttonLocations.push({
+			loc: {
+				x0: 0,
+				x1: ch / 12 * 2,
+				y0: ch - (ch / 12),
+				y1: ch
+			},
+			ref: "confirm"
+		});
+		buttonLocations.push({
+			loc: {
+				x0: cw - (ch / 12 * 2),
+				x1: cw,
+				y0: ch - (ch / 12),
+				y1: ch
+			},
+			ref: "help"
+		});
+	}
 
 	callback.state.quizButtons = buttonLocations;
 }

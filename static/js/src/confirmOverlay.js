@@ -118,13 +118,13 @@ const text = (context, callback, cw, ch) => {
 	context.fillText("Are you sure?", cw / 2, ch / 12 * 5);
 
 }
+
 // method
 const renderPopup = (canvas, context, callback) => {
-
-	const cw = canvas.width;
-	const ch = canvas.height;
-
 	if (callback.state.confirmPopup) {
+		const cw = canvas.width;
+		const ch = canvas.height;
+
 		popupBackground(context, cw, ch);
 		buttons(context, callback, cw, ch);
 		text(context, callback, cw, ch);

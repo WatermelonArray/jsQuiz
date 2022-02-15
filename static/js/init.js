@@ -43,7 +43,12 @@ const callback = {
 		answerList: [],
 		buttons: [],
 		quizbuttons: [],
-		confirmButtons: []
+		confirmButtons: [],
+		helpButtons: [],
+
+		// popups
+		confirmPopup: false,
+		helpPopup: false
 	},
 	resetFuncs: {},
 	enum: {}

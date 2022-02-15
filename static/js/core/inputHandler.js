@@ -12,6 +12,7 @@ const checkMouseOverQuiz = (vec2, arr) => {
 	for (let i = 0; i < arr.length; i++) {
 		if (checkMousePos(vec2, arr[i])) {
 			if (arr[i].ref == "confirm") {result = true; questionNumber = "confirm";}
+			else if (arr[i].ref == "help") {result = true; questionNumber = "help";}
 			else {
 				result = true; questionNumber = i; break;
 			}
@@ -79,6 +80,10 @@ const handleInputPosition = (input, callback) => {
 			}
 		}
 	}
+	else if (callback.state.helpPopup) {
+		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.helpButtons);
+		if (result) {if (buttonType == "helpClose") {callback.state.helpPopup = false;}}
+	}
 	else if (callback.state.page == "game") {
 
 		const [result, question] = checkMouseOverQuiz({x: input.clientX, y: input.clientY}, callback.state.quizButtons);
@@ -86,12 +91,13 @@ const handleInputPosition = (input, callback) => {
 		const questionRef = callback.state.quiz.questions[callback.state.questionNumber].answers[question];
 		if (result) {
 			if (question == "confirm") {callback.state.confirmPopup = true;}
+			else if (question == "help") {callback.state.helpPopup = true;}
 			else {
 				callback.calcAnswer(questionRef.description, questionRef.isAnswer);
 			}
 		}
 	}
-	else if (callback.state.page == "result" || callback.state.page == "menu" || callback.state.page == "help" || callback.state.page == "answer") {
+	else if (callback.state.page == "result" || callback.state.page == "menu" || callback.state.page == "answer") {
 
 		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
 
@@ -106,6 +112,7 @@ const handleInputPosition = (input, callback) => {
 				callback.state.transitionTo = buttonType;
 			}
 			else if (buttonType == "confirm") {callback.state.confirmPopup = true;}
+			else if (buttonType == "help") {callback.state.helpPopup = true;}
 			else {
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();
@@ -118,7 +125,6 @@ const handleInputPosition = (input, callback) => {
 	else if (callback.state.page == "title") {
 		handleInput("forward", callback);
 	}
-	
 }
 
 // events

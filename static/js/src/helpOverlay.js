@@ -40,7 +40,6 @@ const buttons = (context, callback, cw, ch) => {
 	)
 
 	callback.setText(context, cw / 6 * 1.5, options);
-
 	context.fillText("Back", cw / 2, ch / 12 * 10);
 
 	buttonLocations.push({
@@ -50,10 +49,10 @@ const buttons = (context, callback, cw, ch) => {
 			y0: ch / 12 * 9.5,
 			y1: (ch / 12 * 9.5) + (ch / 12)
 		},
-		ref: "confirm"
+		ref: "helpClose"
 	})
 
-	callback.state.buttons = buttonLocations;
+	callback.state.helpButtons = buttonLocations;
 
 }
 
@@ -68,12 +67,8 @@ const mainText = (context, callback, cw, ch) => {
 
 	callback.setText(context, cw / 6 * 2, options)
 
-	if (callback.state.responsive) {
-		context.fillText("Help", cw / 2, ch / 12);
-	}
-	else {
-		context.fillText("Help", cw / 2, ch / 12 * 2);
-	}
+	if (callback.state.responsive) {context.fillText("Help", cw / 2, ch / 12);}
+	else {context.fillText("Help", cw / 2, ch / 12 * 2);}
 
 }
 
@@ -110,17 +105,18 @@ const helpText = (context, callback, cw, ch) => {
 	context.fillText(h9, cw / 12 * 1.5, ch / 12 * 7.5);
 
 }
+
 // Method
 const helpAnimation = (canvas, context, callback) => {
+	if (callback.state.helpPopup) {
+		const cw = canvas.width;
+		const ch = canvas.height;
 
-	const cw = canvas.width;
-	const ch = canvas.height;
-
-	background(context, callback, cw, ch);
-	buttons(context, callback, cw, ch);
-	mainText(context, callback, cw, ch);
-	helpText(context, callback, cw, ch)
-
+		background(context, callback, cw, ch);
+		buttons(context, callback, cw, ch);
+		mainText(context, callback, cw, ch);
+		helpText(context, callback, cw, ch);
+	}
 }
 
 // Export
