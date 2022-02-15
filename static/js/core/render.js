@@ -8,8 +8,9 @@ import {gameAnimation} from "../src/game.js"; // game animation
 import {answerAnimation} from "../src/questionAnswer.js"; // answer animation
 import {resultAnimation} from "../src/result.js"; // result animation
 import {transitionSet} from "../src/transition.js";
-import {renderPopup} from "../src/confirmOverlay.js";
+import {renderPopup} from "../src/confirmOverlay.js"; // confirm overlay
 import {helpAnimation} from "../src/helpOverlay.js"; // help overlay
+import {muteOverlay} from "../src/muteOverlay.js" // mute overlay
 
 // variables
 let canvas = document.getElementById("gameCanvas");
@@ -58,6 +59,7 @@ const draw = (step) => {
 
 	renderPopup(canvas, context, callback);
 	helpAnimation(canvas, context, callback);
+	muteOverlay(canvas, context, callback);
 	transitionSet(canvas, context, callback);
 
 

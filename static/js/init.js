@@ -45,6 +45,7 @@ const callback = {
 		quizbuttons: [],
 		confirmButtons: [],
 		helpButtons: [],
+		muteButtons: [],
 
 		// popups
 		confirmPopup: false,

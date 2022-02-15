@@ -34,6 +34,23 @@ const musicPlay = (x) => {
 
 const setupAudio = (callback) => {
 	callback.setMusic = musicPlay;
+
+	callback.muteAudio = function() {
+		if (this.state.sound) {
+			this.state.sound = false;
+			musicList.title.volume = 0;
+			musicList.idle.volume = 0;
+			musicList.quiz.volume = 0;
+			musicList.result.volume = 0;
+		}
+		else {
+			this.state.sound = true;
+			musicList.title.volume = 0.05;
+			musicList.idle.volume = 0.05;
+			musicList.quiz.volume = 0.05;
+			musicList.result.volume = 0.05;
+		}
+	}
 }
 
 export {setupAudio};

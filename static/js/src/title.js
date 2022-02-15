@@ -93,7 +93,6 @@ const titleAnimation = (canvas, context, callback) => {
 	bar(context, callback, cw, ch);
 	mainText(context, callback, cw, ch);
 	text(context, callback, cw, ch);
-
 }
 
 // Export
