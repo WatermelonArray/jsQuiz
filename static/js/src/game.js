@@ -1,11 +1,21 @@
 "use strict";
 
 // Animation rendering
-const background = (context, cw, ch) => {
+const background = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
 	context.fillStyle = "#eeeeee";
 	context.fillRect(0, 0, cw, ch);
+
+	let options = {
+		font: "normal",
+		color: "dark",
+		size: 5,
+		text: "babasmasmoosic - Space Journey",
+		align: "right"
+	};
+	callback.setText(context, cw / 2, options);
+	context.fillText(options.text, cw / 24 * 23, ch / 24);
 
 }
 
@@ -148,7 +158,7 @@ const gameAnimation = (canvas, context, callback) => {
 	const cw = canvas.width;
 	const ch = canvas.height;
 
-	background(context, cw, ch);
+	background(context, callback, cw, ch);
 	buttons(context, callback, cw, ch);
 	titleText(context, callback, cw, ch);
 

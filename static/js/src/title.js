@@ -7,7 +7,7 @@ let flash = 0;
 
 // Animation rendering
 let hslColor = [0, 20, 50];
-const background = (context, cw, ch) => {
+const background = (context, callback, cw, ch) => {
 
 	hslColor[0] = hslColor[0] + 0.5;
 	if (hslColor[0] > 359) {hslColor[0] = 0;}
@@ -15,6 +15,16 @@ const background = (context, cw, ch) => {
 	context.globalAlpha = 1;
 	context.fillStyle = "hsl(" + hslColor[0] + "," + hslColor[1] + "%," + hslColor[2] + "%)";
 	context.fillRect(0, 0, cw, ch);
+
+	let options = {
+		font: "normal",
+		color: "white",
+		size: 5,
+		text: "babasmasmoosic - Space Journey",
+		align: "right"
+	};
+	callback.setText(context, cw / 2, options);
+	context.fillText(options.text, cw / 24 * 23, ch / 24 * 23);
 
 }
 
@@ -89,7 +99,7 @@ const titleAnimation = (canvas, context, callback) => {
 	const cw = canvas.width;
 	const ch = canvas.height;
 
-	background(context, cw, ch);
+	background(context, callback, cw, ch);
 	bar(context, callback, cw, ch);
 	mainText(context, callback, cw, ch);
 	text(context, callback, cw, ch);

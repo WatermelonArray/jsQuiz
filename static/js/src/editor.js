@@ -1,12 +1,21 @@
 "use strict";
 
 // Animation rendering
-const background = (context, cw, ch) => {
+const background = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
 	context.fillStyle = "rgb(238, 238, 238)";
 	context.fillRect(0, 0, cw, ch);
 
+	let options = {
+		font: "normal",
+		color: "dark",
+		size: 5,
+		text: "babasmasmoosic - Turtle's Adventures: The Begininng",
+		align: "right"
+	};
+	callback.setText(context, cw / 2, options);
+	context.fillText(options.text, cw / 24 * 23, ch - (ch / 24));
 }
 
 const buttons = (context, callback, cw, ch) => {
@@ -19,11 +28,10 @@ const buttons = (context, callback, cw, ch) => {
 		text: "Back"
 	}
 
-	// back
 	context.fillStyle = "#222222";
 	context.fillRect(
-		cw / 6 * 2.5,
-		ch / 12 * 10.5,
+		0,
+		ch - (ch / 12),
 		cw / 6,
 		ch / 12
 	)
@@ -35,16 +43,16 @@ const buttons = (context, callback, cw, ch) => {
 	)
 
 	callback.setText(context, cw / 6 * 0.8, options);
-	context.fillText("Back", cw / 2, ch / 12 * 11);
+	context.fillText("Back", cw / 12, ch - (ch / 24));
 	callback.setText(context, cw / 12, options);
 	context.fillText("Help", cw - (ch / 12), ch / 24);
 
 	buttonLocations.push({
 		loc: {
-			x0: cw / 6 * 2.5,
-			x1: (cw / 6 * 2.5) + (cw / 6),
-			y0: ch / 12 * 10.5,
-			y1: (ch / 12 * 10.5) + (ch / 12)
+			x0: 0,
+			x1: (cw / 6),
+			y0: ch - (ch / 12),
+			y1: ch
 		},
 		ref: "confirm"
 	});
@@ -96,7 +104,7 @@ const editorAnimation = (canvas, context, callback) => {
 	const cw = canvas.width;
 	const ch = canvas.height;
 
-	background(context, cw, ch);
+	background(context, callback, cw, ch);
 	buttons(context, callback, cw, ch);
 	mainText(context, callback, cw, ch);
 

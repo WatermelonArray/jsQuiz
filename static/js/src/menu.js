@@ -3,11 +3,21 @@
 // functions
 
 // animation rendering
-const background = (context, cw, ch) => {
+const background = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
 	context.fillStyle = "rgb(238, 238, 238)";
 	context.fillRect(0, 0, cw, ch);
+
+	let options = {
+		font: "normal",
+		color: "dark",
+		size: 5,
+		text: "babasmasmoosic - Turtle's Adventures: The Begininng",
+		align: "right"
+	};
+	callback.setText(context, cw / 2, options);
+	context.fillText(options.text, cw / 24 * 23, ch / 24 * 23);
 
 }
 
@@ -186,7 +196,7 @@ const menuAnimation = (canvas, context, callback) => {
 	const cw = canvas.width;
 	const ch = canvas.height;
 
-	background(context, cw, ch);
+	background(context, callback, cw, ch);
 	buttons(context, callback, cw, ch);
 	mainText(context, callback, cw, ch);
 
