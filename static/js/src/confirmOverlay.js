@@ -19,7 +19,7 @@ const buttons = (context, callback, cw, ch) => {
 
 	let buttonLocations = [];
 	let options = {
-		font: "normal",
+		font: "mono",
 		color: "white",
 		size: 3,
 		text: "Yes"

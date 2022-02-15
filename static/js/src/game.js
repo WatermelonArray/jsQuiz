@@ -132,7 +132,7 @@ const titleText = (context, callback, cw, ch) => {
 	let options = {
 		text: questionText,
 		color: "dark",
-		font: "normal",
+		font: "light",
 		size: 1,
 		get: false
 	}

@@ -163,12 +163,14 @@ const buttons = (context, callback, cw, ch) => {
 
 const mainText = (context, callback, cw, ch) => {
 	
-	context.globalAlpha = 1;
-	context.font = "64px Noto Sans Light";
-	context.fillStyle = "rgb(33, 37, 41)";
-	context.textAlign = "center";
-	context.textBaseline = "middle"
+	let options = {
+		font: "light",
+		color: "dark",
+		size: 2,
+		text: "Main Menu"
+	};
 
+	callback.setText(context, cw / 4 * 3, options)
 	if (callback.state.responsive) {
 		context.fillText("Main Menu", cw / 2, ch / 12 * 1.5);
 	}

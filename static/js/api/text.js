@@ -17,7 +17,7 @@ const colors = {
 
 const fonts = {
 	normal: "Noto Sans Display",
-	light: "Noto Sans Display Light",
+	light: "Noto Sans Display",
 	mono: "Roboto Mono"
 }
 
@@ -33,6 +33,7 @@ const api_setText = (context, cw, options) => {
 	while (maxSize < 7) {
 
 		context.font = sizes[maxSize] + "px " + fonts[options.font || fonts.normal];
+		if (options.font == "light") {context.font = "300 " + context.font}
 	
 		if (context.measureText(options.text).width > (cw / 12 * 10)) {maxSize++;}
 		else {break}

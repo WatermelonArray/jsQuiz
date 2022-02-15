@@ -13,23 +13,25 @@ const background = (context, callback, cw, ch) => {
 const resultText = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
-	const questionLength = Object.keys(callback.state.quiz.questions).length
+	const questionLength = Object.keys(callback.state.quiz.questions).length;
 
 	let options = {
-		font: "subtitle",
+		font: "normal",
 		color: "white",
 		size: 3,
 		text: "You got"
 	};
 
 	callback.setText(context, cw / 2, options);
-	context.fillText("You got", cw / 2, ch / 6 * 2.5)
+	context.fillText("You got", cw / 2, ch / 6 * 2.5);
 	
 	options.size = 2;
 	options.text = callback.state.score;
+	options.font = "mono";
 	callback.setText(context, cw / 2, options);
-	context.fillText(callback.state.score, cw / 2, ch / 2)
+	context.fillText(callback.state.score, cw / 2, ch / 2);
 	
+	options.font = "normal";
 	options.text = "Correct questions out of " + questionLength;
 	options.size = 3;
 	callback.setText(context, cw / 2, options);
@@ -63,7 +65,7 @@ const buttons = (context, callback, cw, ch) => {
 	context.shadowBlur = "0";
 
 	let options = {
-		font: "subtitle",
+		font: "mono",
 		color: "white",
 		size: 4,
 		text: "Main Menu"
@@ -109,7 +111,7 @@ const title = (context, callback, cw, ch) => {
 	context.globalAlpha = 1;
 
 	let options = {
-		font: "subtitle",
+		font: "light",
 		color: "white",
 		size: 2,
 		text: "Results"
@@ -128,8 +130,8 @@ const resultAnimation = (canvas, context, callback) => {
 
 	background(context, callback, cw, ch);
 	title(context, callback, cw, ch);
-	resultText(context, callback, cw, ch)
-	buttons(context, callback, cw, ch)
+	resultText(context, callback, cw, ch);
+	buttons(context, callback, cw, ch);
 
 }
 

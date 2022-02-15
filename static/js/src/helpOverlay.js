@@ -24,7 +24,7 @@ const buttons = (context, callback, cw, ch) => {
 
 	let buttonLocations = [];
 	let options = {
-		font: "normal",
+		font: "mono",
 		color: "white",
 		size: 2,
 		text: "Back"
@@ -59,7 +59,7 @@ const buttons = (context, callback, cw, ch) => {
 const mainText = (context, callback, cw, ch) => {
 	
 	let options = {
-		font: "normal",
+		font: "light",
 		color: "dark",
 		size: 2,
 		text: "Help"
