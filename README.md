@@ -18,13 +18,29 @@ One of the interesting aspects this project is how it scales to almost any brows
 - ### **Custom Responsive Behavior**
 
 	All elements within the canvas messure responsive in 2 ways:
+
 	1. One for visual elements like buttons.
 	2. One for text to scale accordingly to screen resolution.
 
-	The first one is done by messuring the width and height of the client and finding out if the height is larger than the width (portrait mode). If it is, the elements are responsive and you just have to create a second layout for it. Majority of pages have two layouts because of this. A non responsive and responsive layout to create.
+	The first one is done by messuring the width and height of the client and finding out if the height is larger than the width (portrait mode). If it is, the elements are responsive and you just have to create a second layout for it. Majority of pages have two layouts because of this. A non responsive and responsive layout to create. This is found in [static/js/api/responsive.js](static/js/api/responsive.js).
 
-	The second is by messureing if the text that is about to be drawn on the canvas is larger than a specifed size. If you specify the size to be half the total width of the screen for example, the responsive system will calculate if the text will overlap those bounds. If it does, it will adjust the size accordingly until it fits in the specifed bounds.
+	The second is by messureing if the text that is about to be drawn on the canvas is larger than a specifed size. If you specify the size to be half the total width of the screen for example, the responsive system will calculate if the text will overlap those bounds. If it does, it will adjust the size accordingly until it fits in the specifed bounds. The code for this is found in [static/js/api/text.js](static/js/api/text.js).
 
+
+- ### **Input Handling**
+	This system allows me to write a single function and supply it any input from JavaScript events. Events such as *"touchstart"*, *"mousedown"* or *"keydown"* return input values that I can assign to a single function - creating a univseral system for all inputs I wish to support.
+- ### **Editor for Custom Quizes**
+	This will allow for further expansion of content instead of relying on just one quiz. Users can create their own quiz and export that as a set of characters they can share with other users or just to save their own quizes. This system aslo allows users to import a quiz by giving the code back into the system.
+
+## Pages
+
+- [index.html](index.html) - The main page with a blank canvas.
+- [title.js](static/js/src/title.js) - A landing page greeting the user about the game.
+- [menu.js](static/js/src/menu.js) - A page to allow access to different parts of the site.
+- [game.js](static/js/src/game.js) - The page that loads the selected quiz.
+- [questionAnswer.js](static/js/src/questionAnswer.js) - Tells the user if they answered a question right or wrong.
+- [result.js](static/js/src/result.js) - Shows the user their overall performance at the end of the quiz.
+- [editor.js](static/js/src/editor.js) - The page that allows users to import or make their own quiz.
 
 ## Technologies
 
@@ -33,19 +49,7 @@ One of the interesting aspects this project is how it scales to almost any brows
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/javascript)
 - [Git](https://git-scm.com/)
 - [Github](https://github.com)
-- ### **Navbar**
-	
-  A Navbar is available on every page that has sections defined that you can scroll to. Some pages do not have a Navbar if there is very little content. The navbar contains buttons that allow the user to scroll to specific sections on the page and also highlights the buttons depending on the section you are viewing using Bootstrap’s Scrollspy feature.
 
-- ### **Scroll to top**
-
-	Some pages are too long and scrolling for a long time to reach back to the top is not a user-friendly experience. This is a small circular button on the bottom right of your view and follows you everywhere you scroll. Pressing the button will scroll the page all the way to the top of the page. - ### **Navbar**
-
-	A Navbar is available on every page that has sections defined that you can scroll to. Some pages do not have a Navbar if there is very little content. The navbar contains buttons that allow the user to scroll to specific sections on the page and also highlights the buttons depending on the section you are viewing using Bootstrap’s Scrollspy feature.
-
-- ### **Scroll to top**
-
-	Some pages are too long and scrolling for a long time to reach back to the top is not a user-friendly experience. This is a small circular button on the bottom right of your view and follows you everywhere you scroll. Pressing the button will scroll the page all the way to the top of the page./jsQuiz
 ## Deployment
 
 Getting the files onto your system:
@@ -86,3 +90,11 @@ Learning resources used heavily:
 
 - https://www.w3schools.com/
 - https://developer.mozilla.org/en-US/docs/Web/API
+
+Music resources created by
+- babasmasmoosic - https://soundcloud.com/babasmasmoosic
+
+	Tracks used:
+
+		Space Journey
+		A Turtle's Adventures - The Begininng
