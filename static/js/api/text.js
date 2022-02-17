@@ -7,7 +7,10 @@ const sizes = {
 	"3": 32,
 	"4": 24,
 	"5": 16,
-	"6": 12
+	"6": 12,
+	"7": 11,
+	"8": 10,
+	"9": 6
 }
 
 const colors = {
@@ -30,7 +33,7 @@ const api_setText = (context, cw, options) => {
 
 	let maxSize = options.size || 1;
 
-	while (maxSize < 7) {
+	while (maxSize < 9) {
 
 		context.font = sizes[maxSize] + "px " + fonts[options.font || fonts.normal];
 		if (options.font == "light") {context.font = "300 " + context.font}

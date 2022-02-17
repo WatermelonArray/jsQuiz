@@ -113,6 +113,8 @@ const handleInputPosition = (input, callback) => {
 			}
 			else if (buttonType === "confirm") {callback.state.confirmPopup = true;}
 			else if (buttonType === "help") {callback.state.helpPopup = true;}
+			else if (buttonType === "e_addQuestion") {callback.addQuestion(callback);}
+			else if (buttonType === "e_removeQuestion") {callback.removeQuestion(callback);}
 			else {
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();

@@ -3,7 +3,7 @@
 // load animation pages
 import {titleAnimation} from "../src/title.js"; // title animation
 import {menuAnimation} from "../src/menu.js"; // menu animation
-import {editorAnimation} from "../src/editor.js"; // editor animation
+import {editorAnimation} from "../src/editorAnimation.js"; // editor animation
 import {gameAnimation} from "../src/game.js"; // game animation
 import {answerAnimation} from "../src/questionAnswer.js"; // answer animation
 import {resultAnimation} from "../src/result.js"; // result animation
