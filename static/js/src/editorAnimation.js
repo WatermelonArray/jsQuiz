@@ -201,6 +201,31 @@ const buttons = (context, callback, cw, ch) => {
 
 }
 
+const answers = (context, callback, cw, ch) => {
+
+	//let buttonLocations = [];
+	let options = {
+		font: "mono",
+		color: "white",
+		size: 3,
+		text: "Back"
+	};
+
+	context.globalAlpha = 1;
+	context.fillStyle = "#222222";
+
+	const answerRatio = (ch / 12 * 7) / (callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length);
+	
+	for (let i = 0; i < callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length; i++) {
+		context.fillRect(
+			(ch / 12 * 2),
+			(ch / 12 * 4.5) + (answerRatio * i),
+			cw - (ch / 12 * 4),
+			answerRatio * 0.9
+		);
+	}
+}
+
 const mainText = (context, callback, cw, ch) => {
 	
 	context.globalAlpha = 1;
@@ -235,6 +260,7 @@ const editorAnimation = (canvas, context, callback) => {
 
 	background(context, callback, cw, ch);
 	buttons(context, callback, cw, ch);
+	answers(context, callback, cw, ch)
 	mainText(context, callback, cw, ch);
 
 }

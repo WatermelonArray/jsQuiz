@@ -22,7 +22,9 @@ const changeQuestion = (callback, dir) => {
 };
 
 const addAnswer = (callback) => {
-	callback.editor.questionList[callback.editor.currentQuestion - 1].answers.push(JSON.parse(JSON.stringify(callback.editor.templates.answer)));
+	if (callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length < 6) {
+		callback.editor.questionList[callback.editor.currentQuestion - 1].answers.push(JSON.parse(JSON.stringify(callback.editor.templates.answer)));
+	}
 };
 
 const setupEditor = (callback) => {
