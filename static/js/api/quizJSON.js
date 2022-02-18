@@ -1,12 +1,12 @@
 "use strict";
 
 // setup classes
-const questionAnswer = {
+let questionAnswer = {
 	description: "A",
 	isAnswer: false
 };
 
-const questionTemplate = {
+let questionTemplate = {
 	question: "Hello World",
 	answers: []
 };

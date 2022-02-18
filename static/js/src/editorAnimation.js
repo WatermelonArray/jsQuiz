@@ -151,6 +151,35 @@ const buttons = (context, callback, cw, ch) => {
 
 	buttonLocations.push({
 		loc: {
+			x0: 0,
+			x1: ch / 12,
+			y0: ch / 12 * 1.2,
+			y1: (ch / 12 * 1.2) + ch / 12
+		},
+		ref: "e_changeQuestionLeft"
+	});
+	buttonLocations.push({
+		loc: {
+			x0: cw - (ch / 12),
+			x1: cw,
+			y0: ch / 12 * 1.2,
+			y1: (ch / 12 * 1.2) + ch / 12
+		},
+		ref: "e_changeQuestionRight"
+	});
+
+	buttonLocations.push({
+		loc: {
+			x0: cw - (ch / 12),
+			x1: cw,
+			y0: ch / 12 * 11,
+			y1: (ch / 12 * 11) + ch / 12
+		},
+		ref: "e_addAnswer"
+	});
+
+	buttonLocations.push({
+		loc: {
 			x0: cw - (ch / 12),
 			x1: cw,
 			y0: ch / 12 * 2.4,
