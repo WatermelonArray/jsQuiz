@@ -27,12 +27,19 @@ const addAnswer = (callback) => {
 	}
 };
 
+const removeAnswer = (callback, index) => {
+	if (callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length > 0) {
+		callback.editor.questionList[callback.editor.currentQuestion - 1].answers.splice(index - 1, 1);
+	}
+};
+
 const setupEditor = (callback) => {
 
 	callback.editor.addQuestion = addQuestion;
-	callback.editor.addAnswer = addAnswer;
 	callback.editor.removeQuestion = removeQuestion;
 	callback.editor.changeQuestion = changeQuestion;
+	callback.editor.addAnswer = addAnswer;
+	callback.editor.removeAnswer = removeAnswer;
 
 	callback.editor.questionList.push(callback.editor.templates.question);
 

@@ -203,27 +203,69 @@ const buttons = (context, callback, cw, ch) => {
 
 const answers = (context, callback, cw, ch) => {
 
-	//let buttonLocations = [];
+	let buttonLocations = [];
 	let options = {
 		font: "mono",
 		color: "white",
-		size: 3,
-		text: "Back"
+		size: 2,
+		text: "-"
 	};
 
 	context.globalAlpha = 1;
-	context.fillStyle = "#222222";
 
 	const answerRatio = (ch / 12 * 7) / (callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length);
 	
 	for (let i = 0; i < callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length; i++) {
+
+		// render answer
+		context.fillStyle = "#222222";
 		context.fillRect(
 			(ch / 12 * 2),
 			(ch / 12 * 4.5) + (answerRatio * i),
 			cw - (ch / 12 * 4),
 			answerRatio * 0.9
 		);
+
+		options.text = "answer description";
+		options.size = 3;
+		options.font = "normal";
+		callback.setText(context, cw - (ch / 12 * 5), options);
+		context.fillText(
+			options.text,
+			(ch / 12 * 2) + ((cw - (ch / 12 * 4)) / 2) - (ch / 24),
+			((ch / 12 * 4.5) + (answerRatio * i)) + ((answerRatio * 0.9) / 2)
+		);
+
+		// remove button
+		context.fillStyle = "#FF4444";
+		context.fillRect(
+			cw - (ch / 12 * 3),
+			(ch / 12 * 4.5) + (answerRatio * i),
+			ch / 12,
+			answerRatio * 0.9
+		);
+		options.size = 2;
+		options.font = "mono";
+		options.text = "-";
+		callback.setText(context, ch / 12, options);
+		context.fillText(
+			options.text,
+			(cw - (ch / 12 * 2.5)),
+			(ch / 12 * 4.5) + (answerRatio * i) + ((answerRatio * 0.9) / 2)
+		);
+
+		buttonLocations.push({
+			loc: {
+				x0: cw - (ch / 12 * 3),
+				x1: (cw - (ch / 12 * 3)) + (ch / 12),
+				y0: (ch / 12 * 4.5) + (answerRatio * i),
+				y1: (ch / 12 * 4.5) + (answerRatio * i) + (answerRatio * 0.9)
+			},
+			ref: "e_removeAnswer-" + i
+		});
 	}
+
+	callback.state.buttons.push(...buttonLocations);
 }
 
 const mainText = (context, callback, cw, ch) => {
