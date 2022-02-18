@@ -170,7 +170,7 @@ const buttons = (context, callback, cw, ch) => {
 
 	buttonLocations.push({
 		loc: {
-			x0: cw - (ch / 12),
+			x0: cw - (ch / 12 * 1.5),
 			x1: cw,
 			y0: ch / 12 * 11,
 			y1: (ch / 12 * 11) + ch / 12
