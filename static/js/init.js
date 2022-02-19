@@ -17,7 +17,6 @@ import {logQuizData} from "./core/debugger.js"; // only for debugging purposes
 import {api_checkResponsive} from "./api/responsive.js";
 import {api_setText} from "./api/text.js";
 import {api_lerp} from "./api/lerp.js";
-import {editorJSON} from "./api/quizJSON.js";
 
 // setup callback
 const callback = {
@@ -69,15 +68,13 @@ const init = (x) => {
 	setupRender(x);
 	setupAudio(x);
 	setupEditor(x);
-
-	
 }
 
 // setup api
 callback.setText = api_setText;
 callback.checkResponsive = api_checkResponsive;
 callback.lerp = api_lerp;
-callback.editorJSON = editorJSON;
+
 // fetch quiz json
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // https://developer.mozilla.org/en-US/docs/Web/API/Request/json
@@ -85,7 +82,6 @@ let x = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
 callback.state.quiz = await x.json();
 
 // start game
-callback.editorJSON(callback);
 init(callback);
 callback.setMusic("title");
 
