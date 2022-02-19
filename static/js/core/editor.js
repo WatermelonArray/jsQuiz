@@ -18,7 +18,7 @@ const removeQuestion = (callback) => {
 };
 
 const changeQuestion = (callback, dir) => {
-	console.log(callback.editor.currentQuestion + dir > 0 && callback.editor.currentQuestion + dir <= callback.editor.questionList.length);
+	//console.log(callback.editor.currentQuestion + dir > 0 && callback.editor.currentQuestion + dir <= callback.editor.questionList.length);
 	if (callback.editor.currentQuestion + dir > 0 && callback.editor.currentQuestion + dir <= callback.editor.questionList.length) {
 		callback.editor.currentQuestion = callback.editor.currentQuestion + dir;
 	}
@@ -39,6 +39,32 @@ const removeAnswer = (callback, index) => {
 	}
 };
 
+const exportJSON = (callback) => {
+
+	let quiz = {
+		"quizName": callback.editor.quizName
+	};
+
+	let tempObj = {};
+	for (let i = 0; i < callback.editor.questionList.length; i++) {
+		tempObj[i + 1] = callback.editor.questionList[i];
+	}
+
+	quiz.questions = tempObj;
+	console.log(btoa(JSON.stringify(quiz)));
+};
+
+const importJSON = (callback, id) => {
+
+	const tempid = "eyJxdWl6TmFtZSI6InF1aXpOYW1lIiwicXVlc3Rpb25zIjp7IjEiOnsicXVlc3Rpb24iOiJIZWxsbyBXb3JsZCIsImFuc3dlcnMiOlt7ImRlc2NyaXB0aW9uIjoiQSIsImlzQW5zd2VyIjpmYWxzZX0seyJkZXNjcmlwdGlvbiI6IkEiLCJpc0Fuc3dlciI6ZmFsc2V9LHsiZGVzY3JpcHRpb24iOiJBIiwiaXNBbnN3ZXIiOmZhbHNlfV19LCIyIjp7InF1ZXN0aW9uIjoiSGVsbG8gV29ybGQiLCJhbnN3ZXJzIjpbeyJkZXNjcmlwdGlvbiI6IkEiLCJpc0Fuc3dlciI6ZmFsc2V9LHsiZGVzY3JpcHRpb24iOiJBIiwiaXNBbnN3ZXIiOmZhbHNlfV19LCIzIjp7InF1ZXN0aW9uIjoiSGVsbG8gV29ybGQiLCJhbnN3ZXJzIjpbeyJkZXNjcmlwdGlvbiI6IkEiLCJpc0Fuc3dlciI6ZmFsc2V9LHsiZGVzY3JpcHRpb24iOiJBIiwiaXNBbnN3ZXIiOmZhbHNlfSx7ImRlc2NyaXB0aW9uIjoiQSIsImlzQW5zd2VyIjpmYWxzZX0seyJkZXNjcmlwdGlvbiI6IkEiLCJpc0Fuc3dlciI6ZmFsc2V9XX19fQ==";
+	const temp = JSON.parse(atob(tempid));
+
+	callback.editor.currentQuestion = 1;
+	callback.editor.quizName = temp.quizName;
+	callback.editor.questionList = [...Object.values(temp.questions)];
+	console.log(temp)
+}
+
 const setupEditor = (callback) => {
 
 	callback.editor.addQuestion = addQuestion;
@@ -46,6 +72,8 @@ const setupEditor = (callback) => {
 	callback.editor.changeQuestion = changeQuestion;
 	callback.editor.addAnswer = addAnswer;
 	callback.editor.removeAnswer = removeAnswer;
+	callback.editor.exportJSON = exportJSON;
+	callback.editor.importJSON = importJSON;
 
 	callback.editor.questionList.push({
 		question: "Hello World",

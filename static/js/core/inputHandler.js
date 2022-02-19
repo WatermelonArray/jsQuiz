@@ -102,7 +102,6 @@ const handleInputPosition = (input, callback) => {
 		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
 
 		if (result) {
-			//console.log(buttonType.substring(0, 14));
 			if (buttonType === "nextQuestion") {callback.newQuestion(callback);}
 			else if (buttonType === "menu") {
 				callback.state.questionNumber = 0;
@@ -119,6 +118,8 @@ const handleInputPosition = (input, callback) => {
 			else if (buttonType === "e_changeQuestionLeft") {callback.editor.changeQuestion(callback, -1);}
 			else if (buttonType === "e_changeQuestionRight") {callback.editor.changeQuestion(callback, 1);}
 			else if (buttonType === "e_addAnswer") {callback.editor.addAnswer(callback);}
+			else if (buttonType === "e_exportJSON") {callback.editor.exportJSON(callback);}
+			else if (buttonType === "e_importJSON") {callback.editor.importJSON(callback, 1);}
 			else if (buttonType.substring(0, 14) == "e_removeAnswer") {
 				callback.editor.removeAnswer(callback, buttonType.substring(16, buttonType.length));
 			}

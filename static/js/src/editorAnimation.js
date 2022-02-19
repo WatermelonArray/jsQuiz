@@ -197,6 +197,26 @@ const buttons = (context, callback, cw, ch) => {
 		ref: "e_removeQuestion"
 	});
 
+	buttonLocations.push({
+		loc: {
+			x0: 0,
+			x1: ch / 12 * 1.5,
+			y0: ch - (ch / 12 * 2.2),
+			y1: (ch - (ch / 12 * 2.2)) + (ch / 12)
+		},
+		ref: "e_importJSON"
+	});
+
+	buttonLocations.push({
+		loc: {
+			x0: 0,
+			x1: ch / 12 * 1.5,
+			y0: ch - (ch / 12 * 3.4),
+			y1: (ch - (ch / 12 * 3.4)) + (ch / 12)
+		},
+		ref: "e_exportJSON"
+	});
+
 	callback.state.buttons = buttonLocations;
 
 }
