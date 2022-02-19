@@ -18,7 +18,6 @@ const removeQuestion = (callback) => {
 };
 
 const changeQuestion = (callback, dir) => {
-	//console.log(callback.editor.currentQuestion + dir > 0 && callback.editor.currentQuestion + dir <= callback.editor.questionList.length);
 	if (callback.editor.currentQuestion + dir > 0 && callback.editor.currentQuestion + dir <= callback.editor.questionList.length) {
 		callback.editor.currentQuestion = callback.editor.currentQuestion + dir;
 	}
@@ -39,19 +38,24 @@ const removeAnswer = (callback, index) => {
 	}
 };
 
+const changeAnswer = (callback) => {
+	var input = 3;
+
+	callback.textboxInput(callback);
+
+	//console.log(input)
+}
+
 const exportJSON = (callback) => {
 
-	let quiz = {
-		"quizName": callback.editor.quizName
-	};
-
+	let quiz = {"quizName": callback.editor.quizName};
 	let tempObj = {};
-	for (let i = 0; i < callback.editor.questionList.length; i++) {
-		tempObj[i + 1] = callback.editor.questionList[i];
-	}
 
+	for (let i = 0; i < callback.editor.questionList.length; i++) {tempObj[i + 1] = callback.editor.questionList[i];}
 	quiz.questions = tempObj;
-	console.log(btoa(JSON.stringify(quiz)));
+
+	const base = btoa(JSON.stringify(quiz));
+	navigator.clipboard.writeText(base);
 };
 
 const importJSON = (callback, id) => {
@@ -62,7 +66,6 @@ const importJSON = (callback, id) => {
 	callback.editor.currentQuestion = 1;
 	callback.editor.quizName = temp.quizName;
 	callback.editor.questionList = [...Object.values(temp.questions)];
-	console.log(temp)
 }
 
 const setupEditor = (callback) => {
@@ -72,9 +75,11 @@ const setupEditor = (callback) => {
 	callback.editor.changeQuestion = changeQuestion;
 	callback.editor.addAnswer = addAnswer;
 	callback.editor.removeAnswer = removeAnswer;
+	callback.editor.changeAnswer = changeAnswer;
 	callback.editor.exportJSON = exportJSON;
 	callback.editor.importJSON = importJSON;
 
+	callback.changeAnswer = changeAnswer;
 	callback.editor.questionList.push({
 		question: "Hello World",
 		answers: []

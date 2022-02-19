@@ -118,6 +118,7 @@ const handleInputPosition = (input, callback) => {
 			else if (buttonType === "e_changeQuestionLeft") {callback.editor.changeQuestion(callback, -1);}
 			else if (buttonType === "e_changeQuestionRight") {callback.editor.changeQuestion(callback, 1);}
 			else if (buttonType === "e_addAnswer") {callback.editor.addAnswer(callback);}
+			else if (buttonType === "e_changeAnswer") {callback.editor.changeAnswer(callback);}
 			else if (buttonType === "e_exportJSON") {callback.editor.exportJSON(callback);}
 			else if (buttonType === "e_importJSON") {callback.editor.importJSON(callback, 1);}
 			else if (buttonType.substring(0, 14) == "e_removeAnswer") {
@@ -166,10 +167,11 @@ const touch = (callback) => {
 	})
 }
 // method
-const setupInput = (state) => {
-	mouse(state);
-	keyboard(state);
-	touch(state);
+const setupInput = (callback) => {
+
+	mouse(callback);
+	keyboard(callback);
+	touch(callback);
 }
 
 // export

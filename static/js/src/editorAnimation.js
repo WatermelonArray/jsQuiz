@@ -234,13 +234,13 @@ const answers = (context, callback, cw, ch) => {
 	context.globalAlpha = 1;
 
 	const answerRatio = (ch / 12 * 7) / (callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length);
-	
+
 	for (let i = 0; i < callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length; i++) {
 
 		// render answer
 		context.fillStyle = "#222222";
 		context.fillRect(
-			(ch / 12 * 2),
+			ch / 12 * 2,
 			(ch / 12 * 4.5) + (answerRatio * i),
 			cw - (ch / 12 * 4),
 			answerRatio * 0.9
@@ -282,6 +282,16 @@ const answers = (context, callback, cw, ch) => {
 				y1: (ch / 12 * 4.5) + (answerRatio * i) + (answerRatio * 0.9)
 			},
 			ref: "e_removeAnswer-" + i
+		});
+
+		buttonLocations.push({
+			loc: {
+				x0: ch / 12 * 2,
+				x1: (ch / 12 * 2) + (cw - (ch / 12 * 5)),
+				y0: (ch / 12 * 4.5) + (answerRatio * i),
+				y1: (ch / 12 * 4.5) + (answerRatio * i) + (answerRatio * 0.9)
+			},
+			ref: "e_changeAnswer"
 		});
 	}
 
