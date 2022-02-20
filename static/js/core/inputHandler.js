@@ -102,6 +102,8 @@ const handleInputPosition = (input, callback) => {
 		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
 
 		if (result) {
+
+			// game
 			if (buttonType === "nextQuestion") {callback.newQuestion(callback);}
 			else if (buttonType === "menu") {
 				callback.state.questionNumber = 0;
@@ -113,17 +115,23 @@ const handleInputPosition = (input, callback) => {
 			}
 			else if (buttonType === "confirm") {callback.state.confirmPopup = true;}
 			else if (buttonType === "help") {callback.state.helpPopup = true;}
+
+			//editor
 			else if (buttonType === "e_addQuestion") {callback.editor.addQuestion(callback);}
 			else if (buttonType === "e_removeQuestion") {callback.editor.removeQuestion(callback);}
 			else if (buttonType === "e_changeQuestionLeft") {callback.editor.changeQuestion(callback, -1);}
 			else if (buttonType === "e_changeQuestionRight") {callback.editor.changeQuestion(callback, 1);}
 			else if (buttonType === "e_addAnswer") {callback.editor.addAnswer(callback);}
-			else if (buttonType === "e_changeAnswer") {callback.editor.changeAnswer(callback);}
+			else if (buttonType === "e_showPopup") {callback.editor.showPopup(callback);}
+			else if (buttonType === "e_closePopup") {callback.editor.closePopup(callback);}
+			else if (buttonType === "e_enterText") {callback.editor.enterText(callback);}
 			else if (buttonType === "e_exportJSON") {callback.editor.exportJSON(callback);}
 			else if (buttonType === "e_importJSON") {callback.editor.importJSON(callback, 1);}
 			else if (buttonType.substring(0, 14) == "e_removeAnswer") {
 				callback.editor.removeAnswer(callback, buttonType.substring(16, buttonType.length));
 			}
+
+			// other
 			else {
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();

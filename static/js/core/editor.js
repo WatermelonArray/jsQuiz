@@ -38,13 +38,11 @@ const removeAnswer = (callback, index) => {
 	}
 };
 
-const changeAnswer = (callback) => {
-	var input = 3;
+const answerPopupShow = (callback) => {callback.editor.answerPopup = true;};
 
-	callback.textboxInput(callback);
+const answerPopupClose = (callback) => {callback.editor.answerPopup = false};
 
-	//console.log(input)
-}
+const textboxAnswer = (callback) => {callback.textboxInput(callback);};
 
 const exportJSON = (callback) => {
 
@@ -75,11 +73,12 @@ const setupEditor = (callback) => {
 	callback.editor.changeQuestion = changeQuestion;
 	callback.editor.addAnswer = addAnswer;
 	callback.editor.removeAnswer = removeAnswer;
-	callback.editor.changeAnswer = changeAnswer;
+	callback.editor.showPopup = answerPopupShow;
+	callback.editor.closePopup = answerPopupClose;
+	callback.editor.enterText = textboxAnswer;
 	callback.editor.exportJSON = exportJSON;
 	callback.editor.importJSON = importJSON;
 
-	callback.changeAnswer = changeAnswer;
 	callback.editor.questionList.push({
 		question: "Hello World",
 		answers: []

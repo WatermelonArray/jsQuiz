@@ -56,7 +56,9 @@ const callback = {
 		templates: [],
 		questionList: [],
 		currentQuestion: 1,
-		quizName: "quizName"
+		quizName: "quizName",
+
+		answerPopup: false
 	},
 	resetFuncs: {},
 	enum: {}
