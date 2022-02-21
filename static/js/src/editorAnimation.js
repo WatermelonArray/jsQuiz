@@ -44,33 +44,34 @@ const answerPopup = (context, callback, cw, ch) => {
 	}
 	context.shadowBlur = 0;
 
-	context.fillStyle = "#222222"
-
-	context.fillRect(
-		cw / 12 * 2.2,
-		ch / 12 * 6,
-		cw / 12 * 7.6,
-		ch / 12 * 1.5
-	)
+	context.fillStyle = "#222222";
 	context.fillRect(
 		cw / 12 * 2.2,
 		ch / 12 * 4,
 		cw / 12 * 7.6,
 		ch / 12 * 1.5
-	)
+	);
 	context.fillRect(
 		cw / 12 * 2.2,
 		ch / 12 * 8,
 		cw / 12 * 3.5,
 		ch / 12 * 1.5
-	)
+	);
 	context.fillRect(
 		cw / 12 * 6.3,
 		ch / 12 * 8,
 		cw / 12 * 3.5,
 		ch / 12 * 1.5
-	)
-	
+	);
+
+	if (callback.editor.questionList[callback.editor.currentQuestion - 1].answers[callback.editor.selectedAnswer].isAnswer) {context.fillStyle = "#44FF44";}
+	else {context.fillStyle = "#FF4444";}
+	context.fillRect(
+		cw / 12 * 2.2,
+		ch / 12 * 6,
+		cw / 12 * 7.6,
+		ch / 12 * 1.5
+	);
 	options.text = "Answer Value: " + callback.editor.questionList[callback.editor.currentQuestion - 1].answers[callback.editor.selectedAnswer].isAnswer;
 	callback.setText(context, ch / 12 * 7, options);
 	context.fillText(
@@ -78,13 +79,12 @@ const answerPopup = (context, callback, cw, ch) => {
 		cw / 2,
 		ch / 12 * 4.75
 	);
-	
 	context.fillText(
 		options.text,
 		cw / 2,
 		ch / 12 * 6.75
 	);
-	
+
 	options.text = "Delete"
 	callback.setText(context, ch / 12 * 2.5, options);
 	context.fillText(
@@ -97,7 +97,6 @@ const answerPopup = (context, callback, cw, ch) => {
 		cw / 12 * 6.3 + (cw / 12 * 1.75),
 		ch / 12 * 8.75
 	);
-	
 
 	if (callback.state.allowInput) {
 		// text
@@ -110,16 +109,34 @@ const answerPopup = (context, callback, cw, ch) => {
 			},
 			ref: "e_enterText"
 		});
-
 		buttonLocations.push({
 			loc: {
 				x0: cw / 12 * 2.2,
-				x1: (cw / 12 * 2.2) + (cw / 12 * 3),
+				x1: (cw / 12 * 2.2) + (cw / 12 * 3.5),
 				y0: ch / 12 * 8,
 				y1: (ch / 12 * 8) + (ch / 12 * 1.5)
 			},
 			ref: "e_closePopup"
 		});
+		buttonLocations.push({
+			loc: {
+				x0: cw / 12 * 2.2,
+				x1: (cw / 12 * 2.2) + (cw / 12 * 7.6),
+				y0: ch / 12 * 6,
+				y1: (ch / 12 * 6) + (ch / 12 * 1.5)
+			},
+			ref: "e_changeAnswerValue-" + callback.editor.selectedAnswer
+		});
+		buttonLocations.push({
+			loc: {
+				x0: cw / 12 * 6.3,
+				x1: (cw / 12 * 6.3) + (cw / 12 * 3.5),
+				y0: ch / 12 * 8,
+				y1: (ch / 12 * 8) + (ch / 12 * 1.5)
+			},
+			ref: "e_removeAnswer-" + callback.editor.selectedAnswer
+		});
+
 
 		// back
 		callback.state.buttons = buttonLocations;
@@ -375,6 +392,14 @@ const answers = (context, callback, cw, ch) => {
 			cw - (ch / 12 * 4),
 			answerRatio * 0.9
 		);
+		if (callback.editor.questionList[callback.editor.currentQuestion - 1].answers[i].isAnswer) {context.fillStyle = "#44FF44";}
+		else {context.fillStyle = "#FF4444";}
+		context.fillRect(
+			cw - (ch / 12 * 2.1),
+			(ch / 12 * 4.5) + (answerRatio * i),
+			ch / 12 * 0.1,
+			answerRatio * 0.9
+		);
 
 		options.text = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[i].description;
 		options.size = 3;
@@ -382,50 +407,22 @@ const answers = (context, callback, cw, ch) => {
 		callback.setText(context, cw - (ch / 12 * 5), options);
 		context.fillText(
 			options.text,
-			(ch / 12 * 2) + ((cw - (ch / 12 * 4)) / 2) - (ch / 24),
+			cw / 2,
 			((ch / 12 * 4.5) + (answerRatio * i)) + ((answerRatio * 0.9) / 2)
-		);
-
-		// remove button
-		context.fillStyle = "#FF4444";
-		context.fillRect(
-			cw - (ch / 12 * 3),
-			(ch / 12 * 4.5) + (answerRatio * i),
-			ch / 12,
-			answerRatio * 0.9
-		);
-		options.size = 2;
-		options.font = "mono";
-		options.text = "-";
-		callback.setText(context, ch / 12, options);
-		context.fillText(
-			options.text,
-			(cw - (ch / 12 * 2.5)),
-			(ch / 12 * 4.5) + (answerRatio * i) + ((answerRatio * 0.9) / 2)
 		);
 
 		if (!callback.editor.answerPopup) {
 			buttonLocations.push({
 				loc: {
-					x0: cw - (ch / 12 * 3),
-					x1: (cw - (ch / 12 * 3)) + (ch / 12),
-					y0: (ch / 12 * 4.5) + (answerRatio * i),
-					y1: (ch / 12 * 4.5) + (answerRatio * i) + (answerRatio * 0.9)
-				},
-				ref: "e_removeAnswer-" + i
-			});
-
-			buttonLocations.push({
-				loc: {
 					x0: ch / 12 * 2,
-					x1: (ch / 12 * 2) + (cw - (ch / 12 * 5)),
+					x1: (ch / 12 * 2) + (cw - (ch / 12 * 4)),
 					y0: (ch / 12 * 4.5) + (answerRatio * i),
 					y1: (ch / 12 * 4.5) + (answerRatio * i) + (answerRatio * 0.9)
 				},
 				ref: "e_showPopup-" + i
 			});
+			callback.state.buttons.push(...buttonLocations);
 		}
-		callback.state.buttons.push(...buttonLocations);
 	}
 
 	

@@ -34,8 +34,14 @@ const addAnswer = (callback) => {
 
 const removeAnswer = (callback, index) => {
 	if (callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length > 0) {
+		callback.editor.answerPopup = false;
 		callback.editor.questionList[callback.editor.currentQuestion - 1].answers.splice(index - 1, 1);
 	}
+};
+
+const changeValue = (callback, index) => {
+	const bool = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer;
+	callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer = !bool;
 };
 
 const answerPopupShow = (callback, answer) => {
@@ -81,6 +87,7 @@ const setupEditor = (callback) => {
 	callback.editor.enterText = textboxAnswer;
 	callback.editor.exportJSON = exportJSON;
 	callback.editor.importJSON = importJSON;
+	callback.editor.changeValue = changeValue;
 
 	callback.editor.questionList.push({
 		question: "Hello World",
