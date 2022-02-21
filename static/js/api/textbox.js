@@ -14,16 +14,23 @@ const api_textbox = (callback) => {
 
 		input.onblur = function() {
 			callback.state.allowInput = true;
+			callback.editor.textboxPopup = false;
+			callback.editor.answerText = input.value;
 		};
-		input.onkeydown = function(e) {
+
+		input.onkeyup = function(e) {
 			if (e.key === "Enter") {
 				callback.state.allowInput = true;
+				callback.editor.questionList[callback.editor.currentQuestion - 1].answers[callback.editor.selectedAnswer].description = input.value;
+				callback.editor.answerPopup = false;
 				input.blur();
-				console.log(currentTextBox.value)
 			}
-			if (e.key === "Escape") {
+			else if (e.key === "Escape") {
 				callback.state.allowInput = true;
 				input.blur();
+			}
+			else {
+				callback.editor.answerText = input.value;
 			}
 		};
 
@@ -31,6 +38,7 @@ const api_textbox = (callback) => {
 
 	}
 
+	callback.editor.textboxPopup = true;
 	// workaround to delay focus so that it waits for textbox to catch up?
 	setTimeout(function() {
 		currentTextBox.focus();

@@ -57,8 +57,11 @@ const callback = {
 		questionList: [],
 		currentQuestion: 1,
 		quizName: "quizName",
+		answerText: "",
+		selectedAnswer: 0,
 
-		answerPopup: false
+		answerPopup: false,
+		textboxPopup: false
 	},
 	resetFuncs: {},
 	enum: {}

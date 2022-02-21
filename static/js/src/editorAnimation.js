@@ -25,7 +25,7 @@ const answerPopup = (context, callback, cw, ch) => {
 		font: "mono",
 		color: "white",
 		size: 3,
-		text: "Change Answer"
+		text: "Change Answer Text"
 	}
 
 	context.globalAlpha = 1;
@@ -59,26 +59,45 @@ const answerPopup = (context, callback, cw, ch) => {
 		ch / 12 * 1.5
 	)
 	context.fillRect(
-		cw / 12 * 4.5,
+		cw / 12 * 2.2,
 		ch / 12 * 8,
-		cw / 12 * 3,
+		cw / 12 * 3.5,
 		ch / 12 * 1.5
 	)
-
+	context.fillRect(
+		cw / 12 * 6.3,
+		ch / 12 * 8,
+		cw / 12 * 3.5,
+		ch / 12 * 1.5
+	)
+	
+	options.text = "Answer Value: " + callback.editor.questionList[callback.editor.currentQuestion - 1].answers[callback.editor.selectedAnswer].isAnswer;
 	callback.setText(context, ch / 12 * 7, options);
 	context.fillText(
-		"Change Answer",
+		"Change Answer Text",
+		cw / 2,
+		ch / 12 * 4.75
+	);
+	
+	context.fillText(
+		options.text,
 		cw / 2,
 		ch / 12 * 6.75
 	);
 	
-	options.text = "Close"
+	options.text = "Delete"
 	callback.setText(context, ch / 12 * 2.5, options);
 	context.fillText(
 		"Close",
-		cw / 2,
-		ch / 12 *8.75
+		cw / 12 * 2.2 + (cw / 12 * 1.75),
+		ch / 12 * 8.75
 	);
+	context.fillText(
+		"Delete",
+		cw / 12 * 6.3 + (cw / 12 * 1.75),
+		ch / 12 * 8.75
+	);
+	
 
 	if (callback.state.allowInput) {
 		// text
@@ -86,16 +105,16 @@ const answerPopup = (context, callback, cw, ch) => {
 			loc: {
 				x0: cw / 12 * 2.2,
 				x1: (cw / 12 * 2.2) + (cw / 12 * 7.6),
-				y0: ch / 12 * 6,
-				y1: (ch / 12 * 6) + (ch / 12 * 1.5)
+				y0: ch / 12 * 4,
+				y1: (ch / 12 * 4) + (ch / 12 * 1.5)
 			},
 			ref: "e_enterText"
 		});
 
 		buttonLocations.push({
 			loc: {
-				x0: cw / 12 * 4.5,
-				x1: (cw / 12 * 4.5) + (cw / 12 * 3),
+				x0: cw / 12 * 2.2,
+				x1: (cw / 12 * 2.2) + (cw / 12 * 3),
 				y0: ch / 12 * 8,
 				y1: (ch / 12 * 8) + (ch / 12 * 1.5)
 			},
@@ -123,7 +142,7 @@ const textboxPopup = (context, callback, cw, ch) => {
 
 	callback.setText(context, cw / 12 * 10, options);
 	context.fillText("Enter your answer", cw / 2, ch / 4);
-	context.fillText("...", cw / 2, ch / 2);
+	context.fillText(callback.editor.answerText, cw / 2, ch / 2);
 	context.fillText(options.text, cw / 2, ch / 4 * 3);
 }
 
@@ -357,7 +376,7 @@ const answers = (context, callback, cw, ch) => {
 			answerRatio * 0.9
 		);
 
-		options.text = "answer description";
+		options.text = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[i].description;
 		options.size = 3;
 		options.font = "normal";
 		callback.setText(context, cw - (ch / 12 * 5), options);
@@ -403,7 +422,7 @@ const answers = (context, callback, cw, ch) => {
 					y0: (ch / 12 * 4.5) + (answerRatio * i),
 					y1: (ch / 12 * 4.5) + (answerRatio * i) + (answerRatio * 0.9)
 				},
-				ref: "e_showPopup"
+				ref: "e_showPopup-" + i
 			});
 		}
 		callback.state.buttons.push(...buttonLocations);
@@ -453,7 +472,7 @@ const editorAnimation = (canvas, context, callback) => {
 	mainText(context, callback, cw, ch);
 
 	if (callback.editor.answerPopup) {answerPopup(context, callback, cw, ch);}
-	if (!callback.state.allowInput) {textboxPopup(context, callback, cw, ch);}
+	if (!callback.state.allowInput && callback.editor.textboxPopup) {textboxPopup(context, callback, cw, ch);}
 
 }
 

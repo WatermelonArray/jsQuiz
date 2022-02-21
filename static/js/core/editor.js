@@ -26,7 +26,7 @@ const changeQuestion = (callback, dir) => {
 const addAnswer = (callback) => {
 	if (callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length < 6) {
 		callback.editor.questionList[callback.editor.currentQuestion - 1].answers.push({
-			description: "A",
+			description: "Answer Description",
 			isAnswer: false
 		});
 	}
@@ -38,7 +38,10 @@ const removeAnswer = (callback, index) => {
 	}
 };
 
-const answerPopupShow = (callback) => {callback.editor.answerPopup = true;};
+const answerPopupShow = (callback, answer) => {
+	callback.editor.selectedAnswer = answer;
+	callback.editor.answerPopup = true;
+};
 
 const answerPopupClose = (callback) => {callback.editor.answerPopup = false};
 
