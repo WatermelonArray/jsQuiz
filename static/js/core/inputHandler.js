@@ -103,7 +103,7 @@ const handleInputPosition = (input, callback) => {
 
 		if (result) {
 
-			console.log(buttonType.substring(0, 19))
+			//console.log(buttonType.substring(0, 19))
 			// game
 			if (buttonType === "nextQuestion") {callback.newQuestion(callback);}
 			else if (buttonType === "menu") {
@@ -118,22 +118,36 @@ const handleInputPosition = (input, callback) => {
 			else if (buttonType === "help") {callback.state.helpPopup = true;}
 
 			//editor
+			else if (buttonType ==="e_changeQuizName") {
+				callback.editor.textboxSelect = "quiz";
+				callback.editor.enterText(callback);
+			}
+			else if (buttonType ==="e_changeQuestionSubject") {
+				callback.editor.textboxSelect = "question";
+				callback.editor.enterText(callback);
+			}
+
 			else if (buttonType === "e_addQuestion") {callback.editor.addQuestion(callback);}
 			else if (buttonType === "e_removeQuestion") {callback.editor.removeQuestion(callback);}
 			else if (buttonType === "e_changeQuestionLeft") {callback.editor.changeQuestion(callback, -1);}
 			else if (buttonType === "e_changeQuestionRight") {callback.editor.changeQuestion(callback, 1);}
+
 			else if (buttonType === "e_addAnswer") {callback.editor.addAnswer(callback);}
-
-			else if (buttonType.substring(0, 11) === "e_showPopup") {callback.editor.showPopup(callback, buttonType.substring(12, buttonType.length));}
-			else if (buttonType === "e_enterText") {callback.editor.enterText(callback);}
-			else if (buttonType.substring(0, 19) === "e_changeAnswerValue") {callback.editor.changeValue(callback, buttonType.substring(20, buttonType.length));}
-			else if (buttonType === "e_closePopup") {callback.editor.closePopup(callback);}
-
-			else if (buttonType === "e_exportJSON") {callback.editor.exportJSON(callback);}
-			else if (buttonType === "e_importJSON") {callback.editor.importJSON(callback, 1);}
 			else if (buttonType.substring(0, 14) === "e_removeAnswer") {
 				callback.editor.removeAnswer(callback, buttonType.substring(16, buttonType.length));
 			}
+
+			else if (buttonType.substring(0, 11) === "e_showPopup") {callback.editor.showPopup(callback, buttonType.substring(12, buttonType.length));}
+			else if (buttonType === "e_closePopup") {callback.editor.closePopup(callback);}
+
+			else if (buttonType === "e_enterText") {
+				callback.editor.textboxSelect = "answer";
+				callback.editor.enterText(callback);
+			}
+			else if (buttonType.substring(0, 19) === "e_changeAnswerValue") {callback.editor.changeValue(callback, buttonType.substring(20, buttonType.length));}
+			else if (buttonType === "e_exportJSON") {callback.editor.exportJSON(callback);}
+			else if (buttonType === "e_importJSON") {callback.editor.importJSON(callback, 1);}
+			
 
 			// other
 			else {

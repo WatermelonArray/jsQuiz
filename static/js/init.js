@@ -59,6 +59,7 @@ const callback = {
 		quizName: "quizName",
 		answerText: "",
 		selectedAnswer: 0,
+		textboxSelect: "answer",
 
 		answerPopup: false,
 		textboxPopup: false

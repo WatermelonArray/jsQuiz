@@ -10,28 +10,31 @@ const background = (context, callback, cw, ch) => {
 	let options = {
 		font: "normal",
 		color: "dark",
+		align: "right",
 		size: 5,
 		text: "babasmasmoosic - Turtle's Adventures: The Begininng",
 	};
-	callback.setText(context, cw / 4, options);
-	context.fillText(options.text, cw / 2, ch - (ch / 48));
+	callback.setText(context, cw / 2, options);
+	context.fillText(options.text, cw - (ch / 48), ch - (ch / 48));
 
-}
+};
 
 const answerPopup = (context, callback, cw, ch) => {
 
 	let buttonLocations = [];
 	let options = {
-		font: "mono",
-		color: "white",
-		size: 3,
-		text: "Change Answer Text"
-	}
+		font: "light",
+		color: "dark",
+		size: 2,
+		text: "Answer options"
+	};
 
 	context.globalAlpha = 1;
 	context.fillStyle = "#eeeeee";
 	context.shadowBlur = "16";
 	context.shadowColor = "rgba(0, 0, 0, 0.4)";
+
+	
 	
 	if (callback.state.responsive) {context.fillRect(0, 0, cw, ch);}
 	else {
@@ -43,6 +46,9 @@ const answerPopup = (context, callback, cw, ch) => {
 		);
 	}
 	context.shadowBlur = 0;
+
+	callback.setText(context, cw / 12 * 7, options);
+	context.fillText(options.text, cw / 2, ch / 12 * 3);
 
 	context.fillStyle = "#222222";
 	context.fillRect(
@@ -72,8 +78,10 @@ const answerPopup = (context, callback, cw, ch) => {
 		cw / 12 * 7.6,
 		ch / 12 * 1.5
 	);
+	options.color = "white";
+	options.font = "mono";
 	options.text = "Answer Value: " + callback.editor.questionList[callback.editor.currentQuestion - 1].answers[callback.editor.selectedAnswer].isAnswer;
-	callback.setText(context, ch / 12 * 7, options);
+	callback.setText(context, cw / 12 * 7, options);
 	context.fillText(
 		"Change Answer Text",
 		cw / 2,
@@ -85,8 +93,8 @@ const answerPopup = (context, callback, cw, ch) => {
 		ch / 12 * 6.75
 	);
 
-	options.text = "Delete"
-	callback.setText(context, ch / 12 * 2.5, options);
+	options.text = "Delete";
+	callback.setText(context, cw / 12 * 2.5, options);
 	context.fillText(
 		"Close",
 		cw / 12 * 2.2 + (cw / 12 * 1.75),
@@ -97,9 +105,8 @@ const answerPopup = (context, callback, cw, ch) => {
 		cw / 12 * 6.3 + (cw / 12 * 1.75),
 		ch / 12 * 8.75
 	);
-
+	
 	if (callback.state.allowInput) {
-		// text
 		buttonLocations.push({
 			loc: {
 				x0: cw / 12 * 2.2,
@@ -136,12 +143,9 @@ const answerPopup = (context, callback, cw, ch) => {
 			},
 			ref: "e_removeAnswer-" + callback.editor.selectedAnswer
 		});
-
-
-		// back
 		callback.state.buttons = buttonLocations;
 	}
-}
+};
 
 const textboxPopup = (context, callback, cw, ch) => {
 
@@ -158,10 +162,13 @@ const textboxPopup = (context, callback, cw, ch) => {
 	};
 
 	callback.setText(context, cw / 12 * 10, options);
-	context.fillText("Enter your answer", cw / 2, ch / 4);
+	if (callback.editor.textboxSelect === "answer") {context.fillText("Type your answer", cw / 2, ch / 4);}
+	if (callback.editor.textboxSelect === "quiz") {context.fillText("Type your quiz name", cw / 2, ch / 4);}
+	if (callback.editor.textboxSelect === "question") {context.fillText("Type your question subject", cw / 2, ch / 4);}
+	
 	context.fillText(callback.editor.answerText, cw / 2, ch / 2);
 	context.fillText(options.text, cw / 2, ch / 4 * 3);
-}
+};
 
 const buttons = (context, callback, cw, ch) => {
 
@@ -231,18 +238,26 @@ const buttons = (context, callback, cw, ch) => {
 		ch / 12
 	);
 
-	// change name
+	// change quiz name
 	context.fillRect(
-		cw / 12 * 4,
+		(ch / 12 * 1.5),
 		ch / 12 * 2.4,
-		cw / 12 * 4,
+		cw / 2 - (ch / 12 * 1.75),
+		ch / 12
+	);
+
+	// change question subject
+	context.fillRect(
+		cw / 2 + (ch / 12 * 0.25),
+		ch / 12 * 2.4,
+		cw / 2 - (ch / 12 * 1.75),
 		ch / 12
 	);
 
 	// add answer
 	context.fillRect(
-		cw - (ch / 12 * 1.5),
-		ch / 12 * 11,
+		0,
+		ch / 2,
 		ch / 12 * 1.5,
 		ch / 12
 	);
@@ -257,11 +272,21 @@ const buttons = (context, callback, cw, ch) => {
 
 	options.text = "Add Answer";
 	callback.setText(context, ch / 12 * 1.5, options);
-	context.fillText("Add Answer", cw - (ch / 12 * 0.75), ch - (ch / 24));
+	context.fillText("Add Answer", ch / 24 * 1.5, (ch / 2) + (ch / 24));
 
-	options.text = "Change Quiz Name"
-	callback.setText(context, cw / 12 * 3.8, options)
-	context.fillText("Change Quiz Name", cw / 2, ch / 12 * 2.9);
+	options.text = "Change Question Subject"
+	callback.setText(context, cw / 2 - (ch / 12 * 1.5), options)
+	context.fillText(
+		"Change Quiz Name",
+		(ch / 12 * 1.5) + ((cw / 2 - (ch / 12 * 1.75)) / 2),
+		ch / 12 * 2.9
+	);
+
+	context.fillText(
+		"Change Question Subject",
+		(cw / 2 + (ch / 12 * 0.25)) + ((cw / 2 - (ch / 12 * 1.75)) / 2),
+		ch / 12 * 2.9
+	);
 
 	options.size = 3;
 	options.text = "Back";
@@ -297,6 +322,25 @@ const buttons = (context, callback, cw, ch) => {
 
 		buttonLocations.push({
 			loc: {
+				x0: (ch / 12 * 1.5),
+				x1: (ch / 12 * 1.5) + cw / 2 - (ch / 12 * 1.75),
+				y0: ch / 12 * 2.4,
+				y1: (ch / 12 * 2.4) + ch / 12
+			},
+			ref: "e_changeQuizName"
+		});
+		buttonLocations.push({
+			loc: {
+				x0: cw / 2 + (ch / 12 * 0.25),
+				x1: cw / 2 + (ch / 12 * 0.25) + cw / 2 - (ch / 12 * 1.75),
+				y0: ch / 12 * 2.4,
+				y1: (ch / 12 * 2.4) + ch / 12
+			},
+			ref: "e_changeQuestionSubject"
+		});
+
+		buttonLocations.push({
+			loc: {
 				x0: 0,
 				x1: ch / 12,
 				y0: ch / 12 * 1.2,
@@ -316,10 +360,10 @@ const buttons = (context, callback, cw, ch) => {
 
 		buttonLocations.push({
 			loc: {
-				x0: cw - (ch / 12 * 1.5),
-				x1: cw,
-				y0: ch / 12 * 11,
-				y1: (ch / 12 * 11) + ch / 12
+				x0: 0,
+				x1: ch / 12 * 1.5,
+				y0: ch / 2,
+				y1: (ch / 2) + ch / 12
 			},
 			ref: "e_addAnswer"
 		});
@@ -366,7 +410,7 @@ const buttons = (context, callback, cw, ch) => {
 
 	callback.state.buttons = buttonLocations;
 
-}
+};
 
 const answers = (context, callback, cw, ch) => {
 
@@ -374,8 +418,8 @@ const answers = (context, callback, cw, ch) => {
 	let options = {
 		font: "mono",
 		color: "white",
-		size: 2,
-		text: "-"
+		size: 1,
+		text: ""
 	};
 
 	context.globalAlpha = 1;
@@ -389,25 +433,26 @@ const answers = (context, callback, cw, ch) => {
 		context.fillRect(
 			ch / 12 * 2,
 			(ch / 12 * 4.5) + (answerRatio * i),
-			cw - (ch / 12 * 4),
+			cw - (ch / 12 * 2.5),
 			answerRatio * 0.9
 		);
+
 		if (callback.editor.questionList[callback.editor.currentQuestion - 1].answers[i].isAnswer) {context.fillStyle = "#44FF44";}
 		else {context.fillStyle = "#FF4444";}
 		context.fillRect(
-			cw - (ch / 12 * 2.1),
+			cw - (ch / 12 * 0.6),
 			(ch / 12 * 4.5) + (answerRatio * i),
 			ch / 12 * 0.1,
 			answerRatio * 0.9
 		);
 
 		options.text = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[i].description;
-		options.size = 3;
+		options.size = 2;
 		options.font = "normal";
-		callback.setText(context, cw - (ch / 12 * 5), options);
+		callback.setText(context, cw - (ch / 12 * 2), options);
 		context.fillText(
 			options.text,
-			cw / 2,
+			(ch / 12 * 2) + ((cw - (ch / 12 * 2.5)) / 2) ,
 			((ch / 12 * 4.5) + (answerRatio * i)) + ((answerRatio * 0.9) / 2)
 		);
 
@@ -415,7 +460,7 @@ const answers = (context, callback, cw, ch) => {
 			buttonLocations.push({
 				loc: {
 					x0: ch / 12 * 2,
-					x1: (ch / 12 * 2) + (cw - (ch / 12 * 4)),
+					x1: (ch / 12 * 2) + (cw - (ch / 12 * 2.5)),
 					y0: (ch / 12 * 4.5) + (answerRatio * i),
 					y1: (ch / 12 * 4.5) + (answerRatio * i) + (answerRatio * 0.9)
 				},
@@ -424,9 +469,7 @@ const answers = (context, callback, cw, ch) => {
 			callback.state.buttons.push(...buttonLocations);
 		}
 	}
-
-	
-}
+};
 
 const mainText = (context, callback, cw, ch) => {
 	
@@ -441,7 +484,6 @@ const mainText = (context, callback, cw, ch) => {
 
 	callback.setText(context, cw / 4 * 3, options);
 	context.fillText("Quiz Editor", cw / 2, ch / 24);
-	//context.fillText("Work in Progress", cw / 2, ch / 2);
 
 	options.text = callback.editor.quizName;
 	callback.setText(context, cw - (ch / 12 * 4), options);
@@ -452,7 +494,7 @@ const mainText = (context, callback, cw, ch) => {
 	callback.setText(context, cw - (ch / 12 * 2), options);
 	context.fillText(options.text, cw / 2, ch / 12 * 1.7);
 
-}
+};
 
 // Method
 const editorAnimation = (canvas, context, callback) => {
@@ -471,7 +513,7 @@ const editorAnimation = (canvas, context, callback) => {
 	if (callback.editor.answerPopup) {answerPopup(context, callback, cw, ch);}
 	if (!callback.state.allowInput && callback.editor.textboxPopup) {textboxPopup(context, callback, cw, ch);}
 
-}
+};
 
 // Export
 export {editorAnimation};

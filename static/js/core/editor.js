@@ -2,7 +2,7 @@
 
 const addQuestion = (callback) => {
 	callback.editor.questionList.push({
-		question: "Hello World",
+		question: "Question Subject",
 		answers: []
 	});
 };
@@ -39,11 +39,6 @@ const removeAnswer = (callback, index) => {
 	}
 };
 
-const changeValue = (callback, index) => {
-	const bool = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer;
-	callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer = !bool;
-};
-
 const answerPopupShow = (callback, answer) => {
 	callback.editor.selectedAnswer = answer;
 	callback.editor.answerPopup = true;
@@ -52,6 +47,11 @@ const answerPopupShow = (callback, answer) => {
 const answerPopupClose = (callback) => {callback.editor.answerPopup = false};
 
 const textboxAnswer = (callback) => {callback.textboxInput(callback);};
+
+const changeValue = (callback, index) => {
+	const bool = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer;
+	callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer = !bool;
+};
 
 const exportJSON = (callback) => {
 
@@ -80,14 +80,17 @@ const setupEditor = (callback) => {
 	callback.editor.addQuestion = addQuestion;
 	callback.editor.removeQuestion = removeQuestion;
 	callback.editor.changeQuestion = changeQuestion;
+
 	callback.editor.addAnswer = addAnswer;
 	callback.editor.removeAnswer = removeAnswer;
+
 	callback.editor.showPopup = answerPopupShow;
 	callback.editor.closePopup = answerPopupClose;
+	callback.editor.changeValue = changeValue;
+
 	callback.editor.enterText = textboxAnswer;
 	callback.editor.exportJSON = exportJSON;
 	callback.editor.importJSON = importJSON;
-	callback.editor.changeValue = changeValue;
 
 	callback.editor.questionList.push({
 		question: "Hello World",

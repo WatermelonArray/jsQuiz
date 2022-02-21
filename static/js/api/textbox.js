@@ -21,7 +21,16 @@ const api_textbox = (callback) => {
 		input.onkeyup = function(e) {
 			if (e.key === "Enter") {
 				callback.state.allowInput = true;
-				callback.editor.questionList[callback.editor.currentQuestion - 1].answers[callback.editor.selectedAnswer].description = input.value;
+				if (callback.editor.textboxSelect === "answer") {
+					callback.editor.questionList[callback.editor.currentQuestion - 1].answers[callback.editor.selectedAnswer].description = input.value;
+				}
+				else if (callback.editor.textboxSelect === "quiz") {
+					callback.editor.quizName = input.value;
+				}
+				else if (callback.editor.textboxSelect === "question") {
+					callback.editor.questionList[callback.editor.currentQuestion - 1].question = input.value;
+				}
+				
 				callback.editor.answerPopup = false;
 				input.blur();
 			}
@@ -39,8 +48,21 @@ const api_textbox = (callback) => {
 	}
 
 	callback.editor.textboxPopup = true;
+	if (callback.editor.textboxSelect === "quiz") {
+			currentTextBox.value = callback.editor.quizName;
+			callback.editor.answerText = currentTextBox.value;
+		}
+		else if (callback.editor.textboxSelect === "question") {
+			currentTextBox.value = callback.editor.questionList[callback.editor.currentQuestion - 1].question;
+			callback.editor.answerText = currentTextBox.value;
+		}
+		else if (callback.editor.textboxSelect === "answer") {
+			currentTextBox.value = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[callback.editor.selectedAnswer].description;
+			callback.editor.answerText = currentTextBox.value;
+		}
 	// workaround to delay focus so that it waits for textbox to catch up?
 	setTimeout(function() {
+		
 		currentTextBox.focus();
 		callback.state.allowInput = false;
 	}, 0);
