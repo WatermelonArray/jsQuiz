@@ -486,8 +486,13 @@ const mainText = (context, callback, cw, ch) => {
 	context.fillText("Quiz Editor", cw / 2, ch / 24);
 
 	options.text = callback.editor.quizName;
+	options.font = "mono"
 	callback.setText(context, cw - (ch / 12 * 4), options);
-	context.fillText(options.text, cw / 2, ch / 12 * 3.8);
+	context.fillText(options.text, cw / 2, ch / 12 * 1.1);
+
+	options.text = callback.editor.questionList[callback.editor.currentQuestion - 1].question;
+	callback.setText(context, cw - (ch / 12 * 4), options);
+	context.fillText(options.text, cw / 2, ch / 12 * 4);
 	
 	options.text = "Question " + callback.editor.currentQuestion + "/" + callback.editor.questionList.length;
 	options.font = "mono";
