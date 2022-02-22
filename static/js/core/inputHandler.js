@@ -39,6 +39,12 @@ const handleInput = (input, callback) => {
 	const page = callback.state.page;
 
 	if (input === "forward") {
+		if (callback.state.confirmPopup) {
+			callback.state.allowInput = false;
+			callback.resetFuncs.transition();
+			callback.state.transition = "fade";
+			callback.state.transitionTo = "menu";
+		}
 		if (page === "title") {
 			callback.state.allowInput = false;
 			callback.resetFuncs.transition();
@@ -46,20 +52,27 @@ const handleInput = (input, callback) => {
 			callback.state.transitionTo = "menu"
 		}
 	}
-	else if (input === "back") {
-		if (page === "menu") {
-			callback.state.allowInput = false;
-			callback.resetFuncs.transition();
-			callback.resetFuncs.title();
-			callback.state.transition = "fade"
-			callback.state.transitionTo = "title"
-		}
-		else if (page === "game" || page === "help" || page === "editor") {
-			if (page === "game") {callback.state.questionNumber = 0;}
-			callback.state.allowInput = false;
-			callback.resetFuncs.transition();
-			callback.state.transition = "swipe"
-			callback.state.transitionTo = "menu"
+	else if (input === "back" && !callback.editor.textboxPopup) {
+		if (callback.state.helpPopup) {callback.state.helpPopup = false;}
+		else {
+			if (page === "menu") {
+				callback.state.allowInput = false;
+				callback.resetFuncs.transition();
+				callback.resetFuncs.title();
+				callback.state.transition = "fade"
+				callback.state.transitionTo = "title"
+			}
+			else if (page === "game") {
+				if (!callback.state.confirmPopup) {callback.state.confirmPopup = true;}
+				else {callback.state.confirmPopup = false;}
+			}
+			else if (page === "editor") {
+				if (callback.editor.answerPopup) {callback.editor.closePopup(callback);}
+				else {
+					if (!callback.state.confirmPopup) {callback.state.confirmPopup = true;}
+					else {callback.state.confirmPopup = false;}
+				}
+			}
 		}
 	}
 }
@@ -71,8 +84,6 @@ const handleInputPosition = (input, callback) => {
 		if (result) {
 			if (buttonType === "confirmClose") {callback.state.confirmPopup = false;}
 			else if (buttonType === "confirmAccept") {
-				//callback.state.questionNumber = 0;
-				//callback.state.score = 0;
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();
 				callback.state.transition = "fade";
@@ -113,6 +124,7 @@ const handleInputPosition = (input, callback) => {
 				callback.resetFuncs.transition();
 				callback.state.transition = "swipe";
 				callback.state.transitionTo = buttonType;
+				//callback.editor.answerPopup = false;
 			}
 			else if (buttonType === "confirm") {callback.state.confirmPopup = true;}
 			else if (buttonType === "help") {callback.state.helpPopup = true;}
@@ -180,7 +192,8 @@ const keyboard = (callback) => {
 	document.addEventListener("keydown", function(input) {
 		if (callback.state.allowInput) {
 			if (input.key === "Enter") {handleInput("forward", callback);}
-			if (input.key === "Backspace") {handleInput("back", callback);}
+			else if (input.key === "Backspace") {handleInput("back", callback);}
+			else if (!(callback.state.page === "title") && (input.key === "h" || input.key === "F1")) {callback.state.helpPopup = !callback.state.helpPopup;}
 		}
 	})
 }
