@@ -64,7 +64,7 @@ const exportJSON = (callback) => {
 	for (let i = 0; i < callback.editor.questionList.length; i++) {
 		if (callback.editor.questionList[i].answers.length === 0) {
 			allowed = false;
-			reason = "Some questions blank answers!";
+			reason = "Some questions have blank answers!";
 			break;
 		}
 		else {
@@ -81,12 +81,32 @@ const exportJSON = (callback) => {
 		}
 	}
 	if (allowed) {
+
+		callback.editor.exportSuccess = true;
+		callback.state.allowInput = false;
+		callback.editor.exportPopup = true;
+
 		quiz.questions = tempObj;
 
 		const base = btoa(JSON.stringify(quiz));
 		navigator.clipboard.writeText(base);
+
+		setTimeout(function() {
+			callback.editor.exportPopup = false;
+			callback.state.allowInput = true;
+		}, 3 * 1000)
 	}
-	else {console.log(reason)}
+	else {
+		callback.editor.exportSuccess = false;
+		callback.editor.exportReason = reason;
+		callback.state.allowInput = false;
+		callback.editor.exportPopup = true;
+
+		setTimeout(function() {
+			callback.editor.exportPopup = false;
+			callback.state.allowInput = true;
+		}, 3 * 1000)
+	}
 };
 
 const importJSON = (callback, id) => {

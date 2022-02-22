@@ -15,7 +15,9 @@ const sizes = {
 
 const colors = {
 	white: "#eeeeee",
-	dark: "#222222"
+	dark: "#222222",
+	green: "#22FF22",
+	red: "#FF2222"
 }
 
 const fonts = {

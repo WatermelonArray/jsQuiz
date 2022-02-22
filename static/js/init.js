@@ -60,9 +60,12 @@ const callback = {
 		answerText: "",
 		selectedAnswer: 0,
 		textboxSelect: "answer",
+		exportSuccess: false,
+		exportReason: "",
 
 		answerPopup: false,
-		textboxPopup: false
+		textboxPopup: false,
+		exportPopup: false
 	},
 	resetFuncs: {},
 	enum: {}

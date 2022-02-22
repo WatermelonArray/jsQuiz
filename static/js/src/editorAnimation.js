@@ -147,6 +147,48 @@ const answerPopup = (context, callback, cw, ch) => {
 	}
 };
 
+const overlayExport = (context, callback, cw, ch) => {
+
+	let options = {
+		font: "normal",
+		color: "green",
+		size: 1,
+		text: "Export Success!"
+	};
+
+	context.globalAlpha = 0.8;
+	context.fillStyle = "#222222";
+
+	context.fillRect(0, 0, cw, ch);
+
+	if (!callback.editor.exportSuccess) {
+		
+		options.text = "Export Unsuccessful!";
+		options.color = "red";
+		callback.setText(context, cw / 4 * 3, options);
+		context.fillText(options.text, cw / 2, ch / 5 * 2);
+
+		options.font = "mono";
+		options.color = "white";
+		options.text = callback.editor.exportReason;
+		callback.setText(context, cw / 4 * 3, options);
+		context.fillText(options.text, cw / 2, ch / 5 * 3);
+
+	}
+	else {
+
+		callback.setText(context, cw / 4 * 3, options);
+		context.fillText(options.text, cw / 2, ch / 5 * 2);
+
+		options.font = "mono";
+		options.color = "white";
+		options.text = "Your quiz code is copied to your clipboard"
+		callback.setText(context, cw / 4 * 3, options);
+		context.fillText(options.text, cw / 2, ch / 5 * 3);
+	}
+
+}
+
 const textboxPopup = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
@@ -509,14 +551,13 @@ const editorAnimation = (canvas, context, callback) => {
 
 	background(context, callback, cw, ch);
 
-	
-
 	buttons(context, callback, cw, ch);
 	answers(context, callback, cw, ch);
 	mainText(context, callback, cw, ch);
 
 	if (callback.editor.answerPopup) {answerPopup(context, callback, cw, ch);}
 	if (!callback.state.allowInput && callback.editor.textboxPopup) {textboxPopup(context, callback, cw, ch);}
+	if (!callback.state.allowInput && callback.editor.exportPopup) {overlayExport(context, callback, cw, ch);}
 
 };
 
