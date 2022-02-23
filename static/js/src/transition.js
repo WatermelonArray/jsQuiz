@@ -7,10 +7,13 @@ const handleAnimLogic = (callback) => {
 	if (callback.state.transitionTo != "") {
 		callback.state.allowInput = true;
 		callback.changePage(callback.state.transitionTo);
-		if (callback.state.transitionTo === "menu"){callback.state.questionNumber = 0;}
+		if (callback.state.transitionTo === "menu"){
+			callback.state.quiz = callback.defaultQuiz;
+			callback.state.questionNumber = 0;
+			callback.state.score = 0;
+		}
 		callback.state.transitionTo = "";
-		//callback.state.questionNumber = 0;
-		callback.state.score = 0;
+		
 		if (callback.state.answerResponse != 0) {
 			callback.state.answerResponse = 0;
 		}

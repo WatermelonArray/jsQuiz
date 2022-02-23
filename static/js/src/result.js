@@ -122,7 +122,7 @@ const title = (context, callback, cw, ch) => {
 
 	let options = {
 		font: "light",
-		color: "white",
+		color: "dark",
 		size: 2,
 		text: "Results"
 	};

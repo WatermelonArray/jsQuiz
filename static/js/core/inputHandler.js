@@ -85,7 +85,6 @@ const handleInputPosition = (input, callback) => {
 			if (buttonType === "confirmClose") {callback.state.confirmPopup = false;}
 			else if (buttonType === "confirmAccept") {
 				callback.state.allowInput = false;
-				callback.state.quiz = callback.defaultQuiz;
 				callback.resetFuncs.transition();
 				callback.state.transition = "fade";
 				callback.state.transitionTo = "menu";
@@ -120,7 +119,6 @@ const handleInputPosition = (input, callback) => {
 			else if (buttonType === "menu") {
 				callback.state.questionNumber = 0;
 				callback.state.score = 0;
-				callback.state.quiz = callback.defaultQuiz;
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();
 				callback.state.transition = "swipe";
@@ -186,6 +184,7 @@ const handleInputPosition = (input, callback) => {
 const mouse = (callback) => {
 	document.addEventListener("mousedown", function(input) {
 		if (callback.state.allowInput && input.button === 0 ) {
+			console.log(callback.state.score)
 			handleInputPosition(input, callback);
 		}
 	})
