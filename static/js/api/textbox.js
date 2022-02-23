@@ -13,7 +13,9 @@ const api_textbox = (callback) => {
 		document.body.appendChild(input);
 
 		input.onblur = function() {
-			callback.state.allowInput = true;
+			if (!(callback.editor.textboxSelect === "import")) {
+				callback.state.allowInput = true;
+			}
 			callback.editor.textboxPopup = false;
 			callback.editor.answerText = input.value;
 		};
@@ -29,6 +31,9 @@ const api_textbox = (callback) => {
 				}
 				else if (callback.editor.textboxSelect === "question") {
 					callback.editor.questionList[callback.editor.currentQuestion - 1].question = input.value;
+				}
+				else if (callback.editor.textboxSelect === "import") {
+					callback.editor.importJSON(callback, input.value);
 				}
 				
 				callback.editor.answerPopup = false;
@@ -58,6 +63,10 @@ const api_textbox = (callback) => {
 		}
 		else if (callback.editor.textboxSelect === "answer") {
 			currentTextBox.value = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[callback.editor.selectedAnswer].description;
+			callback.editor.answerText = currentTextBox.value;
+		}
+		else if (callback.editor.textboxSelect === "import") {
+			currentTextBox.value = "";
 			callback.editor.answerText = currentTextBox.value;
 		}
 	// workaround to delay focus so that it waits for textbox to catch up?

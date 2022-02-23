@@ -160,10 +160,21 @@ const overlayExport = (context, callback, cw, ch) => {
 	context.fillStyle = "#222222";
 
 	context.fillRect(0, 0, cw, ch);
-
-	if (!callback.editor.exportSuccess) {
+	if (callback.editor.importFailed) {
+		options.text = "Import Failed!";
+		options.color = "red";
+		callback.setText(context, cw / 4 * 3, options);
+		context.fillText(options.text, cw / 2, ch / 5 * 2);
 		
-		options.text = "Export Unsuccessful!";
+		options.font = "mono";
+		options.color = "white";
+		options.text = callback.editor.exportReason;
+		callback.setText(context, cw / 4 * 3, options);
+		context.fillText(options.text, cw / 2, ch / 5 * 3);
+	}
+	else if (!callback.editor.exportSuccess) {
+		if (callback.editor.playQuizFailed) {options.text = "Unable to play quiz!";}
+		else {options.text = "Export Unseccessful!"}
 		options.color = "red";
 		callback.setText(context, cw / 4 * 3, options);
 		context.fillText(options.text, cw / 2, ch / 5 * 2);
@@ -173,10 +184,8 @@ const overlayExport = (context, callback, cw, ch) => {
 		options.text = callback.editor.exportReason;
 		callback.setText(context, cw / 4 * 3, options);
 		context.fillText(options.text, cw / 2, ch / 5 * 3);
-
 	}
 	else {
-
 		callback.setText(context, cw / 4 * 3, options);
 		context.fillText(options.text, cw / 2, ch / 5 * 2);
 
@@ -186,7 +195,6 @@ const overlayExport = (context, callback, cw, ch) => {
 		callback.setText(context, cw / 4 * 3, options);
 		context.fillText(options.text, cw / 2, ch / 5 * 3);
 	}
-
 }
 
 const textboxPopup = (context, callback, cw, ch) => {
@@ -204,12 +212,16 @@ const textboxPopup = (context, callback, cw, ch) => {
 	};
 
 	callback.setText(context, cw / 12 * 10, options);
+	context.fillText(options.text, cw / 2, ch / 4 * 3);
+
 	if (callback.editor.textboxSelect === "answer") {context.fillText("Type your answer", cw / 2, ch / 4);}
 	if (callback.editor.textboxSelect === "quiz") {context.fillText("Type your quiz name", cw / 2, ch / 4);}
-	if (callback.editor.textboxSelect === "question") {context.fillText("Type your question subject", cw / 2, ch / 4);}
-	
-	context.fillText(callback.editor.answerText, cw / 2, ch / 2);
-	context.fillText(options.text, cw / 2, ch / 4 * 3);
+	if (callback.editor.textboxSelect === "question") {context.fillText("Type your question subject", cw / 2, ch / 4)};
+	if (callback.editor.textboxSelect === "import") {context.fillText("Paste your imported code", cw / 2, ch / 4);}
+
+	options.text = callback.editor.answerText;
+	options.font = "mono";
+	context.fillText(options.text, cw / 2, ch / 2);
 };
 
 const buttons = (context, callback, cw, ch) => {
@@ -299,7 +311,15 @@ const buttons = (context, callback, cw, ch) => {
 	// add answer
 	context.fillRect(
 		0,
-		ch / 2,
+		ch / 12 * 5,
+		ch / 12 * 1.5,
+		ch / 12
+	);
+
+	// play quiz
+	context.fillRect(
+		0,
+		ch / 12 * 6.2,
 		ch / 12 * 1.5,
 		ch / 12
 	);
@@ -314,7 +334,11 @@ const buttons = (context, callback, cw, ch) => {
 
 	options.text = "Add Answer";
 	callback.setText(context, ch / 12 * 1.5, options);
-	context.fillText("Add Answer", ch / 24 * 1.5, (ch / 2) + (ch / 24));
+	context.fillText("Add Answer", ch / 24 * 1.5, (ch / 12 * 5) + (ch / 24));
+
+	options.text = "PLAY QUIZ";
+	callback.setText(context, ch / 12 * 1.5, options);
+	context.fillText("PLAY QUIZ", ch / 24 * 1.5, (ch / 12 * 6.2) + (ch / 24));
 
 	options.text = "Change Question Subject"
 	callback.setText(context, cw / 2 - (ch / 12 * 1.5), options)
@@ -404,10 +428,19 @@ const buttons = (context, callback, cw, ch) => {
 			loc: {
 				x0: 0,
 				x1: ch / 12 * 1.5,
-				y0: ch / 2,
-				y1: (ch / 2) + ch / 12
+				y0: ch / 12 * 5,
+				y1: (ch / 12 * 5) + ch / 12
 			},
 			ref: "e_addAnswer"
+		});
+		buttonLocations.push({
+			loc: {
+				x0: 0,
+				x1: ch / 12 * 1.5,
+				y0: ch / 12 * 6.2,
+				y1: (ch / 12 * 6.2) + ch / 12
+			},
+			ref: "e_playQuiz"
 		});
 
 		buttonLocations.push({

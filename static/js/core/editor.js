@@ -46,7 +46,7 @@ const answerPopupShow = (callback, answer) => {
 
 const answerPopupClose = (callback) => {callback.editor.answerPopup = false};
 
-const textboxAnswer = (callback) => {callback.textboxInput(callback);};
+const textboxEnter = (callback) => {callback.textboxInput(callback);};
 
 const changeValue = (callback, index) => {
 	const bool = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer;
@@ -59,8 +59,7 @@ const exportJSON = (callback) => {
 	let reason = "";
 	let quiz = {"quizName": callback.editor.quizName};
 	let tempObj = {};
-	
-	console.log(callback.editor.questionList)
+
 	for (let i = 0; i < callback.editor.questionList.length; i++) {
 		if (callback.editor.questionList[i].answers.length === 0) {
 			allowed = false;
@@ -82,21 +81,24 @@ const exportJSON = (callback) => {
 	}
 	if (allowed) {
 
+		callback.editor.importFailed = false;
 		callback.editor.exportSuccess = true;
 		callback.state.allowInput = false;
 		callback.editor.exportPopup = true;
 
 		quiz.questions = tempObj;
 
+		console.log(quiz);
 		const base = btoa(JSON.stringify(quiz));
 		navigator.clipboard.writeText(base);
 
 		setTimeout(function() {
 			callback.editor.exportPopup = false;
 			callback.state.allowInput = true;
-		}, 3 * 1000)
+		}, 3 * 1000);
 	}
 	else {
+		callback.editor.importFailed = false;
 		callback.editor.exportSuccess = false;
 		callback.editor.exportReason = reason;
 		callback.state.allowInput = false;
@@ -105,18 +107,88 @@ const exportJSON = (callback) => {
 		setTimeout(function() {
 			callback.editor.exportPopup = false;
 			callback.state.allowInput = true;
-		}, 3 * 1000)
+		}, 3 * 1000);
 	}
 };
 
 const importJSON = (callback, id) => {
 
-	const tempid = "eyJxdWl6TmFtZSI6IkVkaXRvciBUZXN0IFF1aXoiLCJxdWVzdGlvbnMiOnsiMSI6eyJxdWVzdGlvbiI6IlF1ZXN0aW9uIDEiLCJhbnN3ZXJzIjpbeyJkZXNjcmlwdGlvbiI6IkEiLCJpc0Fuc3dlciI6dHJ1ZX0seyJkZXNjcmlwdGlvbiI6IkIiLCJpc0Fuc3dlciI6ZmFsc2V9LHsiZGVzY3JpcHRpb24iOiJDIiwiaXNBbnN3ZXIiOmZhbHNlfV19LCIyIjp7InF1ZXN0aW9uIjoiUXVlc3Rpb24gMiIsImFuc3dlcnMiOlt7ImRlc2NyaXB0aW9uIjoiQSIsImlzQW5zd2VyIjpmYWxzZX0seyJkZXNjcmlwdGlvbiI6IkIiLCJpc0Fuc3dlciI6dHJ1ZX1dfSwiMyI6eyJxdWVzdGlvbiI6IlF1ZXN0aW9uIDMiLCJhbnN3ZXJzIjpbeyJkZXNjcmlwdGlvbiI6IkEiLCJpc0Fuc3dlciI6ZmFsc2V9LHsiZGVzY3JpcHRpb24iOiJCIiwiaXNBbnN3ZXIiOmZhbHNlfSx7ImRlc2NyaXB0aW9uIjoiQyIsImlzQW5zd2VyIjp0cnVlfSx7ImRlc2NyaXB0aW9uIjoiRCIsImlzQW5zd2VyIjpmYWxzZX1dfX19";
-	const temp = JSON.parse(atob(tempid));
+	//const tempid = "eyJxdWl6TmFtZSI6IkVkaXRvciBUZXN0IFF1aXoiLCJxdWVzdGlvbnMiOnsiMSI6eyJxdWVzdGlvbiI6IlF1ZXN0aW9uIDEiLCJhbnN3ZXJzIjpbeyJkZXNjcmlwdGlvbiI6IkEiLCJpc0Fuc3dlciI6dHJ1ZX0seyJkZXNjcmlwdGlvbiI6IkIiLCJpc0Fuc3dlciI6ZmFsc2V9LHsiZGVzY3JpcHRpb24iOiJDIiwiaXNBbnN3ZXIiOmZhbHNlfV19LCIyIjp7InF1ZXN0aW9uIjoiUXVlc3Rpb24gMiIsImFuc3dlcnMiOlt7ImRlc2NyaXB0aW9uIjoiQSIsImlzQW5zd2VyIjpmYWxzZX0seyJkZXNjcmlwdGlvbiI6IkIiLCJpc0Fuc3dlciI6dHJ1ZX1dfSwiMyI6eyJxdWVzdGlvbiI6IlF1ZXN0aW9uIDMiLCJhbnN3ZXJzIjpbeyJkZXNjcmlwdGlvbiI6IkEiLCJpc0Fuc3dlciI6ZmFsc2V9LHsiZGVzY3JpcHRpb24iOiJCIiwiaXNBbnN3ZXIiOmZhbHNlfSx7ImRlc2NyaXB0aW9uIjoiQyIsImlzQW5zd2VyIjp0cnVlfSx7ImRlc2NyaXB0aW9uIjoiRCIsImlzQW5zd2VyIjpmYWxzZX1dfX19";
 
-	callback.editor.currentQuestion = 1;
-	callback.editor.quizName = temp.quizName;
-	callback.editor.questionList = [...Object.values(temp.questions)];
+	let temp = "";
+
+	try {temp = JSON.parse(atob(id));}
+	catch (err) {
+
+		callback.editor.importFailed = true;
+		callback.editor.exportReason = "Import failed, invalid code";
+		callback.state.allowInput = false;
+		callback.editor.exportPopup = true;
+
+		setTimeout(function() {
+			callback.editor.exportPopup = false;
+			callback.importFailed = false;
+			callback.state.allowInput = true;
+		}, 3 * 1000);
+	}
+
+	if (!callback.editor.importFailed) {
+		callback.editor.currentQuestion = 1;
+		callback.editor.quizName = temp.quizName;
+		callback.editor.questionList = [...Object.values(temp.questions)];
+	}
+}
+
+const playQuiz = (callback) => {
+
+	let allowed = true;
+	let reason = "";
+	let quiz = {"quizName": callback.editor.quizName};
+	let tempObj = {};
+
+	for (let i = 0; i < callback.editor.questionList.length; i++) {
+		if (callback.editor.questionList[i].answers.length === 0) {
+			allowed = false;
+			reason = "Some questions have blank answers!";
+			break;
+		}
+		else {
+			let hasAnswer = false;
+			for (let x = 0; x < callback.editor.questionList[i].answers.length; x++) {
+				if (callback.editor.questionList[i].answers[x].isAnswer && !hasAnswer) {hasAnswer = true}
+			}
+			if (!hasAnswer) {
+					allowed = false;
+					reason = "Some questions have no correct answer set!";
+					break;
+				}
+			else {tempObj[i + 1] = callback.editor.questionList[i];}
+		}
+	}
+	if (allowed) {
+
+		quiz.questions = tempObj;
+		
+		callback.state.questionNumber = 0;
+		callback.state.score = 0;
+		callback.state.quiz = quiz;
+
+		callback.newQuestion(callback);
+	}
+	else {
+
+		callback.editor.importFailed = false;
+		callback.editor.playQuizFailed = true;
+		callback.editor.exportSuccess = false;
+		callback.editor.exportReason = reason;
+		callback.state.allowInput = false;
+		callback.editor.exportPopup = true;
+
+		setTimeout(function() {
+			callback.editor.exportPopup = false;
+			callback.state.allowInput = true;
+		}, 3 * 1000);
+	}
 }
 
 const setupEditor = (callback) => {
@@ -132,12 +204,14 @@ const setupEditor = (callback) => {
 	callback.editor.closePopup = answerPopupClose;
 	callback.editor.changeValue = changeValue;
 
-	callback.editor.enterText = textboxAnswer;
+	callback.editor.enterText = textboxEnter;
 	callback.editor.exportJSON = exportJSON;
 	callback.editor.importJSON = importJSON;
 
+	callback.editor.playQuiz = playQuiz;
+
 	callback.editor.questionList.push({
-		question: "Hello World",
+		question: "Question Subject",
 		answers: []
 	});
 

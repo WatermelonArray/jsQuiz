@@ -85,6 +85,7 @@ const handleInputPosition = (input, callback) => {
 			if (buttonType === "confirmClose") {callback.state.confirmPopup = false;}
 			else if (buttonType === "confirmAccept") {
 				callback.state.allowInput = false;
+				callback.state.quiz = callback.defaultQuiz;
 				callback.resetFuncs.transition();
 				callback.state.transition = "fade";
 				callback.state.transitionTo = "menu";
@@ -114,27 +115,27 @@ const handleInputPosition = (input, callback) => {
 
 		if (result) {
 
-			//console.log(buttonType.substring(0, 19))
 			// game
 			if (buttonType === "nextQuestion") {callback.newQuestion(callback);}
 			else if (buttonType === "menu") {
 				callback.state.questionNumber = 0;
 				callback.state.score = 0;
+				callback.state.quiz = callback.defaultQuiz;
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();
 				callback.state.transition = "swipe";
 				callback.state.transitionTo = buttonType;
-				//callback.editor.answerPopup = false;
 			}
 			else if (buttonType === "confirm") {callback.state.confirmPopup = true;}
 			else if (buttonType === "help") {callback.state.helpPopup = true;}
 
 			//editor
-			else if (buttonType ==="e_changeQuizName") {
+			else if (buttonType === "e_playQuiz") {callback.editor.playQuiz(callback);}
+			else if (buttonType === "e_changeQuizName") {
 				callback.editor.textboxSelect = "quiz";
 				callback.editor.enterText(callback);
 			}
-			else if (buttonType ==="e_changeQuestionSubject") {
+			else if (buttonType === "e_changeQuestionSubject") {
 				callback.editor.textboxSelect = "question";
 				callback.editor.enterText(callback);
 			}
@@ -158,8 +159,10 @@ const handleInputPosition = (input, callback) => {
 			}
 			else if (buttonType.substring(0, 19) === "e_changeAnswerValue") {callback.editor.changeValue(callback, buttonType.substring(20, buttonType.length));}
 			else if (buttonType === "e_exportJSON") {callback.editor.exportJSON(callback);}
-			else if (buttonType === "e_importJSON") {callback.editor.importJSON(callback, 1);}
-			
+			else if (buttonType === "e_importJSON") {
+				callback.editor.textboxSelect = "import";
+				callback.editor.enterText(callback);
+			}
 
 			// other
 			else {
@@ -207,7 +210,6 @@ const touch = (callback) => {
 }
 // method
 const setupInput = (callback) => {
-
 	mouse(callback);
 	keyboard(callback);
 	touch(callback);
