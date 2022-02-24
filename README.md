@@ -98,3 +98,10 @@ Music resources created by
 
 		Space Journey
 		A Turtle's Adventures - The Begininng
+
+Sound resources created by
+- original_sound https://freesound.org/people/original_sound/sounds/366102/
+- Natty23 https://freesound.org/people/Natty23/sounds/349182/
+- Sjonas88 https://freesound.org/people/Sjonas88/sounds/538540/
+- Sjonas88 https://freesound.org/people/Sjonas88/sounds/538554/
+- lebaston100 https://freesound.org/people/lebaston100/sounds/192273/
