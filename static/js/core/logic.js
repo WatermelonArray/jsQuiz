@@ -47,10 +47,12 @@ const setupLogic = (callback) => {
 	callback.calcAnswer = (x, y) => {
 		if (callback.state.allowAnswer && callback.state.page === "game") {
 			if (y) {
+				callback.playSound("correct");
 				callback.state.answerResponse = 2;
 				callback.state.score++;
 			}
 			else {
+				callback.playSound("fail");
 				callback.state.correctAnswer = findAnswers(callback);
 				callback.state.answerText = x;
 				callback.state.answerResponse = 1;

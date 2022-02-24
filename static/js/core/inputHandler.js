@@ -82,8 +82,13 @@ const handleInputPosition = (input, callback) => {
 		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.confirmButtons);
 
 		if (result) {
-			if (buttonType === "confirmClose") {callback.state.confirmPopup = false;}
+			if (buttonType === "confirmClose") {
+				callback.playSound("click");
+				callback.state.confirmPopup = false;
+			}
 			else if (buttonType === "confirmAccept") {
+				callback.playSound("click");
+				callback.setMusic();
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();
 				callback.state.transition = "fade";
@@ -93,7 +98,13 @@ const handleInputPosition = (input, callback) => {
 	}
 	else if (callback.state.helpPopup) {
 		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.helpButtons);
-		if (result) {if (buttonType === "helpClose") {callback.state.helpPopup = false;}}
+		if (result) {
+			if (buttonType === "helpClose") {
+				callback.playSound("click");
+				callback.state.helpPopup = false;
+			}
+		
+		}
 	}
 	else if (callback.state.page === "game") {
 
@@ -101,8 +112,14 @@ const handleInputPosition = (input, callback) => {
 
 		const questionRef = callback.state.quiz.questions[callback.state.questionNumber].answers[question];
 		if (result) {
-			if (question === "confirm") {callback.state.confirmPopup = true;}
-			else if (question === "help") {callback.state.helpPopup = true;}
+			if (question === "confirm") {
+				callback.playSound("click");
+				callback.state.confirmPopup = true;
+			}
+			else if (question === "help") {
+				callback.playSound("click");
+				callback.state.helpPopup = true;
+			}
 			else {
 				callback.calcAnswer(questionRef.description, questionRef.isAnswer);
 			}
@@ -115,17 +132,27 @@ const handleInputPosition = (input, callback) => {
 		if (result) {
 
 			// game
-			if (buttonType === "nextQuestion") {callback.newQuestion(callback);}
-			else if (buttonType === "menu") {
+			if (buttonType === "nextQuestion") {
+				callback.playSound("click");
+				callback.setMusic();
+				callback.newQuestion(callback);
+			}
+			/*else if (buttonType === "menu") {
 				callback.state.questionNumber = 0;
 				callback.state.score = 0;
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();
 				callback.state.transition = "swipe";
 				callback.state.transitionTo = buttonType;
+			}*/
+			else if (buttonType === "confirm") {
+				callback.state.confirmPopup = true;
+				callback.playSound("click");
 			}
-			else if (buttonType === "confirm") {callback.state.confirmPopup = true;}
-			else if (buttonType === "help") {callback.state.helpPopup = true;}
+			else if (buttonType === "help") {
+				callback.state.helpPopup = true;
+				callback.playSound("click");
+			}
 
 			//editor
 			else if (buttonType === "e_playQuiz") {callback.editor.playQuiz(callback);}
@@ -164,6 +191,7 @@ const handleInputPosition = (input, callback) => {
 
 			// other
 			else {
+				callback.playSound("click");
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();
 				callback.state.transition = "swipe";
@@ -176,6 +204,8 @@ const handleInputPosition = (input, callback) => {
 	const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.muteButtons);
 	if (result) {callback.muteAudio();}
 	else if (callback.state.page === "title") {
+		callback.setMusic();
+		callback.playSound("confirm");
 		handleInput("forward", callback);
 	}
 }
@@ -184,7 +214,6 @@ const handleInputPosition = (input, callback) => {
 const mouse = (callback) => {
 	document.addEventListener("mousedown", function(input) {
 		if (callback.state.allowInput && input.button === 0 ) {
-			console.log(callback.state.score)
 			handleInputPosition(input, callback);
 		}
 	})

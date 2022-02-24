@@ -1,6 +1,7 @@
 "use strict";
 
 const addQuestion = (callback) => {
+	callback.playSound("click");
 	callback.editor.questionList.push({
 		question: "Question Subject",
 		answers: []
@@ -8,6 +9,7 @@ const addQuestion = (callback) => {
 };
 
 const removeQuestion = (callback) => {
+	callback.playSound("click");
 	if (callback.editor.questionList.length > 1) {
 		if (callback.editor.currentQuestion === callback.editor.questionList.length) {
 			callback.editor.currentQuestion--;
@@ -18,12 +20,14 @@ const removeQuestion = (callback) => {
 };
 
 const changeQuestion = (callback, dir) => {
+	callback.playSound("click");
 	if (callback.editor.currentQuestion + dir > 0 && callback.editor.currentQuestion + dir <= callback.editor.questionList.length) {
 		callback.editor.currentQuestion = callback.editor.currentQuestion + dir;
 	}
 };
 
 const addAnswer = (callback) => {
+	callback.playSound("click");
 	if (callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length < 6) {
 		callback.editor.questionList[callback.editor.currentQuestion - 1].answers.push({
 			description: "Answer Description",
@@ -33,6 +37,7 @@ const addAnswer = (callback) => {
 };
 
 const removeAnswer = (callback, index) => {
+	callback.playSound("click");
 	if (callback.editor.questionList[callback.editor.currentQuestion - 1].answers.length > 0) {
 		callback.editor.answerPopup = false;
 		callback.editor.questionList[callback.editor.currentQuestion - 1].answers.splice(index - 1, 1);
@@ -40,15 +45,23 @@ const removeAnswer = (callback, index) => {
 };
 
 const answerPopupShow = (callback, answer) => {
+	callback.playSound("click");
 	callback.editor.selectedAnswer = answer;
 	callback.editor.answerPopup = true;
 };
 
-const answerPopupClose = (callback) => {callback.editor.answerPopup = false};
+const answerPopupClose = (callback) => {
+	callback.playSound("click");
+	callback.editor.answerPopup = false
+};
 
-const textboxEnter = (callback) => {callback.textboxInput(callback);};
+const textboxEnter = (callback) => {
+	callback.playSound("click");
+	callback.textboxInput(callback);
+};
 
 const changeValue = (callback, index) => {
+	callback.playSound("click");
 	const bool = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer;
 	callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer = !bool;
 };
@@ -81,6 +94,8 @@ const exportJSON = (callback) => {
 	}
 	if (allowed) {
 
+		callback.playSound("correct");
+
 		callback.editor.importFailed = false;
 		callback.editor.exportSuccess = true;
 		callback.state.allowInput = false;
@@ -98,6 +113,8 @@ const exportJSON = (callback) => {
 		}, 3 * 1000);
 	}
 	else {
+
+		callback.playSound("fail");
 		callback.editor.importFailed = false;
 		callback.editor.exportSuccess = false;
 		callback.editor.exportReason = reason;
@@ -120,6 +137,8 @@ const importJSON = (callback, id) => {
 	try {temp = JSON.parse(atob(id));}
 	catch (err) {
 
+		callback.playSound("fail");
+
 		callback.editor.importFailed = true;
 		callback.editor.exportReason = "Import failed, invalid code";
 		callback.state.allowInput = false;
@@ -133,6 +152,7 @@ const importJSON = (callback, id) => {
 	}
 
 	if (!callback.editor.importFailed) {
+		callback.playSound("correct");
 		callback.editor.currentQuestion = 1;
 		callback.editor.quizName = temp.quizName;
 		callback.editor.questionList = [...Object.values(temp.questions)];
@@ -167,6 +187,9 @@ const playQuiz = (callback) => {
 	}
 	if (allowed) {
 
+		callback.setMusic();
+		callback.playSound("click");
+
 		quiz.questions = tempObj;
 		
 		callback.state.questionNumber = 0;
@@ -176,6 +199,8 @@ const playQuiz = (callback) => {
 		callback.newQuestion(callback);
 	}
 	else {
+
+		callback.playSound("fail");
 
 		callback.editor.importFailed = false;
 		callback.editor.playQuizFailed = true;
