@@ -17,7 +17,7 @@ const background = (context, callback, cw, ch) => {
 	callback.setText(context, cw / 2, options);
 	context.fillText(options.text, cw - (ch / 48), ch - (ch / 48));
 
-};
+}
 
 const answerPopup = (context, callback, cw, ch) => {
 
@@ -34,8 +34,6 @@ const answerPopup = (context, callback, cw, ch) => {
 	context.shadowBlur = "16";
 	context.shadowColor = "rgba(0, 0, 0, 0.4)";
 
-	
-	
 	if (callback.state.responsive) {context.fillRect(0, 0, cw, ch);}
 	else {
 		context.fillRect(
@@ -145,7 +143,7 @@ const answerPopup = (context, callback, cw, ch) => {
 		});
 		callback.state.buttons = buttonLocations;
 	}
-};
+}
 
 const overlayExport = (context, callback, cw, ch) => {
 
@@ -174,7 +172,7 @@ const overlayExport = (context, callback, cw, ch) => {
 	}
 	else if (!callback.editor.exportSuccess) {
 		if (callback.editor.playQuizFailed) {options.text = "Unable to play quiz!";}
-		else {options.text = "Export Unseccessful!"}
+		else {options.text = "Export Unseccessful!";}
 		options.color = "red";
 		callback.setText(context, cw / 4 * 3, options);
 		context.fillText(options.text, cw / 2, ch / 5 * 2);
@@ -188,10 +186,9 @@ const overlayExport = (context, callback, cw, ch) => {
 	else {
 		callback.setText(context, cw / 4 * 3, options);
 		context.fillText(options.text, cw / 2, ch / 5 * 2);
-
 		options.font = "mono";
 		options.color = "white";
-		options.text = "Your quiz code is copied to your clipboard"
+		options.text = "Your quiz code is copied to your clipboard";
 		callback.setText(context, cw / 4 * 3, options);
 		context.fillText(options.text, cw / 2, ch / 5 * 3);
 	}
@@ -201,7 +198,6 @@ const textboxPopup = (context, callback, cw, ch) => {
 
 	context.globalAlpha = 1;
 	context.fillStyle = "#eeeeee";
-	
 	context.fillRect(0, 0, cw, ch);
 
 	let options = {
@@ -216,13 +212,13 @@ const textboxPopup = (context, callback, cw, ch) => {
 
 	if (callback.editor.textboxSelect === "answer") {context.fillText("Type your answer", cw / 2, ch / 4);}
 	if (callback.editor.textboxSelect === "quiz") {context.fillText("Type your quiz name", cw / 2, ch / 4);}
-	if (callback.editor.textboxSelect === "question") {context.fillText("Type your question subject", cw / 2, ch / 4)};
+	if (callback.editor.textboxSelect === "question") {context.fillText("Type your question subject", cw / 2, ch / 4);}
 	if (callback.editor.textboxSelect === "import") {context.fillText("Paste your imported code", cw / 2, ch / 4);}
 
 	options.text = callback.editor.answerText;
 	options.font = "mono";
 	context.fillText(options.text, cw / 2, ch / 2);
-};
+}
 
 const buttons = (context, callback, cw, ch) => {
 
@@ -340,7 +336,7 @@ const buttons = (context, callback, cw, ch) => {
 	callback.setText(context, ch / 12 * 1.5, options);
 	context.fillText("PLAY QUIZ", ch / 24 * 1.5, (ch / 12 * 6.2) + (ch / 24));
 
-	options.text = "Change Question Subject"
+	options.text = "Change Question Subject";
 	callback.setText(context, cw / 2 - (ch / 12 * 1.5), options)
 	context.fillText(
 		"Change Quiz Name",
@@ -485,7 +481,7 @@ const buttons = (context, callback, cw, ch) => {
 
 	callback.state.buttons = buttonLocations;
 
-};
+}
 
 const answers = (context, callback, cw, ch) => {
 
@@ -544,7 +540,7 @@ const answers = (context, callback, cw, ch) => {
 			callback.state.buttons.push(...buttonLocations);
 		}
 	}
-};
+}
 
 const mainText = (context, callback, cw, ch) => {
 	
@@ -561,7 +557,7 @@ const mainText = (context, callback, cw, ch) => {
 	context.fillText("Quiz Editor", cw / 2, ch / 24);
 
 	options.text = callback.editor.quizName;
-	options.font = "mono"
+	options.font = "mono";
 	callback.setText(context, cw - (ch / 12 * 4), options);
 	context.fillText(options.text, cw / 2, ch / 12 * 1.1);
 
@@ -574,7 +570,7 @@ const mainText = (context, callback, cw, ch) => {
 	callback.setText(context, cw - (ch / 12 * 2), options);
 	context.fillText(options.text, cw / 2, ch / 12 * 1.7);
 
-};
+}
 
 // Method
 const editorAnimation = (canvas, context, callback) => {
@@ -583,7 +579,6 @@ const editorAnimation = (canvas, context, callback) => {
 	const ch = canvas.height;
 
 	background(context, callback, cw, ch);
-
 	buttons(context, callback, cw, ch);
 	answers(context, callback, cw, ch);
 	mainText(context, callback, cw, ch);
@@ -591,8 +586,7 @@ const editorAnimation = (canvas, context, callback) => {
 	if (callback.editor.answerPopup) {answerPopup(context, callback, cw, ch);}
 	if (!callback.state.allowInput && callback.editor.textboxPopup) {textboxPopup(context, callback, cw, ch);}
 	if (!callback.state.allowInput && callback.editor.exportPopup) {overlayExport(context, callback, cw, ch);}
-
-};
+}
 
 // Export
 export {editorAnimation};

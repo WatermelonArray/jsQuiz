@@ -7,7 +7,7 @@ const sizes = {
 	lg: 992,
 	xl: 1200,
 	xxl: 1400
-}
+};
 
 const api_checkResponsive = (canvas) => {return [canvas.width < canvas.height, canvas.width < sizes.md];}
 

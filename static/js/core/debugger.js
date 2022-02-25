@@ -16,7 +16,7 @@ function logQuizData(state) {
 			questArray.push(Object.entries(jsonData.questions)[i][1].question);
 		}
 	}
-	
+
 	// log details	
 	console.log("Quiz: " + jsonData.quizName);
 	console.log("Num of Questions: " + questionsLength); // https://stackoverflow.com/questions/6756104/get-size-of-json-object

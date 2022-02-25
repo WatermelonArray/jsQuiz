@@ -80,7 +80,7 @@ const init = (x) => {
 	setupRender(x);
 	setupAudio(x);
 	setupEditor(x);
-}
+};
 
 // setup api
 callback.setText = api_setText;
@@ -93,9 +93,9 @@ callback.textboxInput = api_textbox;
 // https://developer.mozilla.org/en-US/docs/Web/API/Request/json
 let x = await fetch("static/quizes/test.json", {method: "GET", mode: "cors"});
 let y = x;
-x = await x.json()
+x = await x.json();
 
-callback.defaultQuiz = x
+callback.defaultQuiz = x;
 callback.state.quiz = JSON.parse(JSON.stringify(x));
 
 // start game

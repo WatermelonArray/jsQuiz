@@ -12,7 +12,7 @@ const soundList = {
 	swipe: new Audio("static/assets/audio/swipe.wav"),
 	correct: new Audio("static/assets/audio/questionCorrect.wav"),
 	fail: new Audio("static/assets/audio/questionFail.wav"),
-}
+};
 
 const init = () => {
 	musicList.title.volume = 0.05;
@@ -55,7 +55,7 @@ const musicPlay = (x) => {
 
 const playSound = (x) => {
 	if (x) {soundList[x].pause(); soundList[x].currentTime = 0; soundList[x].play();}
-};
+}
 
 const setupAudio = (callback) => {
 
@@ -64,7 +64,7 @@ const setupAudio = (callback) => {
 	callback.setMusic = musicPlay;
 	callback.playSound = playSound;
 
-	callback.muteAudio = function() {
+	callback.muteAudio = () => {
 		if (this.state.sound) {
 			this.state.sound = false;
 			musicList.title.volume = 0;

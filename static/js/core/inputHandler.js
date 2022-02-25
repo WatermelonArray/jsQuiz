@@ -48,8 +48,8 @@ const handleInput = (input, callback) => {
 		if (page === "title") {
 			callback.state.allowInput = false;
 			callback.resetFuncs.transition();
-			callback.state.transition = "fade"
-			callback.state.transitionTo = "menu"
+			callback.state.transition = "fade";
+			callback.state.transitionTo = "menu";
 		}
 	}
 	else if (input === "back" && !callback.editor.textboxPopup) {
@@ -59,8 +59,8 @@ const handleInput = (input, callback) => {
 				callback.state.allowInput = false;
 				callback.resetFuncs.transition();
 				callback.resetFuncs.title();
-				callback.state.transition = "fade"
-				callback.state.transitionTo = "title"
+				callback.state.transition = "fade";
+				callback.state.transitionTo = "title";
 			}
 			else if (page === "game") {
 				if (!callback.state.confirmPopup) {callback.state.confirmPopup = true;}
@@ -130,21 +130,12 @@ const handleInputPosition = (input, callback) => {
 		const [result, buttonType] = checkMouseOver({x: input.clientX, y: input.clientY}, callback.state.buttons);
 
 		if (result) {
-
 			// game
 			if (buttonType === "nextQuestion") {
 				callback.playSound("click");
 				callback.setMusic();
 				callback.newQuestion(callback);
 			}
-			/*else if (buttonType === "menu") {
-				callback.state.questionNumber = 0;
-				callback.state.score = 0;
-				callback.state.allowInput = false;
-				callback.resetFuncs.transition();
-				callback.state.transition = "swipe";
-				callback.state.transitionTo = buttonType;
-			}*/
 			else if (buttonType === "confirm") {
 				callback.state.confirmPopup = true;
 				callback.playSound("click");
@@ -189,7 +180,6 @@ const handleInputPosition = (input, callback) => {
 				callback.editor.enterText(callback);
 			}
 
-			// other
 			else {
 				callback.playSound("click");
 				callback.state.allowInput = false;

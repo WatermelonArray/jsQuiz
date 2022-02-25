@@ -6,7 +6,7 @@ const addQuestion = (callback) => {
 		question: "Question Subject",
 		answers: []
 	});
-};
+}
 
 const removeQuestion = (callback) => {
 	callback.playSound("click");
@@ -17,14 +17,14 @@ const removeQuestion = (callback) => {
 		}
 		callback.editor.questionList.splice(callback.editor.currentQuestion, 1);
 	}
-};
+}
 
 const changeQuestion = (callback, dir) => {
 	callback.playSound("click");
 	if (callback.editor.currentQuestion + dir > 0 && callback.editor.currentQuestion + dir <= callback.editor.questionList.length) {
 		callback.editor.currentQuestion = callback.editor.currentQuestion + dir;
 	}
-};
+}
 
 const addAnswer = (callback) => {
 	callback.playSound("click");
@@ -34,7 +34,7 @@ const addAnswer = (callback) => {
 			isAnswer: false
 		});
 	}
-};
+}
 
 const removeAnswer = (callback, index) => {
 	callback.playSound("click");
@@ -42,29 +42,29 @@ const removeAnswer = (callback, index) => {
 		callback.editor.answerPopup = false;
 		callback.editor.questionList[callback.editor.currentQuestion - 1].answers.splice(index - 1, 1);
 	}
-};
+}
 
 const answerPopupShow = (callback, answer) => {
 	callback.playSound("click");
 	callback.editor.selectedAnswer = answer;
 	callback.editor.answerPopup = true;
-};
+}
 
 const answerPopupClose = (callback) => {
 	callback.playSound("click");
-	callback.editor.answerPopup = false
-};
+	callback.editor.answerPopup = false;
+}
 
 const textboxEnter = (callback) => {
 	callback.playSound("click");
 	callback.textboxInput(callback);
-};
+}
 
 const changeValue = (callback, index) => {
 	callback.playSound("click");
 	const bool = callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer;
 	callback.editor.questionList[callback.editor.currentQuestion - 1].answers[index].isAnswer = !bool;
-};
+}
 
 const exportJSON = (callback) => {
 
@@ -82,7 +82,7 @@ const exportJSON = (callback) => {
 		else {
 			let hasAnswer = false;
 			for (let x = 0; x < callback.editor.questionList[i].answers.length; x++) {
-				if (callback.editor.questionList[i].answers[x].isAnswer && !hasAnswer) {hasAnswer = true}
+				if (callback.editor.questionList[i].answers[x].isAnswer && !hasAnswer) {hasAnswer = true;}
 			}
 			if (!hasAnswer) {
 					allowed = false;
@@ -126,11 +126,9 @@ const exportJSON = (callback) => {
 			callback.state.allowInput = true;
 		}, 3 * 1000);
 	}
-};
+}
 
 const importJSON = (callback, id) => {
-
-	//const tempid = "eyJxdWl6TmFtZSI6IkVkaXRvciBUZXN0IFF1aXoiLCJxdWVzdGlvbnMiOnsiMSI6eyJxdWVzdGlvbiI6IlF1ZXN0aW9uIDEiLCJhbnN3ZXJzIjpbeyJkZXNjcmlwdGlvbiI6IkEiLCJpc0Fuc3dlciI6dHJ1ZX0seyJkZXNjcmlwdGlvbiI6IkIiLCJpc0Fuc3dlciI6ZmFsc2V9LHsiZGVzY3JpcHRpb24iOiJDIiwiaXNBbnN3ZXIiOmZhbHNlfV19LCIyIjp7InF1ZXN0aW9uIjoiUXVlc3Rpb24gMiIsImFuc3dlcnMiOlt7ImRlc2NyaXB0aW9uIjoiQSIsImlzQW5zd2VyIjpmYWxzZX0seyJkZXNjcmlwdGlvbiI6IkIiLCJpc0Fuc3dlciI6dHJ1ZX1dfSwiMyI6eyJxdWVzdGlvbiI6IlF1ZXN0aW9uIDMiLCJhbnN3ZXJzIjpbeyJkZXNjcmlwdGlvbiI6IkEiLCJpc0Fuc3dlciI6ZmFsc2V9LHsiZGVzY3JpcHRpb24iOiJCIiwiaXNBbnN3ZXIiOmZhbHNlfSx7ImRlc2NyaXB0aW9uIjoiQyIsImlzQW5zd2VyIjp0cnVlfSx7ImRlc2NyaXB0aW9uIjoiRCIsImlzQW5zd2VyIjpmYWxzZX1dfX19";
 
 	let temp = "";
 
@@ -175,7 +173,7 @@ const playQuiz = (callback) => {
 		else {
 			let hasAnswer = false;
 			for (let x = 0; x < callback.editor.questionList[i].answers.length; x++) {
-				if (callback.editor.questionList[i].answers[x].isAnswer && !hasAnswer) {hasAnswer = true}
+				if (callback.editor.questionList[i].answers[x].isAnswer && !hasAnswer) {hasAnswer = true;}
 			}
 			if (!hasAnswer) {
 					allowed = false;
@@ -239,7 +237,6 @@ const setupEditor = (callback) => {
 		question: "Question Subject",
 		answers: []
 	});
-
-};
+}
 
 export {setupEditor};

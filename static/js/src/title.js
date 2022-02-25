@@ -23,6 +23,7 @@ const background = (context, callback, cw, ch) => {
 		text: "babasmasmoosic - Space Journey",
 		align: "right"
 	};
+
 	callback.setText(context, cw / 2, options);
 	context.fillText(options.text, cw / 24 * 23, ch / 24 * 23);
 

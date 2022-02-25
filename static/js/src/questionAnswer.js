@@ -2,36 +2,28 @@
 
 const background = (context, callback, cw, ch) => {
 
-	//console.log(callback.state.answerResponse)
-
 	if (callback.state.answerResponse === 2) {context.fillStyle = "#6e9632";}
 	if (callback.state.answerResponse === 1 || callback.state.answerResponse === 0) {context.fillStyle = "#963331";}
 
 	context.globalAlpha = 1;
 	context.fillRect(0, 0, cw, ch);
-
 }
 
 const buttons = (context, callback, cw, ch) => {
-	
-	let buttonLocations = [];
 
+	let buttonLocations = [];
 	let options = {
 		font: "light",
 		color: "mono",
 		size: 1
-	}
+	};
 
 	context.shadowBlur = "16";
-	
 	context.shadowColor = "rgba(0, 0, 0, 0.4)";
-
 	context.fillStyle = "#222222";
 
 	if (callback.state.answerResponse === 1 | callback.state.answerResponse === 0) {context.fillStyle = "#eeeeee";}
 
-	
-	
 	context.shadowBlur = "0";
 
 	if (callback.state.answerResponse === 1 | callback.state.answerResponse === 0) {options.color = "dark";}
@@ -62,7 +54,7 @@ const buttons = (context, callback, cw, ch) => {
 				y1: (ch / 6 * 5) + (ch / 6 * 0.5)
 			},
 			ref: "nextQuestion"
-		})
+		});
 	}
 	else {
 
@@ -72,7 +64,6 @@ const buttons = (context, callback, cw, ch) => {
 			cw / 6 * 1.5,
 			ch / 6 * 0.5
 		);
-
 		context.fillRect(
 			cw / 6 * 3.5,
 			ch / 6 * 5,
@@ -109,7 +100,7 @@ const buttons = (context, callback, cw, ch) => {
 				y1: (ch / 6 * 5) + (ch / 6 * 0.5)
 			},
 			ref: "nextQuestion"
-		})
+		});
 	}
 
 	callback.state.buttons = buttonLocations;
@@ -122,14 +113,13 @@ const text = (context, callback, cw, ch) => {
 		color: "white",
 		font: "light",
 		size: 2
-	}
+	};
 
 	callback.setText(context, cw, options);
 
 	if (callback.state.answerResponse === 1 || callback.state.answerResponse === 0) {
-
 		options.size = 3;
-		options.text = "You chose:"
+		options.text = "You chose:";
 		callback.setText(context, cw, options);
 		context.fillText("You chose: ", cw / 2, ch / 6 * 2);
 
@@ -140,7 +130,7 @@ const text = (context, callback, cw, ch) => {
 		context.fillText(callback.state.answerText, cw / 2, ch / 6 * 2.5);
 
 		options.size = 3;
-		options.text = "Correct answer:"
+		options.text = "Correct answer:";
 		callback.setText(context, cw, options);
 		context.fillText("Correct answer: ", cw / 2, ch / 6 * 3.5);
 
@@ -149,13 +139,10 @@ const text = (context, callback, cw, ch) => {
 		options.font = "normal";
 		callback.setText(context, cw, options);
 		context.fillText(callback.state.correctAnswer, cw / 2, ch / 6 * 4);
-
 	}
-
 	else {
 		context.fillText("Well done!", cw / 2, ch / 2);
 	}
-
 }
 
 const titleText = (context, callback, cw, ch) => {
@@ -165,7 +152,7 @@ const titleText = (context, callback, cw, ch) => {
 		color: "white",
 		font: "light",
 		size: 1
-	}
+	};
 	
 	callback.setText(context, cw, options);
 	if (callback.state.answerResponse === 1 || callback.state.answerResponse === 0) {context.fillText("Wrong Answer", cw / 2, ch / 12 * 1.5);}

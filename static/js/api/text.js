@@ -11,20 +11,20 @@ const sizes = {
 	"7": 11,
 	"8": 10,
 	"9": 6
-}
+};
 
 const colors = {
 	white: "#eeeeee",
 	dark: "#222222",
 	green: "#22FF22",
 	red: "#FF2222"
-}
+};
 
 const fonts = {
 	normal: "Noto Sans Display",
 	light: "Noto Sans Display",
 	mono: "Roboto Mono"
-}
+};
 
 const api_setText = (context, cw, options) => {
 
@@ -38,10 +38,10 @@ const api_setText = (context, cw, options) => {
 	while (maxSize < 9) {
 
 		context.font = sizes[maxSize] + "px " + fonts[options.font || fonts.normal];
-		if (options.font == "light") {context.font = "300 " + context.font}
-	
+		if (options.font == "light") {context.font = "300 " + context.font;}
+
 		if (context.measureText(options.text).width > (cw / 12 * 10)) {maxSize++;}
-		else {break}
+		else {break;}
 	}
 }
 

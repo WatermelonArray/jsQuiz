@@ -95,6 +95,7 @@ Learning resources used heavily:
 
 - https://www.w3schools.com/
 - https://developer.mozilla.org/en-US/docs/Web/API
+- https://spicyyoghurt.com/tutorials/html5-javascript-game-development/create-a-proper-game-loop-with-requestanimationframe
 
 Music resources created by
 - babasmasmoosic - https://soundcloud.com/babasmasmoosic

@@ -20,25 +20,12 @@ let callback = undefined;
 
 // functions
 const loadAnimation = (x) => {
-
-	if (x === "title") {
-		currentAnim = titleAnimation;
-	}
-	if (x === "menu") {
-		currentAnim = menuAnimation;
-	}
-	if (x === "game") {
-		currentAnim = gameAnimation;
-	}
-	if (x === "answer") {
-		currentAnim = answerAnimation;
-	}
-	if (x === "result") {
-		currentAnim = resultAnimation;
-	}
-	if (x === "editor") {
-		currentAnim = editorAnimation;
-	}
+	if (x === "title") {currentAnim = titleAnimation;}
+	if (x === "menu") {currentAnim = menuAnimation;}
+	if (x === "game") {currentAnim = gameAnimation;}
+	if (x === "answer") {currentAnim = answerAnimation;}
+	if (x === "result") {currentAnim = resultAnimation;}
+	if (x === "editor") {currentAnim = editorAnimation;}
 }
 
 // method
@@ -56,18 +43,15 @@ const draw = (step) => {
 
 	// run current page
 	currentAnim(canvas, context, callback);
-
 	renderPopup(canvas, context, callback);
 	helpAnimation(canvas, context, callback);
 	muteOverlay(canvas, context, callback);
 	transitionSet(canvas, context, callback);
 
-
 	// solution for looping per frame correctly:
 	// https://spicyyoghurt.com/tutorials/html5-javascript-game-development/create-a-proper-game-loop-with-requestanimationframe
 
 	window.requestAnimationFrame(draw);
-
 }
 
 const setupRender = (x) => {

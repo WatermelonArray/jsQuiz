@@ -7,7 +7,7 @@ const handleAnimLogic = (callback) => {
 	if (callback.state.transitionTo != "") {
 		callback.state.allowInput = true;
 		callback.changePage(callback.state.transitionTo);
-		if (callback.state.transitionTo === "menu"){
+		if (callback.state.transitionTo === "menu") {
 			callback.state.quiz = callback.defaultQuiz;
 			callback.state.questionNumber = 0;
 			callback.state.score = 0;
@@ -39,8 +39,8 @@ const fade = (context, callback, cw, ch) => {
 	
 		handleAnimLogic(callback)
 
-		const transparency = callback.lerp(2 / ((time - delay) - fadeTime), -0.1, 1)
-		if (transparency <= 0) {context.globalAlpha = 0}
+		const transparency = callback.lerp(2 / ((time - delay) - fadeTime), -0.1, 1);
+		if (transparency <= 0) {context.globalAlpha = 0;}
 		else if (transparency > 0 && transparency < 1) {context.globalAlpha = transparency;}
 		else if (transparency >= 1) {context.globalAlpha = 1;}
 		context.fillRect(0, 0, cw, ch);
@@ -64,7 +64,7 @@ const swipe = (context, callback, cw, ch) => {
 		);
 	}
 	else if (time > swipeTime) {
-		handleAnimLogic(callback)
+		handleAnimLogic(callback);
 		const y = callback.lerp(2 / (time - swipeTime), ch + 100, 0);
 		if (y > 0) {
 			context.fillRect(

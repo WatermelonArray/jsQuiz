@@ -2,9 +2,7 @@
 
 // functions
 const findAnswers = (callback) => {
-
 	const currentQuestions = callback.state.quiz.questions[callback.state.questionNumber].answers;
-
 	let result = "";
 
 	for (let i = 0; i < Object.keys(currentQuestions).length; i++) {
@@ -12,13 +10,10 @@ const findAnswers = (callback) => {
 			result = result + currentQuestions[i].description;
 		}
 	}
-
 	return result;
 }
 
 const setQuiz = (callback) => {
-
-	//console.log(callback.state.questionNumber + 1)
 	if (callback.state.questionNumber + 1 > Object.keys(callback.state.quiz.questions).length) {
 		callback.state.questionNumber = 0;
 		callback.resetFuncs.transition();
@@ -60,7 +55,6 @@ const setupLogic = (callback) => {
 			callback.changePage("answer");
 		}
 	}
-
 }
 
 export {setupLogic};

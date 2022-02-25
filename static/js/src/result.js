@@ -15,9 +15,9 @@ const background = (context, callback, cw, ch) => {
 		text: "babasmasmoosic - Turtle's Adventures: The Begininng",
 		align: "right"
 	};
+
 	callback.setText(context, cw / 2, options);
 	context.fillText(options.text, cw / 24 * 23, ch / 24);
-
 }
 
 const resultText = (context, callback, cw, ch) => {
@@ -46,7 +46,6 @@ const resultText = (context, callback, cw, ch) => {
 	options.size = 3;
 	callback.setText(context, cw / 2, options);
 	context.fillText("Correct questions out of " + questionLength, cw / 2, ch / 6 * 3.5);
-
 }
 
 const buttons = (context, callback, cw, ch) => {
@@ -63,14 +62,13 @@ const buttons = (context, callback, cw, ch) => {
 		ch / 6 * 4.5,
 		cw / 6 * 1.8,
 		ch / 6
-	)
-
+	);
 	context.fillRect(
 		cw / 6 * 3.2,
 		ch / 6 * 4.5,
 		cw / 6 * 1.8,
 		ch / 6
-	)
+	);
 
 	context.shadowBlur = "0";
 
@@ -81,15 +79,17 @@ const buttons = (context, callback, cw, ch) => {
 		text: "Main Menu"
 	};
 
-	callback.setText(context, cw / 6 * 1.8, options)
-	context.fillText("Main Menu",
+	callback.setText(context, cw / 6 * 1.8, options);
+	context.fillText(
+		"Main Menu",
 		cw / 6 * 1.9,
 		ch / 6 * 5
 	);
 
 	options.text = "Restart Quiz";
 	callback.setText(context, cw / 6 * 1.8, options)
-	context.fillText("Restart Quiz",
+	context.fillText(
+		"Restart Quiz",
 		cw / 6 * 4.1,
 		ch / 6 * 5
 	);
@@ -102,7 +102,7 @@ const buttons = (context, callback, cw, ch) => {
 			y1: (ch / 6 * 4.5) + (ch / 6)
 		},
 		ref: "confirm"
-	})
+	});
 
 	buttonLocations.push({
 		loc: {
@@ -112,7 +112,7 @@ const buttons = (context, callback, cw, ch) => {
 			y1: (ch / 6 * 4.5) + (ch / 6)
 		},
 		ref: "nextQuestion"
-	})
+	});
 	callback.state.buttons = buttonLocations;
 }
 
@@ -129,7 +129,6 @@ const title = (context, callback, cw, ch) => {
 
 	callback.setText(context, cw / 2, options);
 	context.fillText("Results", cw / 2, ch / 6);
-
 }
 
 // Method

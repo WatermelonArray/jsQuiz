@@ -16,9 +16,9 @@ const background = (context, callback, cw, ch) => {
 		text: "babasmasmoosic - Turtle's Adventures: The Begininng",
 		align: "right"
 	};
+
 	callback.setText(context, cw / 2, options);
 	context.fillText(options.text, cw / 24 * 23, ch / 24 * 23);
-
 }
 
 const buttons = (context, callback, cw, ch) => {
@@ -30,7 +30,6 @@ const buttons = (context, callback, cw, ch) => {
 		size: 2,
 		text: "Yes"
 	};
-
 
 	context.globalAlpha = 0.75;
 	context.shadowBlur = "16";
@@ -44,7 +43,7 @@ const buttons = (context, callback, cw, ch) => {
 			ch / 6 * 1.5,
 			cw / 6 * 4,
 			ch / 6
-		)
+		);
 	}
 	else {
 		context.fillRect(
@@ -52,7 +51,7 @@ const buttons = (context, callback, cw, ch) => {
 			ch / 6,
 			cw / 12 * 3.75,
 			ch / 12 * 5
-		)
+		);
 	}
 
 	// custom
@@ -63,7 +62,7 @@ const buttons = (context, callback, cw, ch) => {
 			ch / 6 * 3,
 			cw / 6 * 4,
 			ch / 6
-		)
+		);
 	}
 	else {
 		context.fillRect(
@@ -71,7 +70,7 @@ const buttons = (context, callback, cw, ch) => {
 			ch / 6,
 			cw / 12 * 3.75,
 			ch / 12 * 5
-		)
+		);
 	}
 
 	// help
@@ -82,7 +81,7 @@ const buttons = (context, callback, cw, ch) => {
 			ch / 6 * 4.5,
 			cw / 6 * 4,
 			ch / 6
-		)
+		);
 	}
 	else {
 		context.fillRect(
@@ -90,7 +89,7 @@ const buttons = (context, callback, cw, ch) => {
 			ch / 12 * 7.5,
 			cw / 6 * 4,
 			ch / 12 * 2.5
-		)
+		);
 	}
 	
 	context.shadowBlur = 0;
@@ -119,7 +118,7 @@ const buttons = (context, callback, cw, ch) => {
 				y1: (ch / 6 * 3) + (ch / 6)
 			},
 			ref: "editor"
-		})
+		});
 		buttonLocations.push({ // help
 			loc: {
 				x0: cw / 6,
@@ -128,7 +127,7 @@ const buttons = (context, callback, cw, ch) => {
 				y1: (ch / 6 * 4.5) + (ch / 6)
 			},
 			ref: "help"
-		})
+		});
 	}
 	else {
 		callback.setText(context, cw / 12 * 3.5, options);
@@ -146,7 +145,7 @@ const buttons = (context, callback, cw, ch) => {
 				y1: (ch / 12 * 2) + (ch / 12 * 5)
 			},
 			ref: "nextQuestion"
-		})
+		});
 		buttonLocations.push({ // editor
 			loc: {
 				x0: cw / 12 * 6.25,
@@ -155,7 +154,7 @@ const buttons = (context, callback, cw, ch) => {
 				y1: (ch / 12 * 2) + (ch / 12 * 5)
 			},
 			ref: "editor"
-		})
+		});
 		buttonLocations.push({ // help
 			loc: {
 				x0: cw / 6,
@@ -164,7 +163,7 @@ const buttons = (context, callback, cw, ch) => {
 				y1: (ch / 12 * 7.5) + (ch / 12 * 2.5)
 			},
 			ref: "help"
-		})
+		});
 	}
 
 	callback.state.buttons = buttonLocations;
@@ -187,7 +186,6 @@ const mainText = (context, callback, cw, ch) => {
 	else {
 		context.fillText("Main Menu", cw / 2, ch / 12);
 	}
-
 }
 
 // method

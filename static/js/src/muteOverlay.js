@@ -15,7 +15,7 @@ const muteButton = (context, callback, cw, ch) => {
 	context.globalAlpha = 1;
 
 	if (callback.state.sound) {context.fillStyle = "#44FF44"; options.color = "dark";}
-	else {context.fillStyle = "#FF4444"; options.text = "Unmute"}
+	else {context.fillStyle = "#FF4444"; options.text = "Unmute";}
 	context.fillRect(
 		0,
 		0,

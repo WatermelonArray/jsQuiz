@@ -28,7 +28,7 @@ const buttons = (context, callback, cw, ch) => {
 		color: "white",
 		size: 2,
 		text: "Back"
-	}
+	};
 
 	// back
 	context.fillStyle = "#222222";
@@ -37,7 +37,7 @@ const buttons = (context, callback, cw, ch) => {
 		ch / 12 * 9.5,
 		cw / 6 * 2,
 		ch / 12
-	)
+	);
 
 	callback.setText(context, cw / 6 * 1.5, options);
 	context.fillText("Back", cw / 2, ch / 12 * 10);
@@ -50,7 +50,7 @@ const buttons = (context, callback, cw, ch) => {
 			y1: (ch / 12 * 9.5) + (ch / 12)
 		},
 		ref: "helpClose"
-	})
+	});
 
 	callback.state.helpButtons = buttonLocations;
 
@@ -63,26 +63,25 @@ const mainText = (context, callback, cw, ch) => {
 		color: "dark",
 		size: 2,
 		text: "Help"
-	}
+	};
 
-	callback.setText(context, cw / 6 * 2, options)
+	callback.setText(context, cw / 6 * 2, options);
 
 	if (callback.state.responsive) {context.fillText("Help", cw / 2, ch / 12);}
 	else {context.fillText("Help", cw / 2, ch / 12 * 2);}
-
 }
 
 const helpText = (context, callback, cw, ch) => {
 
-	const h1 = "Use \"Quiz\" mode to play the JS quiz game."
-	const h2 = "Use \"Custom\" to make your own quiz."
-	const h3 = "You can also import a quiz from this option!"
-	const h4 = "You can answer questions by click/tapping the answer."
-	const h5 = "You can always go back home by pressing back on the game."
-	const h6 = "Credits:"
-	const h7 = "Made by Lucas (WatermelonArray) https://watermelonarray.github.io"
-	const h8 = "Music by babasmasmoosic: https://soundcloud.com/babasmasmoosic"
-	const h9 = "Tracks used: Space Journey & A Turtle's Adventures - The Begininng"
+	const h1 = "Use \"Quiz\" mode to play the JS quiz game.";
+	const h2 = "Use \"Custom\" to make your own quiz.";
+	const h3 = "You can also import a quiz from this option!";
+	const h4 = "You can answer questions by click/tapping the answer.";
+	const h5 = "You can always go back home by pressing back on the game.";
+	const h6 = "Credits:";
+	const h7 = "Made by Lucas (WatermelonArray) https://watermelonarray.github.io";
+	const h8 = "Music by babasmasmoosic: https://soundcloud.com/babasmasmoosic";
+	const h9 = "Tracks used: Space Journey & A Turtle's Adventures - The Begininng";
 
 	let options = {
 		font: "normal",
@@ -90,7 +89,7 @@ const helpText = (context, callback, cw, ch) => {
 		size: 3,
 		align: "left",
 		text: h9
-	}
+	};
 
 	callback.setText(context, cw / 12 * 10, options);
 
@@ -103,7 +102,6 @@ const helpText = (context, callback, cw, ch) => {
 	context.fillText(h7, cw / 12 * 1.5, ch / 12 * 6.5);
 	context.fillText(h8, cw / 12 * 1.5, ch / 12 * 7);
 	context.fillText(h9, cw / 12 * 1.5, ch / 12 * 7.5);
-
 }
 
 // Method

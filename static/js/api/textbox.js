@@ -35,7 +35,6 @@ const api_textbox = (callback) => {
 				else if (callback.editor.textboxSelect === "import") {
 					callback.editor.importJSON(callback, input.value);
 				}
-				
 				callback.editor.answerPopup = false;
 				input.blur();
 			}
@@ -71,7 +70,6 @@ const api_textbox = (callback) => {
 		}
 	// workaround to delay focus so that it waits for textbox to catch up?
 	setTimeout(function() {
-		
 		currentTextBox.focus();
 		callback.state.allowInput = false;
 	}, 0);

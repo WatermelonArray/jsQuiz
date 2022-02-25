@@ -113,10 +113,8 @@ const text = (context, callback, cw, ch) => {
 		size: 1,
 		text: "Are you sure?"
 	};
-
 	callback.setText(context, cw / 3 * 1.5, options);
 	context.fillText("Are you sure?", cw / 2, ch / 12 * 5);
-
 }
 
 // method

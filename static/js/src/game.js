@@ -14,21 +14,21 @@ const background = (context, callback, cw, ch) => {
 		text: "babasmasmoosic - Space Journey",
 		align: "right"
 	};
+
 	callback.setText(context, cw / 2, options);
 	context.fillText(options.text, cw / 24 * 23, ch / 24);
-
 }
 
 const buttons = (context, callback, cw, ch) => {
 
-	const totalY = ch / 6 * 4
+	const totalY = ch / 6 * 4;
 	let buttonLocations = [];
 
 	let options = {
 		font: "mono",
 		color: "light",
 		size: 1
-	}
+	};
 
 	let textLength = "";
 	for (let i = 0; i < callback.state.answerList.length; i++) {
@@ -41,8 +41,7 @@ const buttons = (context, callback, cw, ch) => {
 
 		context.shadowBlur = "16";
 		context.shadowColor = "rgba(0, 0, 0, 0.4)";
-
-		context.fillStyle = "#444444"
+		context.fillStyle = "#444444";
 
 		if (callback.state.responsive) {
 			context.fillRect(
@@ -50,7 +49,7 @@ const buttons = (context, callback, cw, ch) => {
 				(ch / 6 * 1.5) + (totalY / callback.state.answerList.length * i),
 				cw / 6 * 4,
 				ch / 6 * ((4 / callback.state.answerList.length) * 0.8)
-			)
+			);
 		}
 		else {
 			context.fillRect(
@@ -58,16 +57,16 @@ const buttons = (context, callback, cw, ch) => {
 				(ch / 6 * 1.5) + (totalY / callback.state.answerList.length * i),
 				cw / 6 * 4,
 				ch / 6 * ((4 / callback.state.answerList.length) * 0.8)
-			)
+			);
 		}
 
 		context.shadowBlur = 0;
-		callback.setText(context, cw / 6 * 4, options)
+		callback.setText(context, cw / 6 * 4, options);
 		context.fillText(
 			callback.state.answerList[i],
 			cw / 2,
 			(ch / 6 * 1.5) + (totalY / callback.state.answerList.length * i) + (ch / 6 * ((4 / callback.state.answerList.length) * 0.8) / 2)
-		)
+		);
 
 		buttonLocations.push({
 			loc: {
@@ -77,7 +76,7 @@ const buttons = (context, callback, cw, ch) => {
 				y1: ((ch / 6 * 1.5) + (totalY / callback.state.answerList.length * i)) + (ch / 6 * ((4 / callback.state.answerList.length) * 0.8))
 			},
 			ref: callback.state.answerList[i]
-		})
+		});
 	}
 	
 
@@ -137,7 +136,7 @@ const buttons = (context, callback, cw, ch) => {
 
 const titleText = (context, callback, cw, ch) => {
 
-	const questionText = callback.state.quiz.questions[callback.state.questionNumber].question
+	const questionText = callback.state.quiz.questions[callback.state.questionNumber].question;
 
 	let options = {
 		text: questionText,
@@ -145,8 +144,8 @@ const titleText = (context, callback, cw, ch) => {
 		font: "light",
 		size: 1,
 		get: false
-	}
-	
+	};
+
 	callback.setText(context, cw, options);
 	context.fillText(questionText, cw / 2, ch / 12 * 1.5);
 
@@ -161,7 +160,6 @@ const gameAnimation = (canvas, context, callback) => {
 	background(context, callback, cw, ch);
 	buttons(context, callback, cw, ch);
 	titleText(context, callback, cw, ch);
-
 }
 
 // Export
