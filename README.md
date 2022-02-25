@@ -30,7 +30,12 @@ One of the interesting aspects this project is how it scales to almost any brows
 - ### **Input Handling**
 	This system allows me to write a single function and supply it any input from JavaScript events. Events such as *"touchstart"*, *"mousedown"* or *"keydown"* return input values that I can assign to a single function - creating a univseral system for all inputs I wish to support.
 - ### **Editor for Custom Quizes**
-	This will allow for further expansion of content instead of relying on just one quiz. Users can create their own quiz and export that as a set of characters they can share with other users or just to save their own quizes. This system aslo allows users to import a quiz by giving the code back into the system.
+	This will allow for further expansion of content instead of relying on just one quiz. Users can create their own quiz and export a code that they can share with other users or just to save their own quizes. This system also allows users to import a quiz by giving the code back into the editor.
+
+	Users can also play their quizes through the editor once there is a quiz loaded.
+
+- ### **Audio System**
+	Using the Javascript audio system I have created a module that allows me to play and stop music on command and even allows me to mute all the audio in the game. There is also a system to play sounds like click sounds which will not stop the music in the game.
 
 ## Pages
 
